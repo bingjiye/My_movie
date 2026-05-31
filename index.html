@@ -6,18 +6,27 @@
     <title>我的影院 - 在线影视</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* ========== 原有样式（未修改） ========== */
         :root { --bg-primary: #0a0e12; --bg-secondary: #1a1e24; --card-bg: #14181f; --text-primary: #ffffff; --text-secondary: #cceeff; --accent-color: #ff5722; --border-color: #2a2e35; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        /* 禁用长按拖拽图片 */
+        img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; }
+        html, body, .app-container, .movies-grid, .episodes-grid, .recommend-scroll, .episode-list-outer, .page-circles, .nav-scroll, .episode-selector .episodes-grid, .header-sticky, .selector-header, #episodesGrid, .movies-grid, .episodes-grid, #searchResultContainer, #moviesContainer, #episodesGrid, .history-toolbar {
+            scrollbar-width: none; -ms-overflow-style: none;
+        }
+        html::-webkit-scrollbar, body::-webkit-scrollbar, .app-container::-webkit-scrollbar, .movies-grid::-webkit-scrollbar, .episodes-grid::-webkit-scrollbar, .recommend-scroll::-webkit-scrollbar, .episode-list-outer::-webkit-scrollbar, .page-circles::-webkit-scrollbar, .nav-scroll::-webkit-scrollbar, .episode-selector .episodes-grid::-webkit-scrollbar, .header-sticky::-webkit-scrollbar, .selector-header::-webkit-scrollbar, #episodesGrid::-webkit-scrollbar, #searchResultContainer::-webkit-scrollbar, #moviesContainer::-webkit-scrollbar, .history-toolbar::-webkit-scrollbar {
+            display: none;
+        }
         body { background: var(--bg-primary); color: var(--text-primary); font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; overflow: hidden; position: relative; }
         body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 24px 24px; pointer-events: none; z-index: 0; }
         .app-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100000000; background: var(--bg-primary); overflow-y: auto; padding: 0 20px 40px 20px; display: flex; flex-direction: column; }
         .content-wrapper { max-width: 1600px; width: 100%; margin: 0 auto; flex: 1; }
-        .header-sticky { position: sticky; top: 0; background: rgba(10,14,18,0.92); backdrop-filter: blur(12px); z-index: 100; padding: 16px 0 12px 0; margin-bottom: 24px; border-bottom: 1px solid var(--border-color); }
+        .header-sticky { position: sticky; top: 0; background: rgba(10,14,18,0.92); backdrop-filter: blur(12px); z-index: 100; padding: 16px 0 12px 0; margin-bottom: 12px; border-bottom: 1px solid var(--border-color); }
         .title-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
         .site-title { font-size: 28px; font-weight: 700; background: linear-gradient(135deg, #fff, var(--accent-color)); -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: 1px; }
         .title-right-buttons { display: flex; gap: 12px; }
         .title-right-buttons .nav-btn { background: var(--bg-secondary); border: none; color: var(--text-secondary); font-size: 15px; padding: 8px 16px; border-radius: 40px; cursor: pointer; transition: opacity 0.2s; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
-        .nav-scroll { overflow-x: auto; overflow-y: hidden; white-space: nowrap; scrollbar-width: thin; -webkit-overflow-scrolling: touch; display: flex; gap: 8px; padding-bottom: 6px; justify-content: flex-end; scrollbar-width: none; -ms-overflow-style: none; }
+        .nav-scroll { overflow-x: auto; overflow-y: hidden; white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; display: flex; gap: 8px; padding-bottom: 6px; justify-content: flex-end; }
         .nav-scroll::-webkit-scrollbar { display: none; }
         .nav-btn { background: var(--bg-secondary); border: none; color: var(--text-secondary); font-size: 15px; padding: 8px 16px; border-radius: 40px; cursor: pointer; transition: opacity 0.2s; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
         .nav-btn i { font-size: 16px; }
@@ -31,14 +40,11 @@
         .search-box input { flex: 1; background: transparent; border: none; padding: 8px 0; color: white; font-size: 15px; outline: none; }
         .search-box input::placeholder { color: #8e9aaf; }
         .search-box button { background: var(--accent-color); border: none; width: 32px; height: 32px; border-radius: 50%; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: opacity 0.2s; }
-        /* 隐藏所有列表滚动条 */
-        .movies-grid, .episodes-grid, .recommend-scroll, .episode-list-outer { scrollbar-width: none; -ms-overflow-style: none; }
-        .movies-grid::-webkit-scrollbar, .episodes-grid::-webkit-scrollbar, .recommend-scroll::-webkit-scrollbar, .episode-list-outer::-webkit-scrollbar { display: none; }
         .movies-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); margin-top: 12px; margin-bottom: 40px; }
         .movie-card { background: var(--card-bg); border-radius: 20px; overflow: hidden; transition: box-shadow 0.2s; cursor: pointer; position: relative; box-shadow: 0 6px 12px rgba(0,0,0,0.3); border: 1px solid var(--border-color); }
         .movie-card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
         .poster { position: relative; aspect-ratio: 2 / 3; background: #0f1117; overflow: hidden; }
-        .poster img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.25s; }
+        .poster img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.25s; pointer-events: none; } /* 避免拖拽图片 */
         .movie-card:hover .poster img { transform: scale(1.03); }
         .rating { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); padding: 4px 8px; border-radius: 20px; font-size: 12px; font-weight: bold; color: #ffc107; border-left: 2px solid var(--accent-color); z-index: 2; }
         .rating i { font-size: 10px; margin-right: 3px; color: #ffb347; }
@@ -49,9 +55,11 @@
         .series-note { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); padding: 2px 8px; border-radius: 20px; font-size: 11px; color: #ffdbca; font-family: monospace; z-index: 2; }
         .movie-info { padding: 12px 10px; position: relative; }
         .movie-title { font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #f0f0f0; }
-        /* 历史记录卡片中的进度信息区域，可容纳两行 */
-        .play-progress { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); padding: 4px 8px; border-radius: 20px; font-size: 11px; color: #ffdbca; font-family: monospace; z-index: 2; white-space: nowrap; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; line-height: 1.2; }
-        .play-progress span { font-size: 10px; color: #ffaa88; }
+        .play-progress { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.65); backdrop-filter: blur(4px); padding: 4px 8px; border-radius: 20px; font-size: 11px; color: #ffdbca; font-family: monospace; z-index: 2; display: flex; flex-direction: column; gap: 2px; line-height: 1.3; pointer-events: none; }
+        .play-progress > div:first-child { display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+        .play-progress i { font-size: 10px; color: #ffaa88; }
+        .play-progress span { font-size: 10px; color: #ffaa88; white-space: nowrap; }
+        .play-progress .episode-row { font-size: 10px; color: #ffc107; margin-top: 2px; }
         .pagination-section { margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .page-circles { display: flex; gap: 12px; overflow-x: auto; scroll-behavior: smooth; padding: 8px 4px; max-width: 100%; justify-content: center; flex-wrap: nowrap; scrollbar-width: none; -ms-overflow-style: none; }
         .page-circles::-webkit-scrollbar { display: none; }
@@ -63,16 +71,25 @@
         .page-nav:active { opacity: 0.7; transform: none; }
         .page-indicator { font-size: 15px; font-weight: 500; color: var(--text-secondary); background: var(--bg-secondary); padding: 4px 12px; border-radius: 30px; min-width: 70px; text-align: center; }
         .empty-msg { text-align: center; padding: 60px; color: #aaa; font-size: 18px; }
-        /* 历史页工具栏 - 固定在顶部不随列表滚动 */
-        .history-toolbar { position: sticky; top: 90px; z-index: 50; display: flex; justify-content: flex-end; margin: 0 0 16px 0; padding: 0; background: rgba(10,14,18,0.9); backdrop-filter: blur(8px); border-radius: 40px; pointer-events: auto; gap: 12px; width: fit-content; margin-left: auto; padding: 6px 12px; }
-        .history-filter-btn { background: var(--bg-secondary); border: none; color: var(--text-secondary); font-size: 13px; padding: 4px 12px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-weight: 500; }
+        .history-toolbar { position: sticky; top: 72px; z-index: 99; display: flex; justify-content: flex-end; margin: 0 0 16px 0; padding: 6px 12px; background: rgba(10,14,18,0.96); backdrop-filter: blur(12px); border-radius: 48px; width: fit-content; margin-left: auto; gap: 12px; border: 1px solid var(--border-color); pointer-events: auto; }
+        .history-filter-btn { background: var(--bg-secondary); border: none; color: var(--text-secondary); font-size: 13px; padding: 4px 14px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-weight: 500; }
         .history-filter-btn.active { background: var(--accent-color); color: white; }
-        .clear-history-btn { background: rgba(30,30,40,0.9); border: 1px solid var(--border-color); color: var(--text-secondary); font-size: 14px; padding: 4px 12px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-weight: 500; }
+        .clear-history-btn { background: rgba(30,30,40,0.9); border: 1px solid var(--border-color); color: var(--text-secondary); font-size: 13px; padding: 4px 14px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-weight: 500; }
         .clear-history-btn:active { opacity: 0.7; background: var(--accent-color); color: white; transform: none; }
-        /* 长按弹出菜单样式 */
-        .longpress-menu { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.9); backdrop-filter: blur(12px); border-radius: 40px; display: flex; gap: 20px; padding: 12px 24px; z-index: 1000; border: 1px solid var(--accent-color); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        .longpress-menu button { background: var(--accent-color); border: none; color: white; padding: 8px 20px; border-radius: 30px; font-size: 14px; font-weight: bold; cursor: pointer; }
-        .longpress-menu button:last-child { background: #444; }
+        
+        /* 长按菜单样式（唯一性通过 JS 保证）*/
+        .longpress-menu { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; gap: 12px; background: transparent; backdrop-filter: none; border: none; box-shadow: none; padding: 0; z-index: 1000; }
+        .longpress-menu button { background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 10px 24px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; min-width: 100px; text-align: center; }
+        .longpress-menu button.delete-btn { background: #d32f2f; color: white; border-color: #ff6659; }
+        .longpress-menu button.cancel-btn { background: #2c2e3a; color: #eee; border-color: #4a4e5a; }
+        .longpress-menu button:active { opacity: 0.8; transform: scale(0.96); }
+        
+        /* 滚动提示样式（水平滚动 + 呼吸） */
+        .scroll-tip-container { width: 100%; overflow: hidden; margin: 8px 0 0 0; background: rgba(255,87,34,0.15); border-radius: 30px; backdrop-filter: blur(4px); }
+        .scroll-tip-text { display: inline-block; white-space: nowrap; padding: 6px 0; font-size: 13px; color: #ffaa88; animation: breatheTip 1s ease-in-out infinite, scrollTip 12s linear 2; }
+        @keyframes breatheTip { 0% { opacity: 0.6; text-shadow: 0 0 0px #ff5722; } 50% { opacity: 1; text-shadow: 0 0 6px #ff5722; } 100% { opacity: 0.6; text-shadow: 0 0 0px #ff5722; } }
+        @keyframes scrollTip { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        
         .episode-selector { display: none; animation: fadeIn 0.2s ease; }
         .episode-selector.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -91,12 +108,11 @@
             .selector-title { font-size: 18px; }
             .back-btn { padding: 6px 12px; font-size: 13px; top: 12px; right: 12px; }
             .stamp { left: 110px; width: 50px; height: 50px; font-size: 12px; top: 55px; }
-            .history-toolbar { top: 80px; }
-            .history-filter-btn { font-size: 11px; padding: 2px 10px; }
-            .clear-history-btn { font-size: 12px; padding: 2px 10px; }
+            .history-toolbar { top: 65px; gap: 6px; padding: 4px 10px; }
+            .history-filter-btn, .clear-history-btn { font-size: 11px; padding: 3px 10px; }
         }
         .episode-header { margin: 15px 0 12px 0; padding-left: 8px; font-size: 16px; font-weight: 600; color: var(--accent-color); letter-spacing: 1px; border-left: 3px solid var(--accent-color); }
-        .episodes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, auto)); gap: 12px; margin-top: 5px; max-height: 60vh; overflow-y: auto; padding: 8px 4px; }
+        .episodes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, auto)); gap: 12px; margin-top: 5px; max-height: 60vh; overflow-y: auto; padding: 8px 4px; scrollbar-width: none; }
         .episode-btn { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px 0; text-align: center; cursor: pointer; transition: all 0.2s ease; font-size: 16px; font-weight: 500; color: var(--text-secondary); position: relative; width: 100%; display: flex; align-items: center; justify-content: center; }
         .episode-btn.highlight { background: var(--accent-color); color: white; border-color: #ff784e; box-shadow: 0 0 0 0 rgba(255,87,34,0.6); animation: strong-breathe 1s infinite ease-in-out; font-weight: bold; }
         .episode-btn.highlight i { margin-right: 6px; font-size: 14px; }
@@ -132,13 +148,14 @@
             </div>
         </div>
 
+        <div id="historyToolbar" class="history-toolbar" style="display: none;">
+            <button class="clear-history-btn" id="clearHistoryBtn">清除观看记录</button>
+            <button class="history-filter-btn" data-filter="series">连续剧</button>
+            <button class="history-filter-btn" data-filter="movie">电影</button>
+            <button class="history-filter-btn active" data-filter="all">全部</button>
+        </div>
+
         <div id="listView">
-            <div id="historyToolbar" class="history-toolbar" style="display: none;">
-                <button class="clear-history-btn" id="clearHistoryBtn">清除观看记录</button>
-                <button class="history-filter-btn" data-filter="series">连续剧</button>
-                <button class="history-filter-btn" data-filter="movie">电影</button>
-                <button class="history-filter-btn active" data-filter="all">全部</button>
-            </div>
             <div id="moviesContainer" class="movies-grid"></div>
             <div id="paginationArea" class="pagination-section" style="display: none;">
                 <div class="page-circles" id="pageCircles"></div>
@@ -160,7 +177,6 @@
                     <button class="page-nav" id="searchNextBtn">下一页 ▶</button>
                 </div>
             </div>
-            <!-- 移除清除搜索按钮 -->
         </div>
 
         <div id="episodeSelectorView" class="episode-selector">
@@ -200,7 +216,24 @@
     let globalSearchResults = [];
     let globalSearchCurrentPage = 1;
     let globalSearchTotal = 0;
-    let currentHistoryFilter = 'all'; // 'all', 'movie', 'series'
+    let currentHistoryFilter = 'all';
+    
+    // 记录进入历史页之前的视图，用于返回
+    let prevViewBeforeHistory = null;
+    
+    // 状态保存（用于从播放页返回时恢复）
+    let savedScrollPosition = 0;
+    let savedCurrentView = 'movie';
+    let savedCurrentPage = 1;
+    let savedCurrentSearchKeyword = '';
+    let savedCurrentSortMode = 'default';
+    let savedHistoryFilter = 'all';
+    let savedEpisodeSelectorVisible = false;
+    let savedCurrentSeries = null;
+    let savedEpisodeGridHTML = '';
+    let savedEpisodeTitle = '';
+    let savedEpisodePoster = '';
+    let savedSeriesStamp = '';
 
     const appContainer = document.getElementById('appContainer');
     const moviesContainer = document.getElementById('moviesContainer');
@@ -234,69 +267,219 @@
     const historyToolbar = document.getElementById('historyToolbar');
     const clearHistoryBtn = document.getElementById('clearHistoryBtn');
 
-    // 辅助函数
-    function getGridColumnCount() {
-        let gridElement = document.querySelector('.movies-grid');
-        if (!gridElement) return 3;
-        const style = getComputedStyle(gridElement);
-        const templateColumns = style.gridTemplateColumns;
-        if (!templateColumns || templateColumns === 'none') return 3;
-        return templateColumns.split(' ').length;
-    }
-
-    function updateItemsPerPage() {
-        const colCount = getGridColumnCount();
-        const newPerPage = (colCount % 2 === 0) ? 16 : 15;
-        if (itemsPerPage !== newPerPage) {
-            itemsPerPage = newPerPage;
-            currentPage = 1;
-            if (currentView === 'movie') applyMovieFilterAndRender();
-            else if (currentView === 'tv') applySeriesFilterAndRender();
-            else if (currentView === 'history') renderHistoryView();
-            if (searchResultView.style.display === 'block') renderGlobalSearch();
+    // ----- 新增：显示历史页滚动提示（只显示一次）-----
+    function showHistoryTip() {
+        // 仅当在历史页且本次会话未显示过
+        if (currentView !== 'history') return;
+        if (sessionStorage.getItem('historyTipShown')) return;
+        sessionStorage.setItem('historyTipShown', '1');
+        
+        const tipContainer = document.createElement('div');
+        tipContainer.className = 'scroll-tip-container';
+        tipContainer.innerHTML = '<div class="scroll-tip-text">✨ 可长按单个视频进行删除 ✨</div>';
+        // 插入到 historyToolbar 后面
+        const toolbar = document.getElementById('historyToolbar');
+        if (toolbar && toolbar.parentNode) {
+            toolbar.insertAdjacentElement('afterend', tipContainer);
+            // 动画结束后移除元素
+            const textDiv = tipContainer.querySelector('.scroll-tip-text');
+            textDiv.addEventListener('animationend', function(e) {
+                if (e.animationName === 'scrollTip') {
+                    tipContainer.remove();
+                }
+            });
         }
     }
-
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => updateItemsPerPage(), 150);
-    });
-
+    
+    // 修改 showLongPressMenu 确保菜单唯一性
+    function showLongPressMenu(card) {
+        // 移除所有其他卡片上的菜单
+        document.querySelectorAll('.movie-card .longpress-menu').forEach(menu => menu.remove());
+        // 如果当前卡片已有菜单，则不再添加（避免重复）
+        if (card.querySelector('.longpress-menu')) return;
+        
+        let menu = document.createElement('div');
+        menu.className = 'longpress-menu';
+        menu.innerHTML = `<button class="delete-btn">删除</button><button class="cancel-btn">取消</button>`;
+        card.style.position = 'relative';
+        card.appendChild(menu);
+        let deleteBtn = menu.querySelector('.delete-btn'), cancelBtn = menu.querySelector('.cancel-btn');
+        deleteBtn.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            let title = card.getAttribute('data-title');
+            if (title && typeof iapp !== 'undefined' && iapp.fn) {
+                iapp.fn(`history_manager.del("${title.replace(/"/g, '\\"')}")`);
+                setTimeout(() => { loadHistoryFromIApp(); renderHistoryView(); }, 200);
+            } else alert('无法连接到 iApp 或标题无效');
+            menu.remove();
+        });
+        cancelBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menu.remove();
+        });
+        let closeMenu = (e) => {
+            if (!menu.contains(e.target)) {
+                menu.remove();
+                document.removeEventListener('click', closeMenu);
+            }
+        };
+        setTimeout(() => document.addEventListener('click', closeMenu), 0);
+    }
+    
+    // 修改 renderHistoryView 中长按事件绑定部分，使用新的 showLongPressMenu
+    // 注意：原有 renderHistoryView 中有一段绑定长按的代码，我们需要替换其中的 showLongPressMenu 调用。
+    // 因为 renderHistoryView 较长，我会在原有代码基础上修改。
+    
+    // 保存当前状态到 localStorage（用于从播放页返回时恢复）
+    function saveCurrentState() {
+        savedScrollPosition = appContainer.scrollTop;
+        savedCurrentView = currentView;
+        savedCurrentPage = currentPage;
+        savedCurrentSearchKeyword = currentSearchKeyword;
+        savedCurrentSortMode = currentSortMode;
+        savedHistoryFilter = currentHistoryFilter;
+        savedEpisodeSelectorVisible = episodeSelectorView.classList.contains('active');
+        if (savedEpisodeSelectorVisible && currentSeries) {
+            savedCurrentSeries = currentSeries;
+            savedEpisodeTitle = episodeTitle.textContent;
+            savedEpisodePoster = episodePoster.src;
+            savedSeriesStamp = seriesStamp.style.display === 'flex' ? seriesStamp.textContent : '';
+            savedEpisodeGridHTML = episodesGrid.innerHTML;
+        }
+        localStorage.setItem('savedScrollPosition', savedScrollPosition);
+        localStorage.setItem('savedCurrentView', savedCurrentView);
+        localStorage.setItem('savedCurrentPage', savedCurrentPage);
+        localStorage.setItem('savedCurrentSearchKeyword', savedCurrentSearchKeyword);
+        localStorage.setItem('savedCurrentSortMode', savedCurrentSortMode);
+        localStorage.setItem('savedHistoryFilter', savedHistoryFilter);
+        localStorage.setItem('savedEpisodeSelectorVisible', savedEpisodeSelectorVisible);
+        if (savedCurrentSeries) {
+            localStorage.setItem('savedCurrentSeries', JSON.stringify(savedCurrentSeries));
+            localStorage.setItem('savedEpisodeTitle', savedEpisodeTitle);
+            localStorage.setItem('savedEpisodePoster', savedEpisodePoster);
+            localStorage.setItem('savedSeriesStamp', savedSeriesStamp);
+            localStorage.setItem('savedEpisodeGridHTML', savedEpisodeGridHTML);
+        } else {
+            localStorage.removeItem('savedCurrentSeries');
+            localStorage.removeItem('savedEpisodeGridHTML');
+        }
+    }
+    
+    // 从 localStorage 恢复状态（从播放页返回时调用）
+    function restoreSavedState() {
+        const scrollPos = localStorage.getItem('savedScrollPosition');
+        const view = localStorage.getItem('savedCurrentView');
+        const page = localStorage.getItem('savedCurrentPage');
+        const kw = localStorage.getItem('savedCurrentSearchKeyword');
+        const sort = localStorage.getItem('savedCurrentSortMode');
+        const hFilter = localStorage.getItem('savedHistoryFilter');
+        const epVisible = localStorage.getItem('savedEpisodeSelectorVisible');
+        
+        if (view && (view === 'movie' || view === 'tv' || view === 'history')) {
+            currentView = view;
+            if (page && !isNaN(parseInt(page))) currentPage = parseInt(page);
+            if (kw) currentSearchKeyword = kw;
+            if (sort === 'rating') currentSortMode = 'rating';
+            if (hFilter && (hFilter === 'all' || hFilter === 'movie' || hFilter === 'series')) currentHistoryFilter = hFilter;
+        } else {
+            currentView = 'movie';
+            currentPage = 1;
+            currentSearchKeyword = '';
+            currentSortMode = 'default';
+            currentHistoryFilter = 'all';
+        }
+        
+        if (currentView === 'movie') applyMovieFilterAndRender();
+        else if (currentView === 'tv') applySeriesFilterAndRender();
+        else if (currentView === 'history') {
+            loadHistoryFromIApp();
+            renderHistoryView();
+            setHistoryFilter(currentHistoryFilter);
+        }
+        setActiveNavByView(currentView);
+        
+        if (epVisible === 'true') {
+            const savedSeriesStr = localStorage.getItem('savedCurrentSeries');
+            if (savedSeriesStr) {
+                try {
+                    savedCurrentSeries = JSON.parse(savedSeriesStr);
+                    currentSeries = savedCurrentSeries;
+                    episodeTitle.textContent = localStorage.getItem('savedEpisodeTitle') || '';
+                    episodePoster.src = localStorage.getItem('savedEpisodePoster') || '';
+                    const stampText = localStorage.getItem('savedSeriesStamp');
+                    if (stampText) {
+                        seriesStamp.textContent = stampText;
+                        seriesStamp.style.display = 'flex';
+                    } else {
+                        seriesStamp.style.display = 'none';
+                    }
+                    episodesGrid.innerHTML = localStorage.getItem('savedEpisodeGridHTML') || '';
+                    refreshEpisodeHighlight();
+                    listView.style.display = 'none';
+                    episodeSelectorView.classList.add('active');
+                    if (historyToolbar) historyToolbar.style.display = 'none';
+                } catch(e) { console.error('恢复剧集选择器失败', e); }
+            }
+        }
+        
+        if (scrollPos && !isNaN(parseInt(scrollPos))) {
+            setTimeout(() => appContainer.scrollTo({ top: parseInt(scrollPos), behavior: 'auto' }), 100);
+        }
+        
+        setTimeout(() => {
+            localStorage.removeItem('savedScrollPosition');
+            localStorage.removeItem('savedCurrentView');
+            localStorage.removeItem('savedCurrentPage');
+            localStorage.removeItem('savedCurrentSearchKeyword');
+            localStorage.removeItem('savedCurrentSortMode');
+            localStorage.removeItem('savedHistoryFilter');
+            localStorage.removeItem('savedEpisodeSelectorVisible');
+            localStorage.removeItem('savedCurrentSeries');
+            localStorage.removeItem('savedEpisodeTitle');
+            localStorage.removeItem('savedEpisodePoster');
+            localStorage.removeItem('savedSeriesStamp');
+            localStorage.removeItem('savedEpisodeGridHTML');
+        }, 1000);
+    }
+    
+    // 刷新剧集选择器的高亮
+    function refreshEpisodeHighlight() {
+        if (!currentSeries) return;
+        const historyRecord = historyMap[currentSeries.pureName];
+        const highlightEpisode = historyRecord && historyRecord.jsitem ? historyRecord.jsitem : null;
+        episodesGrid.querySelectorAll('.episode-btn').forEach(btn => {
+            const epNum = parseInt(btn.textContent.trim().replace(/[^0-9]/g, ''));
+            if (highlightEpisode && epNum === highlightEpisode) {
+                btn.classList.add('highlight');
+                btn.innerHTML = `<i class="fas fa-play-circle"></i> ${epNum}`;
+            } else {
+                btn.classList.remove('highlight');
+                btn.innerHTML = epNum.toString();
+            }
+        });
+    }
+    
+    let allEpisodesForSeries = [];
+    
+    function goToPlayerAndSave(movie, resumeLine = null, resumeTime = null, jsitem = null, scaleObj = null, imageObj = null, isSeries = false, seriesPath = null) {
+        saveCurrentState();
+        goToPlayer(movie, resumeLine, resumeTime, jsitem, scaleObj, imageObj, isSeries, seriesPath);
+    }
+    
+    function getGridColumnCount() { let grid = document.querySelector('.movies-grid'); if (!grid) return 3; let style = getComputedStyle(grid); let templateColumns = style.gridTemplateColumns; return (!templateColumns || templateColumns === 'none') ? 3 : templateColumns.split(' ').length; }
+    function updateItemsPerPage() { let colCount = getGridColumnCount(); let newPerPage = (colCount % 2 === 0) ? 16 : 15; if (itemsPerPage !== newPerPage) { itemsPerPage = newPerPage; currentPage = 1; if (currentView === 'movie') applyMovieFilterAndRender(); else if (currentView === 'tv') applySeriesFilterAndRender(); else if (currentView === 'history') renderHistoryView(); if (searchResultView.style.display === 'block') renderGlobalSearch(); } }
+    let resizeTimer; window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => updateItemsPerPage(), 150); });
     function scrollToTop() { if (appContainer) appContainer.scrollTo({ top: 0, behavior: 'smooth' }); }
     function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
-    function formatTime(seconds) {
-        if (isNaN(seconds)) return '00:00:00';
-        const hrs = Math.floor(seconds / 3600);
-        const mins = Math.floor((seconds % 3600) / 60);
-        const secs = Math.floor(seconds % 60);
-        if (hrs > 0) return `${hrs.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
-        return `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
-    }
-
-    function extractPlayUrls(movie) {
-        const lines = [];
-        const urlKeys = Object.keys(movie).filter(k => k.startsWith('url')).sort((a,b) => parseInt(a.replace('url','')||0) - parseInt(b.replace('url','')||0));
-        urlKeys.forEach((key, idx) => {
-            let raw = movie[key];
-            if (!raw || typeof raw !== 'string') return;
-            raw = raw.trim();
-            let note = '';
-            let cleanUrl = raw;
-            const bracketMatch = raw.match(/\(([^)]+)\)[^)]*$/);
-            if (bracketMatch) { note = bracketMatch[1]; cleanUrl = raw.replace(/\s*\([^)]*\)\s*$/, '').trim(); }
-            if (cleanUrl) lines.push({ name: `线路${idx+1}`, url: cleanUrl, note: note || '' });
-        });
-        return lines;
-    }
-
+    function formatTime(seconds) { if (isNaN(seconds)) return '00:00:00'; let hrs = Math.floor(seconds / 3600), mins = Math.floor((seconds % 3600) / 60), secs = Math.floor(seconds % 60); if (hrs > 0) return `${hrs.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`; return `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`; }
+    function extractPlayUrls(movie) { let lines = []; let urlKeys = Object.keys(movie).filter(k => k.startsWith('url')).sort((a,b) => parseInt(a.replace('url','')||0) - parseInt(b.replace('url','')||0)); urlKeys.forEach((key, idx) => { let raw = movie[key]; if (!raw || typeof raw !== 'string') return; raw = raw.trim(); let note = ''; let cleanUrl = raw; let bracketMatch = raw.match(/\(([^)]+)\)[^)]*$/); if (bracketMatch) { note = bracketMatch[1]; cleanUrl = raw.replace(/\s*\([^)]*\)\s*$/, '').trim(); } if (cleanUrl) lines.push({ name: `线路${idx+1}`, url: cleanUrl, note: note || '' }); }); return lines; }
+    
     function goToPlayer(movie, resumeLine = null, resumeTime = null, jsitem = null, scaleObj = null, imageObj = null, isSeries = false, seriesPath = null) {
-        const lines = extractPlayUrls(movie);
+        let lines = extractPlayUrls(movie);
         if (lines.length === 0) { alert('暂无可用播放地址'); return; }
-        const title = movie.name;
-        const poster = movie.img || '';
-        const linesPayload = lines.map(line => ({ name: line.name, url: line.url, note: line.note }));
-        const query = new URLSearchParams();
+        let title = movie.name, poster = movie.img || '';
+        let linesPayload = lines.map(line => ({ name: line.name, url: line.url, note: line.note }));
+        let query = new URLSearchParams();
         query.set('title', title);
         query.set('poster', poster);
         query.set('lines', JSON.stringify(linesPayload));
@@ -318,7 +501,7 @@
                 if (imageObj.hue !== undefined) query.set('hue', imageObj.hue);
             }
         } else if (historyMap[title]) {
-            const record = historyMap[title];
+            let record = historyMap[title];
             query.set('resumeLine', record.lineIndex);
             query.set('resumeTime', record.time);
             if (record.jsitem !== undefined) query.set('jsitem', record.jsitem);
@@ -337,425 +520,83 @@
         }
         window.location.href = `play.html?${query.toString()}`;
     }
-
-    async function loadMoviesData() {
-        try {
-            const response = await fetch('1.json');
-            if (!response.ok) throw new Error('电影数据加载失败');
-            const json = await response.json();
-            if (json && json.data_v && Array.isArray(json.data_v)) {
-                allMovies = json.data_v.map(movie => ({ ...movie, originalPf: parseFloat(movie.pf) || 0, type: 'movie' }));
-                movieMap = {};
-                allMovies.forEach(m => { if (m.name) movieMap[m.name] = m; });
-            }
-        } catch (err) { console.error(err); }
-    }
-    async function loadSeriesData() {
-        try {
-            const response = await fetch('./2.json');
-            if (!response.ok) throw new Error('连续剧数据加载失败');
-            const json = await response.json();
-            if (json && json.data_v && Array.isArray(json.data_v)) {
-                allSeries = json.data_v.map(series => {
-                    let note = '';
-                    let pureName = series.name;
-                    const bracketMatch = series.name.match(/\[([^\]]+)\]/);
-                    if (bracketMatch) { note = bracketMatch[1]; pureName = series.name.replace(/\[[^\]]+\]/, '').trim(); }
-                    return { ...series, pureName, note, originalPf: parseFloat(series.pf) || 0, type: 'series', path: series.path };
-                });
-                seriesMap = {};
-                allSeries.forEach(s => { if (s.pureName) seriesMap[s.pureName] = s; });
-            }
-        } catch (err) { console.error(err); }
-    }
+    
+    async function loadMoviesData() { try { let response = await fetch('1.json'); if (!response.ok) throw new Error(); let json = await response.json(); if (json && json.data_v && Array.isArray(json.data_v)) { allMovies = json.data_v.map(movie => ({ ...movie, originalPf: parseFloat(movie.pf) || 0, type: 'movie' })); movieMap = {}; allMovies.forEach(m => { if (m.name) movieMap[m.name] = m; }); } } catch(e) { console.error(e); } }
+    async function loadSeriesData() { try { let response = await fetch('./2.json'); if (!response.ok) throw new Error(); let json = await response.json(); if (json && json.data_v && Array.isArray(json.data_v)) { allSeries = json.data_v.map(series => { let note = '', pureName = series.name; let bracketMatch = series.name.match(/\[([^\]]+)\]/); if (bracketMatch) { note = bracketMatch[1]; pureName = series.name.replace(/\[[^\]]+\]/, '').trim(); } return { ...series, pureName, note, originalPf: parseFloat(series.pf) || 0, type: 'series', path: series.path }; }); seriesMap = {}; allSeries.forEach(s => { if (s.pureName) seriesMap[s.pureName] = s; }); } } catch(e) { console.error(e); } }
     async function loadAllData() { await Promise.all([loadMoviesData(), loadSeriesData()]); if (currentView === 'movie') applyMovieFilterAndRender(); else if (currentView === 'tv') applySeriesFilterAndRender(); else if (currentView === 'history') renderHistoryView(); }
-    function loadHistoryFromIApp() {
-        try {
-            if (typeof iapp !== 'undefined' && iapp.g) {
-                const historyStr = iapp.g('sss.b');
-                if (historyStr && historyStr !== 'null' && historyStr !== 'undefined') {
-                    const historyData = JSON.parse(historyStr);
-                    if (historyData && historyData.data_ls && Array.isArray(historyData.data_ls)) {
-                        historyRecords = [...historyData.data_ls];
-                        historyRecords.sort((a, b) => (b.timestamp || '').localeCompare(a.timestamp || ''));
-                        historyMap = {};
-                        historyRecords.forEach(record => {
-                            if (record.title) {
-                                historyMap[record.title] = {
-                                    lineIndex: record.lineIndex,
-                                    time: record.time,
-                                    jsitem: record.jsitem,
-                                    scale: record.scale,
-                                    width: record.width,
-                                    height: record.height,
-                                    top: record.top,
-                                    brightness: record.brightness,
-                                    contrast: record.contrast,
-                                    saturate: record.saturate,
-                                    hue: record.hue
-                                };
-                            }
-                        });
-                        return;
-                    }
-                }
-            }
-            historyRecords = []; historyMap = {};
-        } catch(e) { historyRecords = []; historyMap = {}; }
-    }
-
-    async function fetchEpisodeForSeries(seriesPath, episodeNum) {
-        try {
-            const response = await fetch(`./LXJ/${seriesPath}.json`);
-            if (!response.ok) return null;
-            const json = await response.json();
-            if (json && json.data_v && Array.isArray(json.data_v)) return json.data_v.find(ep => parseInt(ep.name) === episodeNum) || null;
-            return null;
-        } catch(e) { return null; }
-    }
-    async function playSeriesFromHistory(series, lineIndex, time, episodeNum, scaleObj, imageObj) {
-        const episodeData = await fetchEpisodeForSeries(series.path, episodeNum);
-        if (!episodeData) { alert('无法加载剧集数据'); return; }
-        const tempMovie = { name: series.pureName, img: series.img };
-        for (let key in episodeData) if (key.startsWith('url')) tempMovie[key] = episodeData[key];
-        goToPlayer(tempMovie, lineIndex, time, episodeNum, scaleObj, imageObj, true, series.path);
-    }
-
-    function applyMovieFilterAndRender() {
-        if (currentView !== 'movie') return;
-        let temp = [...allMovies];
-        if (currentSearchKeyword.trim() !== '') temp = temp.filter(m => m.name && m.name.toLowerCase().includes(currentSearchKeyword.trim().toLowerCase()));
-        if (currentSortMode === 'rating') temp.sort((a,b) => (b.originalPf||0)-(a.originalPf||0));
-        filteredMovies = temp; currentPage = 1; renderMovieList(); renderPagination(filteredMovies.length); paginationArea.style.display = 'flex'; setTimeout(() => updateItemsPerPage(), 20);
-    }
-    function renderMovieList() {
-        const start = (currentPage-1)*itemsPerPage, end = start+itemsPerPage;
-        const pageItems = filteredMovies.slice(start, end);
-        if (!pageItems.length && filteredMovies.length===0) { moviesContainer.innerHTML = '<div class="empty-msg">🎬 没有找到相关影片</div>'; return; }
-        if (!pageItems.length && filteredMovies.length>0) { currentPage = Math.ceil(filteredMovies.length/itemsPerPage); renderMovieList(); return; }
-        moviesContainer.innerHTML = pageItems.map(movie => `<div class="movie-card" data-movie='${JSON.stringify(movie)}'><div class="poster"><img src="${movie.img||'https://placehold.co/300x450?text=No+Poster'}" alt="${escapeHtml(movie.name)}" loading="lazy" onerror="this.src='https://placehold.co/300x450?text=Error'"><div class="rating"><i class="fas fa-star"></i> ${movie.pf?parseFloat(movie.pf).toFixed(1):'暂无'}</div></div><div class="movie-info"><div class="movie-title">${escapeHtml(movie.name)}</div></div></div>`).join('');
-        attachCardEvents();
-    }
-    function applySeriesFilterAndRender() {
-        if (currentView !== 'tv') return;
-        let temp = [...allSeries];
-        if (currentSearchKeyword.trim() !== '') temp = temp.filter(s => s.pureName && s.pureName.toLowerCase().includes(currentSearchKeyword.trim().toLowerCase()));
-        if (currentSortMode === 'rating') temp.sort((a,b)=>(b.originalPf||0)-(a.originalPf||0));
-        filteredSeries = temp; currentPage = 1; renderSeriesList(); renderPagination(filteredSeries.length); paginationArea.style.display = 'flex'; setTimeout(() => updateItemsPerPage(), 20);
-    }
-    function renderSeriesList() {
-        const start = (currentPage-1)*itemsPerPage, end = start+itemsPerPage;
-        const pageItems = filteredSeries.slice(start, end);
-        if (!pageItems.length && filteredSeries.length===0) { moviesContainer.innerHTML = '<div class="empty-msg">🎬 没有找到相关连续剧</div>'; return; }
-        if (!pageItems.length && filteredSeries.length>0) { currentPage = Math.ceil(filteredSeries.length/itemsPerPage); renderSeriesList(); return; }
-        moviesContainer.innerHTML = pageItems.map(series => `<div class="movie-card" data-series='${JSON.stringify(series)}'><div class="poster"><img src="${series.img||'https://placehold.co/300x450?text=No+Poster'}" alt="${escapeHtml(series.pureName)}" loading="lazy" onerror="this.src='https://placehold.co/300x450?text=Error'"><div class="rating"><i class="fas fa-star"></i> ${series.pf?parseFloat(series.pf).toFixed(1):'暂无'}</div>${series.note?`<div class="series-note">${escapeHtml(series.note)}</div>`:''}</div><div class="movie-info"><div class="movie-title">${escapeHtml(series.pureName)}</div></div></div>`).join('');
-        attachCardEvents();
-    }
-    function attachCardEvents() {
-        document.querySelectorAll('.movie-card').forEach(card => {
-            card.addEventListener('click', () => {
-                if (card.getAttribute('data-movie')) goToPlayer(JSON.parse(card.getAttribute('data-movie')));
-                else if (card.getAttribute('data-series')) { saveSeriesScrollPosition(); showEpisodeSelector(JSON.parse(card.getAttribute('data-series'))); }
-            });
-        });
-    }
-
-    async function showEpisodeSelector(series) {
-        currentSeries = series;
-        listView.style.display = 'none';
-        searchResultView.style.display = 'none';
-        episodeSelectorView.classList.add('active');
-        if (series.note && series.note.trim() !== '') {
-            seriesStamp.textContent = series.note;
-            seriesStamp.style.display = 'flex';
-        } else {
-            seriesStamp.style.display = 'none';
-        }
-        const episodes = await loadEpisodes(series.path);
-        episodePoster.src = series.img || 'https://placehold.co/300x450?text=No+Poster';
-        episodeTitle.textContent = series.pureName;
-        episodesGrid.innerHTML = '';
-        const historyRecord = historyMap[series.pureName];
-        const highlightEpisode = historyRecord && historyRecord.jsitem ? historyRecord.jsitem : null;
-        episodes.forEach(ep => {
-            const btn = document.createElement('div');
-            btn.className = 'episode-btn';
-            if (highlightEpisode && parseInt(ep.name) === highlightEpisode) {
-                btn.classList.add('highlight');
-                btn.innerHTML = `<i class="fas fa-play-circle"></i> ${ep.name}`;
-            } else btn.textContent = ep.name;
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const movieForPlay = { name: series.pureName, img: series.img };
-                for (let key in ep) if (key.startsWith('url')) movieForPlay[key] = ep[key];
-                const record = historyMap[series.pureName];
-                let scaleObj = null, imageObj = null;
-                if (record) {
-                    if (record.scale !== undefined || record.width !== undefined || record.height !== undefined || record.top !== undefined) {
-                        scaleObj = { scale: record.scale, width: record.width, height: record.height, top: record.top };
-                    }
-                    if (record.brightness !== undefined || record.contrast !== undefined || record.saturate !== undefined || record.hue !== undefined) {
-                        imageObj = { brightness: record.brightness, contrast: record.contrast, saturate: record.saturate, hue: record.hue };
-                    }
-                }
-                goToPlayer(movieForPlay, record?.lineIndex || 0, record?.time || 0, parseInt(ep.name), scaleObj, imageObj, true, series.path);
-            });
-            episodesGrid.appendChild(btn);
-        });
-        scrollToTop();
-    }
-    async function loadEpisodes(path) { try { const res = await fetch(`./LXJ/${path}.json`); if (!res.ok) return []; const json = await res.json(); return (json && json.data_v && Array.isArray(json.data_v)) ? json.data_v : []; } catch(e) { return []; } }
-    function hideEpisodeSelector() { episodeSelectorView.classList.remove('active'); if (searchResultView.style.display === 'block') listView.style.display = 'none'; else listView.style.display = 'block'; if (currentView === 'tv') restoreSeriesScrollPosition(); if (currentView === 'tv') applySeriesFilterAndRender(); scrollToTop(); }
+    function loadHistoryFromIApp() { try { if (typeof iapp !== 'undefined' && iapp.g) { let historyStr = iapp.g('sss.b'); if (historyStr && historyStr !== 'null' && historyStr !== 'undefined') { let historyData = JSON.parse(historyStr); if (historyData && historyData.data_ls && Array.isArray(historyData.data_ls)) { historyRecords = [...historyData.data_ls]; historyRecords.sort((a,b) => (b.timestamp || '').localeCompare(a.timestamp || '')); historyMap = {}; historyRecords.forEach(record => { if (record.title) historyMap[record.title] = { lineIndex: record.lineIndex, time: record.time, jsitem: record.jsitem, scale: record.scale, width: record.width, height: record.height, top: record.top, brightness: record.brightness, contrast: record.contrast, saturate: record.saturate, hue: record.hue }; }); return; } } } historyRecords = []; historyMap = {}; } catch(e) { historyRecords = []; historyMap = {}; } }
+    async function fetchEpisodeForSeries(seriesPath, episodeNum) { try { let res = await fetch(`./LXJ/${seriesPath}.json`); if (!res.ok) return null; let json = await res.json(); if (json && json.data_v && Array.isArray(json.data_v)) return json.data_v.find(ep => parseInt(ep.name) === episodeNum) || null; return null; } catch(e) { return null; } }
+    async function playSeriesFromHistory(series, lineIndex, time, episodeNum, scaleObj, imageObj) { let episodeData = await fetchEpisodeForSeries(series.path, episodeNum); if (!episodeData) { alert('无法加载剧集数据'); return; } let tempMovie = { name: series.pureName, img: series.img }; for (let key in episodeData) if (key.startsWith('url')) tempMovie[key] = episodeData[key]; goToPlayerAndSave(tempMovie, lineIndex, time, episodeNum, scaleObj, imageObj, true, series.path); }
+    function applyMovieFilterAndRender() { if (currentView !== 'movie') return; let temp = [...allMovies]; if (currentSearchKeyword.trim() !== '') temp = temp.filter(m => m.name && m.name.toLowerCase().includes(currentSearchKeyword.trim().toLowerCase())); if (currentSortMode === 'rating') temp.sort((a,b) => (b.originalPf||0)-(a.originalPf||0)); filteredMovies = temp; currentPage = 1; renderMovieList(); renderPagination(filteredMovies.length); paginationArea.style.display = 'flex'; setTimeout(() => updateItemsPerPage(), 20); }
+    function renderMovieList() { let start = (currentPage-1)*itemsPerPage, end = start+itemsPerPage, pageItems = filteredMovies.slice(start, end); if (!pageItems.length && filteredMovies.length===0) { moviesContainer.innerHTML = '<div class="empty-msg">🎬 没有找到相关影片</div>'; return; } if (!pageItems.length && filteredMovies.length>0) { currentPage = Math.ceil(filteredMovies.length/itemsPerPage); renderMovieList(); return; } moviesContainer.innerHTML = pageItems.map(movie => `<div class="movie-card" data-movie='${JSON.stringify(movie)}'><div class="poster"><img src="${movie.img||'https://placehold.co/300x450?text=No+Poster'}" alt="${escapeHtml(movie.name)}" loading="lazy" onerror="this.src='https://placehold.co/300x450?text=Error'"><div class="rating"><i class="fas fa-star"></i> ${movie.pf?parseFloat(movie.pf).toFixed(1):'暂无'}</div></div><div class="movie-info"><div class="movie-title">${escapeHtml(movie.name)}</div></div></div>`).join(''); attachCardEvents(); }
+    function applySeriesFilterAndRender() { if (currentView !== 'tv') return; let temp = [...allSeries]; if (currentSearchKeyword.trim() !== '') temp = temp.filter(s => s.pureName && s.pureName.toLowerCase().includes(currentSearchKeyword.trim().toLowerCase())); if (currentSortMode === 'rating') temp.sort((a,b)=>(b.originalPf||0)-(a.originalPf||0)); filteredSeries = temp; currentPage = 1; renderSeriesList(); renderPagination(filteredSeries.length); paginationArea.style.display = 'flex'; setTimeout(() => updateItemsPerPage(), 20); }
+    function renderSeriesList() { let start = (currentPage-1)*itemsPerPage, end = start+itemsPerPage, pageItems = filteredSeries.slice(start, end); if (!pageItems.length && filteredSeries.length===0) { moviesContainer.innerHTML = '<div class="empty-msg">🎬 没有找到相关连续剧</div>'; return; } if (!pageItems.length && filteredSeries.length>0) { currentPage = Math.ceil(filteredSeries.length/itemsPerPage); renderSeriesList(); return; } moviesContainer.innerHTML = pageItems.map(series => `<div class="movie-card" data-series='${JSON.stringify(series)}'><div class="poster"><img src="${series.img||'https://placehold.co/300x450?text=No+Poster'}" alt="${escapeHtml(series.pureName)}" loading="lazy" onerror="this.src='https://placehold.co/300x450?text=Error'"><div class="rating"><i class="fas fa-star"></i> ${series.pf?parseFloat(series.pf).toFixed(1):'暂无'}</div>${series.note?`<div class="series-note">${escapeHtml(series.note)}</div>`:''}</div><div class="movie-info"><div class="movie-title">${escapeHtml(series.pureName)}</div></div></div>`).join(''); attachCardEvents(); }
+    function attachCardEvents() { document.querySelectorAll('.movie-card').forEach(card => { card.addEventListener('click', () => { if (card.getAttribute('data-movie')) goToPlayerAndSave(JSON.parse(card.getAttribute('data-movie'))); else if (card.getAttribute('data-series')) { saveSeriesScrollPosition(); showEpisodeSelector(JSON.parse(card.getAttribute('data-series'))); } }); }); }
+    async function showEpisodeSelector(series) { if (historyToolbar) historyToolbar.style.display = 'none'; currentSeries = series; listView.style.display = 'none'; searchResultView.style.display = 'none'; episodeSelectorView.classList.add('active'); if (series.note && series.note.trim() !== '') { seriesStamp.textContent = series.note; seriesStamp.style.display = 'flex'; } else seriesStamp.style.display = 'none'; let episodes = await loadEpisodes(series.path); allEpisodesForSeries = episodes; episodePoster.src = series.img || 'https://placehold.co/300x450?text=No+Poster'; episodeTitle.textContent = series.pureName; episodesGrid.innerHTML = ''; let historyRecord = historyMap[series.pureName]; let highlightEpisode = historyRecord && historyRecord.jsitem ? historyRecord.jsitem : null; episodes.forEach(ep => { let btn = document.createElement('div'); btn.className = 'episode-btn'; if (highlightEpisode && parseInt(ep.name) === highlightEpisode) { btn.classList.add('highlight'); btn.innerHTML = `<i class="fas fa-play-circle"></i> ${ep.name}`; } else btn.textContent = ep.name; btn.addEventListener('click', (e) => { e.stopPropagation(); let movieForPlay = { name: series.pureName, img: series.img }; for (let key in ep) if (key.startsWith('url')) movieForPlay[key] = ep[key]; let record = historyMap[series.pureName]; let scaleObj = null, imageObj = null; if (record) { if (record.scale !== undefined || record.width !== undefined || record.height !== undefined || record.top !== undefined) scaleObj = { scale: record.scale, width: record.width, height: record.height, top: record.top }; if (record.brightness !== undefined || record.contrast !== undefined || record.saturate !== undefined || record.hue !== undefined) imageObj = { brightness: record.brightness, contrast: record.contrast, saturate: record.saturate, hue: record.hue }; } goToPlayerAndSave(movieForPlay, record?.lineIndex || 0, record?.time || 0, parseInt(ep.name), scaleObj, imageObj, true, series.path); }); episodesGrid.appendChild(btn); }); scrollToTop(); }
+    async function loadEpisodes(path) { try { let res = await fetch(`./LXJ/${path}.json`); if (!res.ok) return []; let json = await res.json(); return (json && json.data_v && Array.isArray(json.data_v)) ? json.data_v : []; } catch(e) { return []; } }
+    function hideEpisodeSelector() { episodeSelectorView.classList.remove('active'); if (currentView === 'history') { if (historyToolbar) historyToolbar.style.display = 'flex'; } else if (historyToolbar) historyToolbar.style.display = 'none'; if (searchResultView.style.display === 'block') listView.style.display = 'none'; else listView.style.display = 'block'; if (currentView === 'tv') restoreSeriesScrollPosition(); if (currentView === 'tv') applySeriesFilterAndRender(); scrollToTop(); }
     function saveSeriesScrollPosition() { if (currentView === 'tv' && listView.style.display !== 'none') seriesScrollPosition = appContainer.scrollTop; }
     function restoreSeriesScrollPosition() { if (currentView === 'tv') setTimeout(() => appContainer.scrollTo({ top: seriesScrollPosition, behavior: 'auto' }), 50); }
-
-    // 历史记录页渲染（支持过滤和长按删除）
-    function renderHistoryView() {
-        if (currentView !== 'history') return;
-        listView.classList.add('history-active');
-        paginationArea.style.display = 'none';
-        let recordsToShow = [...historyRecords];
-        if (currentSearchKeyword.trim() !== '') {
-            recordsToShow = recordsToShow.filter(item => item.title && item.title.toLowerCase().includes(currentSearchKeyword.trim().toLowerCase()));
-        }
-        // 根据过滤器过滤
-        if (currentHistoryFilter === 'movie') {
-            recordsToShow = recordsToShow.filter(item => !!movieMap[item.title]);
-        } else if (currentHistoryFilter === 'series') {
-            recordsToShow = recordsToShow.filter(item => !!seriesMap[item.title]);
-        }
-        if (!recordsToShow.length) { moviesContainer.innerHTML = '<div class="empty-msg">📭 没有播放记录。</div>'; return; }
-        let html = '';
-        for (const item of recordsToShow) {
-            const isMovie = !!movieMap[item.title], isSeries = !!seriesMap[item.title];
-            let posterUrl = 'https://placehold.co/300x450?text=No+Poster', rating = '暂无';
-            if (isMovie) { const m = movieMap[item.title]; posterUrl = m.img || posterUrl; rating = m.pf ? parseFloat(m.pf).toFixed(1) : '暂无'; }
-            else if (isSeries) { const s = seriesMap[item.title]; posterUrl = s.img || posterUrl; rating = s.pf ? parseFloat(s.pf).toFixed(1) : '暂无'; }
-            const timeStr = formatTime(item.time);
-            const episodeInfo = (isSeries && item.jsitem) ? `<span>第${item.jsitem}集</span>` : '';
-            html += `<div class="movie-card" 
-                data-title="${escapeHtml(item.title)}" 
-                data-line="${item.lineIndex}" 
-                data-time="${item.time}" 
-                data-jsitem="${item.jsitem || ''}" 
-                data-type="${isMovie ? 'movie' : 'series'}"
-                data-scale="${item.scale ?? ''}"
-                data-width="${item.width ?? ''}"
-                data-height="${item.height ?? ''}"
-                data-top="${item.top ?? ''}"
-                data-brightness="${item.brightness ?? ''}"
-                data-contrast="${item.contrast ?? ''}"
-                data-saturate="${item.saturate ?? ''}"
-                data-hue="${item.hue ?? ''}"
-            ><div class="poster"><img src="${posterUrl}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='https://placehold.co/300x450?text=Error'"><div class="rating"><i class="fas fa-star"></i> ${rating}</div><div class="type-badge ${isMovie ? 'movie' : 'series'}">${isMovie ? '电影' : '连续剧'}</div><div class="play-progress"><i class="fas fa-play-circle"></i> 继续播放 ${timeStr}${episodeInfo ? `<br>${episodeInfo}` : ''}</div></div><div class="movie-info"><div class="movie-title">${escapeHtml(item.title)}</div></div></div>`;
-        }
-        moviesContainer.innerHTML = html;
-        // 绑定点击事件
-        document.querySelectorAll('#listView.history-active .movie-card').forEach(card => {
-            card.addEventListener('click', async (e) => {
-                // 如果点击的是长按菜单按钮，不触发跳转
-                if (e.target.closest('.longpress-menu')) return;
-                const title = card.getAttribute('data-title');
-                const lineIndex = parseInt(card.getAttribute('data-line'));
-                const time = parseFloat(card.getAttribute('data-time'));
-                const jsitem = card.getAttribute('data-jsitem') ? parseInt(card.getAttribute('data-jsitem')) : null;
-                const type = card.getAttribute('data-type');
-                const scaleObj = {
-                    scale: parseFloat(card.getAttribute('data-scale')),
-                    width: parseFloat(card.getAttribute('data-width')),
-                    height: parseFloat(card.getAttribute('data-height')),
-                    top: parseFloat(card.getAttribute('data-top'))
-                };
-                const imageObj = {
-                    brightness: parseFloat(card.getAttribute('data-brightness')),
-                    contrast: parseFloat(card.getAttribute('data-contrast')),
-                    saturate: parseFloat(card.getAttribute('data-saturate')),
-                    hue: parseFloat(card.getAttribute('data-hue'))
-                };
-                for (let k in scaleObj) if (isNaN(scaleObj[k])) delete scaleObj[k];
-                for (let k in imageObj) if (isNaN(imageObj[k])) delete imageObj[k];
-                if (type === 'movie') {
-                    const movieData = movieMap[title];
-                    if (movieData) goToPlayer(movieData, lineIndex, time, jsitem, scaleObj, imageObj, false);
-                    else alert('影片信息缺失');
-                } else if (type === 'series') {
-                    const seriesData = seriesMap[title];
-                    if (seriesData) await playSeriesFromHistory(seriesData, lineIndex, time, jsitem, scaleObj, imageObj);
-                    else alert('剧集信息缺失');
-                }
-            });
-            // 长按显示删除菜单
-            let longPressTimer = null;
-            card.addEventListener('touchstart', (e) => {
-                longPressTimer = setTimeout(() => {
-                    showLongPressMenu(card);
-                }, 500);
-            });
-            card.addEventListener('touchend', () => {
-                if (longPressTimer) clearTimeout(longPressTimer);
-            });
-            card.addEventListener('touchmove', () => {
-                if (longPressTimer) clearTimeout(longPressTimer);
-            });
-            card.addEventListener('mousedown', (e) => {
-                longPressTimer = setTimeout(() => {
-                    showLongPressMenu(card);
-                }, 500);
-            });
-            card.addEventListener('mouseup', () => {
-                if (longPressTimer) clearTimeout(longPressTimer);
-            });
-            card.addEventListener('mouseleave', () => {
-                if (longPressTimer) clearTimeout(longPressTimer);
-            });
-        });
+    
+    // 修改后的 renderHistoryView（添加长按唯一性 + 提示显示）
+    function renderHistoryView() { 
+        if (currentView !== 'history') return; 
+        listView.classList.add('history-active'); 
+        paginationArea.style.display = 'none'; 
+        let recordsToShow = [...historyRecords]; 
+        if (currentSearchKeyword.trim() !== '') recordsToShow = recordsToShow.filter(item => item.title && item.title.toLowerCase().includes(currentSearchKeyword.trim().toLowerCase())); 
+        if (currentHistoryFilter === 'movie') recordsToShow = recordsToShow.filter(item => !!movieMap[item.title]); 
+        else if (currentHistoryFilter === 'series') recordsToShow = recordsToShow.filter(item => !!seriesMap[item.title]); 
+        if (!recordsToShow.length) { moviesContainer.innerHTML = '<div class="empty-msg">📭 没有播放记录。</div>'; return; } 
+        let html = ''; 
+        for (let item of recordsToShow) { 
+            let isMovie = !!movieMap[item.title], isSeries = !!seriesMap[item.title]; 
+            let posterUrl = 'https://placehold.co/300x450?text=No+Poster', rating = '暂无'; 
+            if (isMovie) { let m = movieMap[item.title]; posterUrl = m.img || posterUrl; rating = m.pf ? parseFloat(m.pf).toFixed(1) : '暂无'; } 
+            else if (isSeries) { let s = seriesMap[item.title]; posterUrl = s.img || posterUrl; rating = s.pf ? parseFloat(s.pf).toFixed(1) : '暂无'; } 
+            let timeStr = formatTime(item.time); 
+            let episodeInfo = (isSeries && item.jsitem) ? `<div class="episode-row">第${item.jsitem}集</div>` : ''; 
+            html += `<div class="movie-card" data-title="${escapeHtml(item.title)}" data-line="${item.lineIndex}" data-time="${item.time}" data-jsitem="${item.jsitem || ''}" data-type="${isMovie ? 'movie' : 'series'}" data-scale="${item.scale ?? ''}" data-width="${item.width ?? ''}" data-height="${item.height ?? ''}" data-top="${item.top ?? ''}" data-brightness="${item.brightness ?? ''}" data-contrast="${item.contrast ?? ''}" data-saturate="${item.saturate ?? ''}" data-hue="${item.hue ?? ''}"><div class="poster"><img src="${posterUrl}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='https://placehold.co/300x450?text=Error'" draggable="false"><div class="rating"><i class="fas fa-star"></i> ${rating}</div><div class="type-badge ${isMovie ? 'movie' : 'series'}">${isMovie ? '电影' : '连续剧'}</div><div class="play-progress"><div><i class="fas fa-play-circle"></i> 继续播放 ${timeStr}</div>${episodeInfo}</div></div><div class="movie-info"><div class="movie-title">${escapeHtml(item.title)}</div></div></div>`; 
+        } 
+        moviesContainer.innerHTML = html; 
+        document.querySelectorAll('#listView.history-active .movie-card').forEach(card => { 
+            card.addEventListener('click', async (e) => { 
+                if (e.target.closest('.longpress-menu')) return; 
+                let title = card.getAttribute('data-title'), lineIndex = parseInt(card.getAttribute('data-line')), time = parseFloat(card.getAttribute('data-time')), jsitem = card.getAttribute('data-jsitem') ? parseInt(card.getAttribute('data-jsitem')) : null, type = card.getAttribute('data-type'); 
+                let scaleObj = { scale: parseFloat(card.getAttribute('data-scale')), width: parseFloat(card.getAttribute('data-width')), height: parseFloat(card.getAttribute('data-height')), top: parseFloat(card.getAttribute('data-top')) }; 
+                let imageObj = { brightness: parseFloat(card.getAttribute('data-brightness')), contrast: parseFloat(card.getAttribute('data-contrast')), saturate: parseFloat(card.getAttribute('data-saturate')), hue: parseFloat(card.getAttribute('data-hue')) }; 
+                for (let k in scaleObj) if (isNaN(scaleObj[k])) delete scaleObj[k]; 
+                for (let k in imageObj) if (isNaN(imageObj[k])) delete imageObj[k]; 
+                if (type === 'movie') { let movieData = movieMap[title]; if (movieData) goToPlayerAndSave(movieData, lineIndex, time, jsitem, scaleObj, imageObj, false); else alert('影片信息缺失'); } 
+                else if (type === 'series') { let seriesData = seriesMap[title]; if (seriesData) await playSeriesFromHistory(seriesData, lineIndex, time, jsitem, scaleObj, imageObj); else alert('剧集信息缺失'); } 
+            }); 
+            let longPressTimer = null; 
+            card.addEventListener('touchstart', (e) => { longPressTimer = setTimeout(() => showLongPressMenu(card), 500); }); 
+            card.addEventListener('touchend', () => { if (longPressTimer) clearTimeout(longPressTimer); }); 
+            card.addEventListener('touchmove', () => { if (longPressTimer) clearTimeout(longPressTimer); }); 
+            card.addEventListener('mousedown', (e) => { longPressTimer = setTimeout(() => showLongPressMenu(card), 500); }); 
+            card.addEventListener('mouseup', () => { if (longPressTimer) clearTimeout(longPressTimer); }); 
+            card.addEventListener('mouseleave', () => { if (longPressTimer) clearTimeout(longPressTimer); }); 
+        }); 
         setTimeout(() => updateItemsPerPage(), 20);
+        // 显示一次性提示（仅当第一次进入历史页）
+        showHistoryTip();
     }
-
-    // 显示长按菜单（删除/取消）
-    function showLongPressMenu(card) {
-        // 移除已存在的菜单
-        const existingMenu = card.querySelector('.longpress-menu');
-        if (existingMenu) existingMenu.remove();
-        const menu = document.createElement('div');
-        menu.className = 'longpress-menu';
-        menu.innerHTML = `<button class="delete-btn">删除</button><button class="cancel-btn">取消</button>`;
-        card.style.position = 'relative';
-        card.appendChild(menu);
-        const deleteBtn = menu.querySelector('.delete-btn');
-        const cancelBtn = menu.querySelector('.cancel-btn');
-        deleteBtn.addEventListener('click', async (e) => {
-            e.stopPropagation();
-            const title = card.getAttribute('data-title');
-            if (title && typeof iapp !== 'undefined' && iapp.fn) {
-                iapp.fn(`history_manager.del("${title.replace(/"/g, '\\"')}")`);
-                // 等待一小段时间让 iApp 处理，然后刷新历史记录
-                setTimeout(() => {
-                    loadHistoryFromIApp();
-                    renderHistoryView();
-                }, 200);
-            } else {
-                alert('无法连接到 iApp 或标题无效');
-            }
-            menu.remove();
-        });
-        cancelBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            menu.remove();
-        });
-        // 点击卡片其他地方关闭菜单（可选，但为避免干扰，点击菜单外关闭）
-        const closeMenu = (e) => {
-            if (!menu.contains(e.target)) {
-                menu.remove();
-                document.removeEventListener('click', closeMenu);
-            }
-        };
-        setTimeout(() => {
-            document.addEventListener('click', closeMenu);
-        }, 0);
-    }
-
-    // 历史页过滤切换
-    function setHistoryFilter(filter) {
-        currentHistoryFilter = filter;
-        document.querySelectorAll('.history-filter-btn').forEach(btn => {
-            if (btn.getAttribute('data-filter') === filter) btn.classList.add('active');
-            else btn.classList.remove('active');
-        });
-        renderHistoryView();
-    }
-
-    function performGlobalSearch() { 
-        const kw = searchInput.value.trim(); if(kw === ''){ clearGlobalSearch(); return; } currentSearchKeyword = kw;
-        const movieResults = allMovies.filter(m=>m.name && m.name.toLowerCase().includes(kw.toLowerCase()));
-        const seriesResults = allSeries.filter(s=>s.pureName && s.pureName.toLowerCase().includes(kw.toLowerCase()));
-        globalSearchResults = [...movieResults.map(m=>({type:'movie',data:m})), ...seriesResults.map(s=>({type:'series',data:s}))];
-        globalSearchTotal = globalSearchResults.length; globalSearchCurrentPage = 1; renderGlobalSearch();
-        listView.style.display = 'none'; episodeSelectorView.classList.remove('active'); searchResultView.style.display = 'block'; scrollToTop();
-    }
-    function renderGlobalSearch() { 
-        const start=(globalSearchCurrentPage-1)*itemsPerPage,end=start+itemsPerPage,pageItems=globalSearchResults.slice(start,end); 
-        if(!pageItems.length){ searchResultContainer.innerHTML='<div class="empty-msg">🔍 没有找到相关影片或连续剧</div>'; searchResultPagination.style.display='none'; return; } 
-        let html=''; for(const item of pageItems){ const data=item.data,posterUrl=data.img||'https://placehold.co/300x450?text=No+Poster',rating=data.pf?parseFloat(data.pf).toFixed(1):'暂无',title=item.type==='movie'?data.name:data.pureName,typeLabel=item.type==='movie'?'电影':'连续剧',typeClass=item.type==='movie'?'movie':'series'; html+=`<div class="movie-card" data-search-item='${JSON.stringify(item)}'><div class="poster"><img src="${posterUrl}" alt="${escapeHtml(title)}" loading="lazy" onerror="this.src='https://placehold.co/300x450?text=Error'"><div class="rating"><i class="fas fa-star"></i> ${rating}</div><div class="type-badge ${typeClass}">${typeLabel}</div></div><div class="movie-info"><div class="movie-title">${escapeHtml(title)}</div></div></div>`; } 
-        searchResultContainer.innerHTML=html; 
-        document.querySelectorAll('[data-search-item]').forEach(card=>{ card.addEventListener('click',()=>{ const item=JSON.parse(card.getAttribute('data-search-item')); if(item.type==='movie') goToPlayer(item.data); else { saveSeriesScrollPosition(); showEpisodeSelector(item.data); } }); }); 
-        const totalPages=Math.ceil(globalSearchTotal/itemsPerPage); if(totalPages<=1)searchResultPagination.style.display='none'; else { searchResultPagination.style.display='flex'; searchPageIndicator.textContent = `${globalSearchCurrentPage}/${totalPages}`; let circlesHtml=''; for(let i=1;i<=totalPages;i++)circlesHtml+=`<div class="page-circle ${i===globalSearchCurrentPage?'active-page':''}" data-page="${i}">${i}</div>`; searchPageCircles.innerHTML=circlesHtml; document.querySelectorAll('#searchPageCircles .page-circle').forEach(c=>c.addEventListener('click',()=>{const p=parseInt(c.getAttribute('data-page')); if(p&&p!==globalSearchCurrentPage){ globalSearchCurrentPage=p; renderGlobalSearch(); }})); searchPrevBtn.classList.toggle('disabled',globalSearchCurrentPage===1); searchNextBtn.classList.toggle('disabled',globalSearchCurrentPage===totalPages); } 
-        setTimeout(() => updateItemsPerPage(), 20);
-    }
-    function clearGlobalSearch(){ 
-        searchInput.value=''; currentSearchKeyword=''; globalSearchResults=[]; 
-        // 不清除搜索视图，而是隐藏它并回到当前视图
-        if (currentView === 'movie') {
-            listView.style.display = 'block';
-            searchResultView.style.display = 'none';
-            applyMovieFilterAndRender();
-        } else if (currentView === 'tv') {
-            listView.style.display = 'block';
-            searchResultView.style.display = 'none';
-            applySeriesFilterAndRender();
-        } else if (currentView === 'history') {
-            listView.style.display = 'block';
-            searchResultView.style.display = 'none';
-            renderHistoryView();
-        } else {
-            listView.style.display = 'block';
-            searchResultView.style.display = 'none';
-        }
-        searchSlide.classList.remove('open'); 
-        updateSearchToggleButtonText(false); 
-        scrollToTop(); 
-    }
-
-    function renderPagination(totalItems) { 
-        if(currentView==='history') return; 
-        const totalPages=Math.ceil(totalItems/itemsPerPage); 
-        if(totalPages<=1){ pageCirclesDiv.innerHTML=''; pageIndicator.textContent = '1/1'; return; } 
-        pageIndicator.textContent = `${currentPage}/${totalPages}`;
-        let circlesHtml=''; for(let i=1;i<=totalPages;i++)circlesHtml+=`<div class="page-circle ${i===currentPage?'active-page':''}" data-page="${i}">${i}</div>`; 
-        pageCirclesDiv.innerHTML=circlesHtml; 
-        document.querySelectorAll('#pageCircles .page-circle').forEach(circle=>{circle.addEventListener('click',()=>{const page=parseInt(circle.getAttribute('data-page')); if(!isNaN(page)&&page!==currentPage){ currentPage=page; if(currentView==='movie')renderMovieList(); else renderSeriesList(); renderPagination(currentView==='movie'?filteredMovies.length:filteredSeries.length); scrollToTop(); }});}); 
-        prevBtn.classList.toggle('disabled',currentPage===1); nextBtn.classList.toggle('disabled',currentPage===totalPages); 
-    }
-    function goPrevPage(){ const total=Math.ceil((currentView==='movie'?filteredMovies.length:filteredSeries.length)/itemsPerPage); if(currentPage>1){ currentPage--; if(currentView==='movie')renderMovieList(); else renderSeriesList(); renderPagination(currentView==='movie'?filteredMovies.length:filteredSeries.length); scrollToTop(); } }
-    function goNextPage(){ const total=Math.ceil((currentView==='movie'?filteredMovies.length:filteredSeries.length)/itemsPerPage); if(currentPage<total){ currentPage++; if(currentView==='movie')renderMovieList(); else renderSeriesList(); renderPagination(currentView==='movie'?filteredMovies.length:filteredSeries.length); scrollToTop(); } }
-
-    function switchToTVView() {
-        if (episodeSelectorView.classList.contains('active')) hideEpisodeSelector();
-        // 如果当前在搜索结果页，清除搜索并切换到连续剧视图
-        if (searchResultView.style.display === 'block') {
-            clearGlobalSearch();
-        }
-        if (currentView === 'tv') { scrollToTop(); return; }
-        currentView = 'tv';
-        listView.classList.remove('history-active');
-        hideEpisodeSelector();
-        clearGlobalSearch(); // 确保搜索被清除
-        currentSearchKeyword = ''; searchInput.value = ''; searchSlide.classList.remove('open'); updateSearchToggleButtonText(false);
-        currentSortMode = 'default';
-        applySeriesFilterAndRender();
-        paginationArea.style.display = 'flex';
-        setActiveNavByView('tv');
-        scrollToTop();
-    }
-    function switchToMovieView(){ 
-        if (episodeSelectorView.classList.contains('active')) hideEpisodeSelector();
-        if (searchResultView.style.display === 'block') {
-            clearGlobalSearch();
-        }
-        if(currentView==='movie'){ scrollToTop(); return; } 
-        currentView='movie'; 
-        listView.classList.remove('history-active'); 
-        hideEpisodeSelector(); 
-        clearGlobalSearch(); 
-        currentSearchKeyword=''; searchInput.value=''; searchSlide.classList.remove('open'); updateSearchToggleButtonText(false); 
-        currentSortMode='default'; 
-        applyMovieFilterAndRender(); 
-        paginationArea.style.display='flex'; 
-        setActiveNavByView('movie'); 
-        scrollToTop(); 
-    }
+    
+    function setHistoryFilter(filter) { currentHistoryFilter = filter; document.querySelectorAll('.history-filter-btn').forEach(btn => { if (btn.getAttribute('data-filter') === filter) btn.classList.add('active'); else btn.classList.remove('active'); }); renderHistoryView(); }
+    function performGlobalSearch() { let kw = searchInput.value.trim(); if(kw === ''){ clearGlobalSearch(); return; } currentSearchKeyword = kw; let movieResults = allMovies.filter(m=>m.name && m.name.toLowerCase().includes(kw.toLowerCase())); let seriesResults = allSeries.filter(s=>s.pureName && s.pureName.toLowerCase().includes(kw.toLowerCase())); globalSearchResults = [...movieResults.map(m=>({type:'movie',data:m})), ...seriesResults.map(s=>({type:'series',data:s}))]; globalSearchTotal = globalSearchResults.length; globalSearchCurrentPage = 1; renderGlobalSearch(); listView.style.display = 'none'; episodeSelectorView.classList.remove('active'); searchResultView.style.display = 'block'; if(historyToolbar) historyToolbar.style.display = 'none'; scrollToTop(); }
+    function renderGlobalSearch() { let start=(globalSearchCurrentPage-1)*itemsPerPage,end=start+itemsPerPage,pageItems=globalSearchResults.slice(start,end); if(!pageItems.length){ searchResultContainer.innerHTML='<div class="empty-msg">🔍 没有找到相关影片或连续剧</div>'; searchResultPagination.style.display='none'; return; } let html=''; for(let item of pageItems){ let data=item.data, posterUrl=data.img||'https://placehold.co/300x450?text=No+Poster', rating=data.pf?parseFloat(data.pf).toFixed(1):'暂无', title=item.type==='movie'?data.name:data.pureName, typeLabel=item.type==='movie'?'电影':'连续剧', typeClass=item.type==='movie'?'movie':'series'; html+=`<div class="movie-card" data-search-item='${JSON.stringify(item)}'><div class="poster"><img src="${posterUrl}" alt="${escapeHtml(title)}" loading="lazy" onerror="this.src='https://placehold.co/300x450?text=Error'"><div class="rating"><i class="fas fa-star"></i> ${rating}</div><div class="type-badge ${typeClass}">${typeLabel}</div></div><div class="movie-info"><div class="movie-title">${escapeHtml(title)}</div></div></div>`; } searchResultContainer.innerHTML=html; document.querySelectorAll('[data-search-item]').forEach(card=>{ card.addEventListener('click',()=>{ let item=JSON.parse(card.getAttribute('data-search-item')); if(item.type==='movie') goToPlayerAndSave(item.data); else { saveSeriesScrollPosition(); showEpisodeSelector(item.data); } }); }); let totalPages=Math.ceil(globalSearchTotal/itemsPerPage); if(totalPages<=1)searchResultPagination.style.display='none'; else { searchResultPagination.style.display='flex'; searchPageIndicator.textContent = `${globalSearchCurrentPage}/${totalPages}`; let circlesHtml=''; for(let i=1;i<=totalPages;i++)circlesHtml+=`<div class="page-circle ${i===globalSearchCurrentPage?'active-page':''}" data-page="${i}">${i}</div>`; searchPageCircles.innerHTML=circlesHtml; document.querySelectorAll('#searchPageCircles .page-circle').forEach(c=>c.addEventListener('click',()=>{let p=parseInt(c.getAttribute('data-page')); if(p&&p!==globalSearchCurrentPage){ globalSearchCurrentPage=p; renderGlobalSearch(); }})); searchPrevBtn.classList.toggle('disabled',globalSearchCurrentPage===1); searchNextBtn.classList.toggle('disabled',globalSearchCurrentPage===totalPages); } setTimeout(() => updateItemsPerPage(), 20); }
+    function clearGlobalSearch(){ searchInput.value=''; currentSearchKeyword=''; globalSearchResults=[]; if (currentView === 'movie') { listView.style.display = 'block'; searchResultView.style.display = 'none'; applyMovieFilterAndRender(); } else if (currentView === 'tv') { listView.style.display = 'block'; searchResultView.style.display = 'none'; applySeriesFilterAndRender(); } else if (currentView === 'history') { listView.style.display = 'block'; searchResultView.style.display = 'none'; renderHistoryView(); } else { listView.style.display = 'block'; searchResultView.style.display = 'none'; } searchSlide.classList.remove('open'); updateSearchToggleButtonText(false); scrollToTop(); }
+    function renderPagination(totalItems) { if(currentView==='history') return; let totalPages=Math.ceil(totalItems/itemsPerPage); if(totalPages<=1){ pageCirclesDiv.innerHTML=''; pageIndicator.textContent = '1/1'; return; } pageIndicator.textContent = `${currentPage}/${totalPages}`; let circlesHtml=''; for(let i=1;i<=totalPages;i++)circlesHtml+=`<div class="page-circle ${i===currentPage?'active-page':''}" data-page="${i}">${i}</div>`; pageCirclesDiv.innerHTML=circlesHtml; document.querySelectorAll('#pageCircles .page-circle').forEach(circle=>{circle.addEventListener('click',()=>{let page=parseInt(circle.getAttribute('data-page')); if(!isNaN(page)&&page!==currentPage){ currentPage=page; if(currentView==='movie')renderMovieList(); else renderSeriesList(); renderPagination(currentView==='movie'?filteredMovies.length:filteredSeries.length); scrollToTop(); }});}); prevBtn.classList.toggle('disabled',currentPage===1); nextBtn.classList.toggle('disabled',currentPage===totalPages); }
+    function goPrevPage(){ let total=Math.ceil((currentView==='movie'?filteredMovies.length:filteredSeries.length)/itemsPerPage); if(currentPage>1){ currentPage--; if(currentView==='movie')renderMovieList(); else renderSeriesList(); renderPagination(currentView==='movie'?filteredMovies.length:filteredSeries.length); scrollToTop(); } }
+    function goNextPage(){ let total=Math.ceil((currentView==='movie'?filteredMovies.length:filteredSeries.length)/itemsPerPage); if(currentPage<total){ currentPage++; if(currentView==='movie')renderMovieList(); else renderSeriesList(); renderPagination(currentView==='movie'?filteredMovies.length:filteredSeries.length); scrollToTop(); } }
+    function switchToTVView() { if (episodeSelectorView.classList.contains('active')) hideEpisodeSelector(); if (searchResultView.style.display === 'block') clearGlobalSearch(); if (currentView === 'tv') { scrollToTop(); return; } currentView = 'tv'; listView.classList.remove('history-active'); hideEpisodeSelector(); clearGlobalSearch(); currentSearchKeyword = ''; searchInput.value = ''; searchSlide.classList.remove('open'); updateSearchToggleButtonText(false); currentSortMode = 'default'; applySeriesFilterAndRender(); paginationArea.style.display = 'flex'; setActiveNavByView('tv'); scrollToTop(); }
+    function switchToMovieView(){ if (episodeSelectorView.classList.contains('active')) hideEpisodeSelector(); if (searchResultView.style.display === 'block') clearGlobalSearch(); if(currentView==='movie'){ scrollToTop(); return; } currentView='movie'; listView.classList.remove('history-active'); hideEpisodeSelector(); clearGlobalSearch(); currentSearchKeyword=''; searchInput.value=''; searchSlide.classList.remove('open'); updateSearchToggleButtonText(false); currentSortMode='default'; applyMovieFilterAndRender(); paginationArea.style.display='flex'; setActiveNavByView('movie'); scrollToTop(); }
     function switchToRatingView(){ if(currentView!=='movie'&&currentView!=='tv') return; currentSortMode=currentSortMode==='rating'?'default':'rating'; if(currentView==='movie') applyMovieFilterAndRender(); else applySeriesFilterAndRender(); if(ratingBtn) ratingBtn.classList.toggle('active',currentSortMode==='rating'); scrollToTop(); }
     function switchToHistoryView(){ 
+        if (currentView !== 'history') {
+            prevViewBeforeHistory = currentView;
+        }
         if(currentView==='history'){ scrollToTop(); return; } 
         currentView='history'; 
         listView.classList.add('history-active'); 
@@ -771,68 +612,80 @@
         setActiveNavByView('history'); 
         scrollToTop(); 
     }
-    function setActiveNavByView(view){ 
-        document.querySelectorAll('.nav-btn').forEach(btn=>btn.classList.remove('active')); 
-        if(view==='movie') document.querySelector('[data-view="movie"]')?.classList.add('active'); 
-        else if(view==='tv') document.querySelector('[data-view="tv"]')?.classList.add('active'); 
-        else if(view==='history') historyBtn.classList.add('active'); 
-        if(ratingBtn){ if((currentView==='movie'||currentView==='tv')&&currentSortMode==='rating') ratingBtn.classList.add('active'); else ratingBtn.classList.remove('active'); } 
-        // 控制历史工具栏显示
-        if (view === 'history') {
-            historyToolbar.style.display = 'flex';
-        } else {
-            historyToolbar.style.display = 'none';
-        }
-    }
+    function setActiveNavByView(view){ document.querySelectorAll('.nav-btn').forEach(btn=>btn.classList.remove('active')); if(view==='movie') document.querySelector('[data-view="movie"]')?.classList.add('active'); else if(view==='tv') document.querySelector('[data-view="tv"]')?.classList.add('active'); else if(view==='history') historyBtn.classList.add('active'); if(ratingBtn){ if((currentView==='movie'||currentView==='tv')&&currentSortMode==='rating') ratingBtn.classList.add('active'); else ratingBtn.classList.remove('active'); } if (view === 'history') { if(historyToolbar) historyToolbar.style.display = 'flex'; } else { if(historyToolbar) historyToolbar.style.display = 'none'; } }
     function updateSearchToggleButtonText(isOpen){ if(isOpen){ searchToggleBtn.innerHTML='<i class="fas fa-times"></i> 取消'; searchToggleBtn.classList.add('active'); }else{ searchToggleBtn.innerHTML='<i class="fas fa-search"></i> 搜索'; searchToggleBtn.classList.remove('active'); } }
     function closeSearch(){ if(searchSlide.classList.contains('open')){ searchSlide.classList.remove('open'); updateSearchToggleButtonText(false); } }
     function openSearch(){ if(!searchSlide.classList.contains('open')){ searchSlide.classList.add('open'); updateSearchToggleButtonText(true); searchInput.focus(); } }
+    if (clearHistoryBtn) clearHistoryBtn.addEventListener('click', () => { if (currentView !== 'history') return; if (confirm('确定要清除所有观看记录吗？此操作不可恢复。')) { if (typeof iapp !== 'undefined' && iapp.fn) { iapp.fn('history_manager.clear("1")'); if (typeof tw === 'function') tw("正在清除观看记录..."); setTimeout(() => { loadHistoryFromIApp(); renderHistoryView(); if (historyRecords.length === 0) moviesContainer.innerHTML = '<div class="empty-msg">📭 没有播放记录。</div>'; }, 500); } else alert("无法连接到 iApp 环境"); } });
+    function initHistoryFilters() { document.querySelectorAll('.history-filter-btn').forEach(btn => { btn.addEventListener('click', () => { let filter = btn.getAttribute('data-filter'); if (filter) setHistoryFilter(filter); }); }); }
     
-    if (clearHistoryBtn) {
-        clearHistoryBtn.addEventListener('click', () => {
-            if (currentView !== 'history') return;
-            if (confirm('确定要清除所有观看记录吗？此操作不可恢复。')) {
-                if (typeof iapp !== 'undefined' && iapp.fn) {
-                    iapp.fn('history_manager.clear("1")');
-                    if (typeof tw === 'function') tw("正在清除观看记录...");
-                    setTimeout(() => {
-                        loadHistoryFromIApp();
-                        renderHistoryView();
-                        if (historyRecords.length === 0) moviesContainer.innerHTML = '<div class="empty-msg">📭 没有播放记录。</div>';
-                    }, 500);
-                } else alert("无法连接到 iApp 环境");
+    // 后退信号处理（保持不变）
+    let pendingBack = false;
+    window.quitSignal = null;
+    Object.defineProperty(window, 'quitSignal', {
+        set: function(value) {
+            if (value !== 1) return;
+            if (pendingBack) return;
+            pendingBack = true;
+            setTimeout(() => {
+                try {
+                    if (episodeSelectorView.classList.contains('active')) {
+                        hideEpisodeSelector();
+                        pendingBack = false;
+                        return;
+                    }
+                    if (searchResultView.style.display === 'block') {
+                        clearGlobalSearch();
+                        pendingBack = false;
+                        return;
+                    }
+                    if (currentView === 'history') {
+                        if (prevViewBeforeHistory === 'movie') {
+                            switchToMovieView();
+                        } else if (prevViewBeforeHistory === 'tv') {
+                            switchToTVView();
+                        } else {
+                            switchToMovieView();
+                        }
+                        prevViewBeforeHistory = null;
+                        pendingBack = false;
+                        return;
+                    }
+                    if (typeof iapp !== 'undefined' && iapp.s) {
+                        iapp.s('sss.exit', 'exit');
+                    }
+                } catch (e) {
+                    console.error('[后退] 处理异常:', e);
+                } finally {
+                    pendingBack = false;
+                }
+            }, 10);
+        },
+        get: function() { return null; }
+    });
+    
+    function initButtons(){ document.querySelector('[data-view="movie"]')?.addEventListener('click', switchToMovieView); document.querySelector('[data-view="tv"]')?.addEventListener('click', switchToTVView); ratingBtn?.addEventListener('click', switchToRatingView); refreshBtn?.addEventListener('click', async () => { await loadAllData(); if(currentView==='movie') applyMovieFilterAndRender(); else if(currentView==='tv') applySeriesFilterAndRender(); else if(currentView==='history'){ loadHistoryFromIApp(); renderHistoryView(); } scrollToTop(); }); homeBtn?.addEventListener('click', switchToMovieView); historyBtn?.addEventListener('click', switchToHistoryView); backToSeriesBtn?.addEventListener('click', hideEpisodeSelector); searchToggleBtn.addEventListener('click',(e)=>{ e.stopPropagation(); searchSlide.classList.contains('open')?closeSearch():openSearch(); }); searchConfirm.addEventListener('click',()=>{ if(currentView==='history'){ currentSearchKeyword=searchInput.value.trim(); renderHistoryView(); closeSearch(); }else{ performGlobalSearch(); closeSearch(); } }); searchInput.addEventListener('keypress',(e)=>{ if(e.key==='Enter'){ if(currentView==='history'){ currentSearchKeyword=searchInput.value.trim(); renderHistoryView(); closeSearch(); }else{ performGlobalSearch(); closeSearch(); } } }); prevBtn.addEventListener('click',goPrevPage); nextBtn.addEventListener('click',goNextPage); searchPrevBtn.addEventListener('click',()=>{ if(globalSearchCurrentPage>1){ globalSearchCurrentPage--; renderGlobalSearch(); } }); searchNextBtn.addEventListener('click',()=>{ let totalPages=Math.ceil(globalSearchTotal/itemsPerPage); if(globalSearchCurrentPage<totalPages){ globalSearchCurrentPage++; renderGlobalSearch(); } }); initHistoryFilters(); }
+    
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+            if (currentView === 'history') {
+                loadHistoryFromIApp();
+                renderHistoryView();
+                setHistoryFilter(currentHistoryFilter);
+            } else if (episodeSelectorView.classList.contains('active') && currentSeries) {
+                loadHistoryFromIApp();
+                refreshEpisodeHighlight();
             }
-        });
+        }
+    });
+    
+    async function init() {
+        loadHistoryFromIApp();
+        await loadAllData();
+        initButtons();
+        restoreSavedState();
+        scrollToTop();
     }
-
-    // 历史页过滤按钮事件
-    function initHistoryFilters() {
-        const filterBtns = document.querySelectorAll('.history-filter-btn');
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const filter = btn.getAttribute('data-filter');
-                if (filter) setHistoryFilter(filter);
-            });
-        });
-    }
-
-    function initButtons(){
-        document.querySelector('[data-view="movie"]')?.addEventListener('click', switchToMovieView);
-        document.querySelector('[data-view="tv"]')?.addEventListener('click', switchToTVView);
-        ratingBtn?.addEventListener('click', switchToRatingView);
-        refreshBtn?.addEventListener('click', async () => { await loadAllData(); if(currentView==='movie') applyMovieFilterAndRender(); else if(currentView==='tv') applySeriesFilterAndRender(); else if(currentView==='history'){ loadHistoryFromIApp(); renderHistoryView(); } scrollToTop(); });
-        homeBtn?.addEventListener('click', switchToMovieView);
-        historyBtn?.addEventListener('click', switchToHistoryView);
-        backToSeriesBtn?.addEventListener('click', hideEpisodeSelector);
-        searchToggleBtn.addEventListener('click',(e)=>{ e.stopPropagation(); searchSlide.classList.contains('open')?closeSearch():openSearch(); });
-        searchConfirm.addEventListener('click',()=>{ if(currentView==='history'){ currentSearchKeyword=searchInput.value.trim(); renderHistoryView(); closeSearch(); }else{ performGlobalSearch(); closeSearch(); } });
-        searchInput.addEventListener('keypress',(e)=>{ if(e.key==='Enter'){ if(currentView==='history'){ currentSearchKeyword=searchInput.value.trim(); renderHistoryView(); closeSearch(); }else{ performGlobalSearch(); closeSearch(); } } });
-        prevBtn.addEventListener('click',goPrevPage); nextBtn.addEventListener('click',goNextPage);
-        searchPrevBtn.addEventListener('click',()=>{ if(globalSearchCurrentPage>1){ globalSearchCurrentPage--; renderGlobalSearch(); } });
-        searchNextBtn.addEventListener('click',()=>{ const totalPages=Math.ceil(globalSearchTotal/itemsPerPage); if(globalSearchCurrentPage<totalPages){ globalSearchCurrentPage++; renderGlobalSearch(); } });
-        initHistoryFilters();
-    }
-    async function init(){ loadHistoryFromIApp(); await loadAllData(); initButtons(); currentView='movie'; applyMovieFilterAndRender(); scrollToTop(); }
     init();
 </script>
 </body>
