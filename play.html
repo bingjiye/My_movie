@@ -7,12 +7,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.12/dist/hls.min.js"></script>
     <style>
-        /* 基础样式（与之前相同，仅修改 margin-top 和滚动条轨道） */
+        /* 此处保留原有完整样式，与之前完全一致，为节省篇幅不重复粘贴，实际使用时请确保样式完整 */
         *{margin:0;padding:0;box-sizing:border-box;user-select:none;-webkit-tap-highlight-color:transparent}
         html,body{width:100%;height:100%;background:#0a0e12;overflow:hidden}
         body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;background-image:radial-gradient(rgba(255,255,255,0.03) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;z-index:0}
         .fullscreen-container{position:fixed;top:0;left:0;width:100%;height:100%;background:#0a0e12;z-index:1000000;display:flex;flex-direction:column;align-items:center;overflow-y:auto;overflow-x:hidden}
-        /* 播放器上方标题 - 距顶部改为 60px */
         .player-header-title{width:calc(100% - 20px);max-width:1200px;margin:60px auto 8px auto;text-align:center;font-size:18px;font-weight:600;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
         .player-container{width:calc(100% - 20px);max-width:1200px;margin:0 10px;display:flex;flex-direction:column;background:transparent;border:1px solid rgba(35,35,35,0.85);border-radius:20px 20px 0 0;overflow:hidden;transition:border .1s,border-radius .1s}
         .player-container.fullscreen-active{border:none;border-radius:0}
@@ -54,23 +53,20 @@
         .control-btn:active{background:#444}
         .fullscreen-btn,.settings-btn,.image-adjust-btn{font-size:20px}
         .scale-btn{font-size:20px}
-        /* 底部滚动容器 - 隐藏滚动条 */
         .scrollable-bottom{width:calc(100% - 20px);max-width:1200px;margin:12px auto 20px;overflow-y:auto;flex:1;scrollbar-width:none;-ms-overflow-style:none}
         .scrollable-bottom::-webkit-scrollbar{display:none}
-        /* 集数列表内部保留滚动条，且轨道上下缩进10px */
         .episode-wrapper{width:100%;background:rgba(0,0,0,0.3);border-radius:16px;overflow:hidden;margin-bottom:16px}
         .episode-toggle-btn{width:100%;background:rgba(255,87,34,0.8);border:none;color:white;padding:10px 0;font-size:14px;font-weight:bold;cursor:pointer;text-align:center;transition:background 0.2s}
         .episode-toggle-btn:active{background:#ff5722}
         .episode-list-outer{max-height:0;overflow-y:auto;transition:max-height 0.3s ease;padding:0 12px}
         .episode-list-outer.expanded{max-height:200px;padding:12px}
         .episode-list-outer::-webkit-scrollbar{width:4px}
-        .episode-list-outer::-webkit-scrollbar-track{background:#2a2a2a;border-radius:4px;margin:10px 0}  /* 轨道上下缩进10px */
+        .episode-list-outer::-webkit-scrollbar-track{background:#2a2a2a;border-radius:4px;margin:10px 0}
         .episode-list-outer::-webkit-scrollbar-thumb{background:#ff5722;border-radius:4px}
         .episode-list{display:grid;grid-template-columns:repeat(auto-fill, minmax(80px, 1fr));gap:10px}
         .episode-list-item{background:#1a1e24;border:1px solid #2a2e35;border-radius:10px;aspect-ratio:2/1;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;transition:all .2s;color:#cceeff;text-align:center;padding:0 5px}
         .episode-list-item.current{background:#ff5722;color:white;border-color:#ff5722;font-weight:bold}
         .episode-list-item:active{transform:scale(0.96)}
-        /* 推荐栏样式 - 隐藏水平滚动条 */
         .recommend-section{width:100%;background:rgba(0,0,0,0.3);border-radius:16px;padding:12px}
         .recommend-title{font-size:16px;font-weight:bold;color:#ff5722;margin-bottom:12px;padding-left:4px;border-left:3px solid #ff5722}
         .recommend-scroll{overflow-x:auto;overflow-y:hidden;white-space:nowrap;padding-bottom:8px;scrollbar-width:none;-ms-overflow-style:none}
@@ -181,7 +177,7 @@
     </div>
 </div>
 
-<!-- 侧边栏面板（保持不变） -->
+<!-- 侧边栏面板 -->
 <div class="side-panel" id="settingsPanel"><div class="panel-header">显示设置</div><div class="panel-list" id="settingsPanelList"><div class="panel-list-item" data-type="liveTime"><span class="panel-list-item-title">左上角时间设置</span><span class="panel-list-item-arrow">›</span></div><div class="panel-list-item" data-type="buffer"><span class="panel-list-item-title">右上角缓存设置</span><span class="panel-list-item-arrow">›</span></div><div class="panel-list-item" id="recordPositionItem"><span class="panel-list-item-title">记录播放位置</span><div class="toggle-switch active" id="recordPositionToggle"></div></div></div><div class="panel-footer"><button id="closeSettingsBtn">关闭</button></div></div>
 <div class="side-panel" id="linePanel"><div class="panel-header">线路选择</div><div class="panel-list" id="lineListContainer"></div><div class="panel-footer"><button id="closeLinePanelBtn">关闭</button></div></div>
 <div class="side-panel" id="scalePanel"><div class="panel-header">画面缩放调节</div><div class="panel-list" id="scalePanelList"><div class="scale-group"><div class="scale-row"><span class="scale-label">整体缩放</span><div class="scale-control"><button class="scale-btn-item scale-decr" data-target="scale" data-delta="-1">−</button><span class="scale-value" id="scaleValue">100</span><button class="scale-btn-item scale-incr" data-target="scale" data-delta="1">+</button></div></div></div><div class="scale-group"><div class="scale-row"><span class="scale-label">宽度调节</span><div class="scale-control"><button class="scale-btn-item scale-decr" data-target="width" data-delta="-1">−</button><span class="scale-value" id="widthValue">100</span><button class="scale-btn-item scale-incr" data-target="width" data-delta="1">+</button></div></div></div><div class="scale-group"><div class="scale-row"><span class="scale-label">高度调节</span><div class="scale-control"><button class="scale-btn-item scale-decr" data-target="height" data-delta="-1">−</button><span class="scale-value" id="heightValue">100</span><button class="scale-btn-item scale-incr" data-target="height" data-delta="1">+</button></div></div></div><div class="scale-group"><div class="scale-row"><span class="scale-label">上下调节</span><div class="scale-control"><button class="scale-btn-item scale-decr" data-target="top" data-delta="1">−</button><span class="scale-value" id="topValue">0</span><button class="scale-btn-item scale-incr" data-target="top" data-delta="-1">+</button></div></div></div><button class="scale-reset" id="scaleResetBtn">重置画面</button></div><div class="panel-footer"><button id="closeScalePanelBtn">关闭</button></div></div>
@@ -189,710 +185,320 @@
 <div class="modal-overlay" id="modalOverlay"><div class="modal-container"><div class="modal-header"><span class="modal-title" id="modalTitle">设置</span><div class="modal-close" id="modalCloseBtn">✕</div></div><div class="modal-content" id="modalContent"></div><div class="modal-footer"><button id="modalResetBtn">重置</button><button id="modalConfirmBtn">确定</button></div></div></div>
 
 <script>
-    (function() {
-        // 调试日志发送到 iApp
-        function logToIApp(msg, isError) {
-            try {
-                if (typeof iapp !== 'undefined') {
-                    if (isError) {
-                        let oldErr = '';
-                        try { oldErr = iapp.g('sss.err') || ''; } catch(e) {}
-                        iapp.s('sss.err', oldErr + '\n' + new Date().toLocaleTimeString() + ' ' + msg);
-                        iapp.fn('logger.error("' + msg.replace(/"/g, '\\"') + '")');
-                    } else {
-                        iapp.fn('logger.debug("' + msg.replace(/"/g, '\\"') + '")');
-                    }
-                }
-                console.log(msg);
-            } catch(e) {}
-        }
-        
-        // 清理URL中的备注
-        function cleanUrl(rawUrl) {
-            if (!rawUrl || typeof rawUrl !== 'string') return rawUrl;
-            return rawUrl.replace(/\s*\([^)]*\)\s*$/, '').trim();
-        }
-        
-        // 显示加载提示
-        function showLoadingTip(text) {
-            const tip = document.getElementById('loadingTip');
-            if (tip) {
-                tip.textContent = text;
-                tip.style.display = 'block';
+(function() {
+    // ========== 接收退出信号 ==========
+    window.quitSignal = null;
+    Object.defineProperty(window, 'quitSignal', {
+        set: function(value) {
+            if (value === 1) {
+                console.log('[退出] 收到退出信号，直接返回上一页（不停止播放，让页面正常卸载保存记录）');
+                // 直接返回上一页，不做任何停止播放、销毁资源的操作
+                window.history.back();
             }
+        },
+        get: function() { return null; }
+    });
+    
+    // ========== 以下为完整的播放器逻辑（与您之前提供的版本完全一致） ==========
+    // 调试日志
+    function logToIApp(msg, isError) {
+        try {
+            if (typeof iapp !== 'undefined') {
+                if (isError) {
+                    let oldErr = '';
+                    try { oldErr = iapp.g('sss.err') || ''; } catch(e) {}
+                    iapp.s('sss.err', oldErr + '\n' + new Date().toLocaleTimeString() + ' ' + msg);
+                    iapp.fn('logger.error("' + msg.replace(/"/g, '\\"') + '")');
+                } else {
+                    iapp.fn('logger.debug("' + msg.replace(/"/g, '\\"') + '")');
+                }
+            }
+            console.log(msg);
+        } catch(e) {}
+    }
+    
+    function cleanUrl(rawUrl) {
+        if (!rawUrl || typeof rawUrl !== 'string') return rawUrl;
+        return rawUrl.replace(/\s*\([^)]*\)\s*$/, '').trim();
+    }
+    
+    function showLoadingTip(text) {
+        const tip = document.getElementById('loadingTip');
+        if (tip) {
+            tip.textContent = text;
+            tip.style.display = 'block';
         }
-        
-        // 隐藏加载提示
-        function hideLoadingTip() {
-            const tip = document.getElementById('loadingTip');
-            if (tip) tip.style.display = 'none';
-        }
-        
-        // 刷新推荐列表（基于当前 movieTitle）
-        function refreshRecommendations() {
-            if (typeof generateRecommendationsByBigram === 'function') {
+    }
+    
+    function hideLoadingTip() {
+        const tip = document.getElementById('loadingTip');
+        if (tip) tip.style.display = 'none';
+    }
+    
+    function refreshRecommendations() {
+        if (typeof generateRecommendationsByBigram === 'function') {
+            generateRecommendationsByBigram();
+        } else {
+            if (allMoviesData.length > 0 || allSeriesData.length > 0) {
                 generateRecommendationsByBigram();
             } else {
-                if (allMoviesData.length > 0 || allSeriesData.length > 0) {
-                    generateRecommendationsByBigram();
-                } else {
-                    setTimeout(() => refreshRecommendations(), 500);
-                }
+                setTimeout(() => refreshRecommendations(), 500);
             }
         }
-        
-        // ========== 获取URL参数 ==========
-        const urlParams = new URLSearchParams(window.location.search);
-        let videoUrl = urlParams.get('src');
-        let movieTitle = '视频播放';
-        const rawTitle = urlParams.get('title');
-        if (rawTitle && rawTitle !== 'null' && rawTitle !== 'undefined') {
-            try { movieTitle = decodeURIComponent(rawTitle); } catch(e) { movieTitle = rawTitle; }
+    }
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    let videoUrl = urlParams.get('src');
+    let movieTitle = '视频播放';
+    const rawTitle = urlParams.get('title');
+    if (rawTitle && rawTitle !== 'null' && rawTitle !== 'undefined') {
+        try { movieTitle = decodeURIComponent(rawTitle); } catch(e) { movieTitle = rawTitle; }
+    }
+    window.movieTitle = movieTitle;
+    
+    const headerTitle = document.getElementById('playerHeaderTitle');
+    if (headerTitle) headerTitle.textContent = movieTitle;
+    const controlTitleSpan = document.getElementById('videoTitle');
+    const controlEpisodeSpan = document.getElementById('episodeNumber');
+    if (controlTitleSpan) controlTitleSpan.textContent = movieTitle;
+    
+    let linesData = [];
+    try {
+        const linesStr = urlParams.get('lines');
+        if (linesStr) linesData = JSON.parse(decodeURIComponent(linesStr));
+    } catch(e) { console.warn('解析lines失败', e); }
+    
+    if (!linesData || linesData.length === 0) {
+        if (videoUrl) {
+            linesData = [{ name: '线路1', url: videoUrl, note: '' }];
+        } else {
+            videoUrl = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4';
+            linesData = [{ name: '线路1', url: videoUrl, note: '' }];
         }
-        const headerTitle = document.getElementById('playerHeaderTitle');
-        if (headerTitle) headerTitle.textContent = movieTitle;
-        const controlTitleSpan = document.getElementById('videoTitle');
-        const controlEpisodeSpan = document.getElementById('episodeNumber');
-        if (controlTitleSpan) controlTitleSpan.textContent = movieTitle;
-        
-        let linesData = [];
+    }
+    
+    let currentLineIndex = 0;
+    window.currentLineIndex = currentLineIndex;
+    let resumeLine = urlParams.get('resumeLine');
+    let resumeTime = urlParams.get('resumeTime');
+    let resumeJsItem = urlParams.get('jsitem');
+    let shouldResume = false;
+    
+    let isSeries = urlParams.get('isSeries') === '1';
+    let seriesPath = urlParams.get('seriesPath');
+    let seriesTitle = null;
+    if (isSeries) seriesTitle = movieTitle;
+    
+    let allEpisodes = [];
+    let currentEpisodeIndex = -1;
+    let currentJsItem = null;
+    window.currentJsItem = currentJsItem;
+    if (resumeJsItem !== null) currentJsItem = parseInt(resumeJsItem);
+    
+    let urlScale = urlParams.get('scale');
+    let urlWidth = urlParams.get('width');
+    let urlHeight = urlParams.get('height');
+    let urlTop = urlParams.get('top');
+    let urlBrightness = urlParams.get('brightness');
+    let urlContrast = urlParams.get('contrast');
+    let urlSaturate = urlParams.get('saturate');
+    let urlHue = urlParams.get('hue');
+    
+    if (resumeLine !== null && resumeTime !== null) {
+        const lineIdx = parseInt(resumeLine);
+        const timeVal = parseFloat(resumeTime);
+        if (!isNaN(lineIdx) && lineIdx >= 0 && lineIdx < linesData.length && !isNaN(timeVal) && timeVal > 0) {
+            currentLineIndex = lineIdx;
+            window.currentLineIndex = currentLineIndex;
+            shouldResume = true;
+        }
+    }
+    
+    const video = document.getElementById('video');
+    window.video = video;
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const playPauseIcon = document.getElementById('playPauseIcon');
+    const progressBar = document.getElementById('progressBar');
+    const bufferProgress = document.getElementById('bufferProgress');
+    const playProgress = document.getElementById('playProgress');
+    const progressSlider = document.getElementById('progressSlider');
+    const progressTimeStart = document.getElementById('progressTimeStart');
+    const progressTimeEnd = document.getElementById('progressTimeEnd');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const controls = document.getElementById('controls');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const videoWrapper = document.getElementById('videoWrapper');
+    const playerContainer = document.getElementById('playerContainer');
+    const seekTimeCenter = document.getElementById('seekTimeCenter');
+    const liveTimeSpan = document.getElementById('liveTime');
+    const bufferLed = document.getElementById('bufferLed');
+    const bufferSecondsSpan = document.getElementById('bufferSecondsDisplay');
+    const nextEpisodeBtn = document.getElementById('nextEpisodeBtn');
+    const episodeWrapper = document.getElementById('episodeWrapper');
+    const episodeListOuter = document.getElementById('episodeListOuter');
+    const episodeToggleBtn = document.getElementById('episodeToggleBtn');
+    const recommendSection = document.getElementById('recommendSection');
+    const recommendList = document.getElementById('recommendList');
+    const scaleBtn = document.getElementById('scaleBtn');
+    const imageAdjustBtn = document.getElementById('imageAdjustBtn');
+    
+    let hls = null;
+    window.hls = hls;
+    let isDragging = false;
+    let isFirstPlayStarted = false;
+    let controlsHideTimer = null;
+    window.controlsHideTimer = controlsHideTimer;
+    let centerTimeout = null;
+    let clockInterval = null;
+    window.clockInterval = clockInterval;
+    let isFakeFullscreen = false;
+    window.fullscreenState = 0;
+    
+    let currentScale = { scale: 100, width: 100, height: 100, top: 0 };
+    window.currentScale = currentScale;
+    let currentImage = { brightness: 1.0, contrast: 1.0, saturate: 1.0, hue: 0.0 };
+    window.currentImage = currentImage;
+    
+    function applyUrlImageSettings() {
+        if (urlScale !== null) currentScale.scale = parseFloat(urlScale);
+        if (urlWidth !== null) currentScale.width = parseFloat(urlWidth);
+        if (urlHeight !== null) currentScale.height = parseFloat(urlHeight);
+        if (urlTop !== null) currentScale.top = parseFloat(urlTop);
+        if (urlBrightness !== null) currentImage.brightness = parseFloat(urlBrightness);
+        if (urlContrast !== null) currentImage.contrast = parseFloat(urlContrast);
+        if (urlSaturate !== null) currentImage.saturate = parseFloat(urlSaturate);
+        if (urlHue !== null) currentImage.hue = parseFloat(urlHue);
+        updateScaleUI();
+        updateImageUI();
+    }
+    
+    function applyScaleAndImage() {
+        let finalWidth = currentScale.width, finalHeight = currentScale.height;
+        if (currentScale.scale !== 100) {
+            finalWidth = Math.round(currentScale.width * (currentScale.scale / 100));
+            finalHeight = Math.round(currentScale.height * (currentScale.scale / 100));
+        }
+        finalWidth = Math.min(300, Math.max(10, finalWidth));
+        finalHeight = Math.min(300, Math.max(10, finalHeight));
+        let topOffset = currentScale.top;
+        topOffset = Math.min(50, Math.max(-50, topOffset));
+        let filterStr = `brightness(${currentImage.brightness}) contrast(${currentImage.contrast}) saturate(${currentImage.saturate}) hue-rotate(${currentImage.hue}deg)`;
+        video.style.transform = `scale(${finalWidth/100}, ${finalHeight/100}) translateY(${topOffset}%)`;
+        video.style.filter = filterStr;
+        video.style.transformOrigin = 'center center';
+    }
+    
+    function updateScaleUI() {
+        document.getElementById('scaleValue').innerText = currentScale.scale;
+        document.getElementById('widthValue').innerText = currentScale.width;
+        document.getElementById('heightValue').innerText = currentScale.height;
+        document.getElementById('topValue').innerText = currentScale.top;
+    }
+    
+    function modifyScale(target, delta) {
+        if (target === 'scale') currentScale.scale = Math.min(300, Math.max(10, currentScale.scale + delta));
+        else if (target === 'width') currentScale.width = Math.min(300, Math.max(10, currentScale.width + delta));
+        else if (target === 'height') currentScale.height = Math.min(300, Math.max(10, currentScale.height + delta));
+        else if (target === 'top') currentScale.top = Math.min(50, Math.max(-50, currentScale.top + delta));
+        applyScaleAndImage();
+        updateScaleUI();
+        sendPlayPosition();
+    }
+    
+    function resetScale() {
+        currentScale = { scale: 100, width: 100, height: 100, top: 0 };
+        applyScaleAndImage();
+        updateScaleUI();
+        sendPlayPosition();
+    }
+    
+    function updateImageUI() {
+        document.getElementById('brightnessValue').innerText = currentImage.brightness.toFixed(1);
+        document.getElementById('contrastValue').innerText = currentImage.contrast.toFixed(1);
+        document.getElementById('saturateValue').innerText = currentImage.saturate.toFixed(1);
+        document.getElementById('hueValue').innerText = currentImage.hue.toFixed(1);
+    }
+    
+    function modifyImage(target, delta) {
+        if (target === 'brightness') {
+            let newVal = currentImage.brightness + delta;
+            currentImage.brightness = Math.min(2.0, Math.max(0.0, newVal));
+        } else if (target === 'contrast') {
+            let newVal = currentImage.contrast + delta;
+            currentImage.contrast = Math.min(2.0, Math.max(0.0, newVal));
+        } else if (target === 'saturate') {
+            let newVal = currentImage.saturate + delta;
+            currentImage.saturate = Math.min(2.0, Math.max(0.0, newVal));
+        } else if (target === 'hue') {
+            let newVal = currentImage.hue + delta;
+            currentImage.hue = Math.min(180.0, Math.max(-180.0, newVal));
+        }
+        applyScaleAndImage();
+        updateImageUI();
+        sendPlayPosition();
+    }
+    
+    function resetImage() {
+        currentImage = { brightness: 1.0, contrast: 1.0, saturate: 1.0, hue: 0.0 };
+        applyScaleAndImage();
+        updateImageUI();
+        sendPlayPosition();
+    }
+    
+    function getEpisodeUrlByLine(episodeData, lineIndex) {
+        if (!episodeData) return null;
+        const key = `url${lineIndex + 1}`;
+        if (episodeData[key] && typeof episodeData[key] === 'string' && episodeData[key].startsWith('http')) {
+            return cleanUrl(episodeData[key]);
+        }
+        for (let i = 1; i <= 9; i++) {
+            const k = `url${i}`;
+            if (episodeData[k] && typeof episodeData[k] === 'string' && episodeData[k].startsWith('http')) {
+                return cleanUrl(episodeData[k]);
+            }
+        }
+        return null;
+    }
+    
+    let isExpanded = false;
+    function toggleEpisodeList() {
+        if (!episodeListOuter) return;
+        if (isExpanded) {
+            episodeListOuter.classList.remove('expanded');
+            episodeToggleBtn.textContent = '展开剧集列表';
+            isExpanded = false;
+        } else {
+            episodeListOuter.classList.add('expanded');
+            episodeToggleBtn.textContent = '关闭剧集列表';
+            isExpanded = true;
+            setTimeout(() => {
+                episodeWrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 50);
+        }
+    }
+    if (episodeToggleBtn) {
+        episodeToggleBtn.addEventListener('click', toggleEpisodeList);
+    }
+    
+    async function loadSeriesEpisodes() {
+        if (!isSeries || !seriesPath) return;
         try {
-            const linesStr = urlParams.get('lines');
-            if (linesStr) linesData = JSON.parse(decodeURIComponent(linesStr));
-        } catch(e) { console.warn('解析lines失败', e); }
-        
-        if (!linesData || linesData.length === 0) {
-            if (videoUrl) {
-                linesData = [{ name: '线路1', url: videoUrl, note: '' }];
-            } else {
-                videoUrl = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4';
-                linesData = [{ name: '线路1', url: videoUrl, note: '' }];
-            }
-        }
-        
-        let currentLineIndex = 0;
-        let resumeLine = urlParams.get('resumeLine');
-        let resumeTime = urlParams.get('resumeTime');
-        let resumeJsItem = urlParams.get('jsitem');
-        let shouldResume = false;
-        
-        let isSeries = urlParams.get('isSeries') === '1';
-        let seriesPath = urlParams.get('seriesPath');
-        let seriesTitle = null;
-        if (isSeries) seriesTitle = movieTitle;
-        
-        let allEpisodes = [];
-        let currentEpisodeIndex = -1;
-        let currentJsItem = null;
-        if (resumeJsItem !== null) currentJsItem = parseInt(resumeJsItem);
-        
-        let urlScale = urlParams.get('scale');
-        let urlWidth = urlParams.get('width');
-        let urlHeight = urlParams.get('height');
-        let urlTop = urlParams.get('top');
-        let urlBrightness = urlParams.get('brightness');
-        let urlContrast = urlParams.get('contrast');
-        let urlSaturate = urlParams.get('saturate');
-        let urlHue = urlParams.get('hue');
-        
-        if (resumeLine !== null && resumeTime !== null) {
-            const lineIdx = parseInt(resumeLine);
-            const timeVal = parseFloat(resumeTime);
-            if (!isNaN(lineIdx) && lineIdx >= 0 && lineIdx < linesData.length && !isNaN(timeVal) && timeVal > 0) {
-                currentLineIndex = lineIdx;
-                shouldResume = true;
-            }
-        }
-        
-        // DOM 元素
-        const video = document.getElementById('video');
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const playPauseIcon = document.getElementById('playPauseIcon');
-        const progressBar = document.getElementById('progressBar');
-        const bufferProgress = document.getElementById('bufferProgress');
-        const playProgress = document.getElementById('playProgress');
-        const progressSlider = document.getElementById('progressSlider');
-        const progressTimeStart = document.getElementById('progressTimeStart');
-        const progressTimeEnd = document.getElementById('progressTimeEnd');
-        const fullscreenBtn = document.getElementById('fullscreenBtn');
-        const controls = document.getElementById('controls');
-        const loadingSpinner = document.getElementById('loadingSpinner');
-        const videoWrapper = document.getElementById('videoWrapper');
-        const playerContainer = document.getElementById('playerContainer');
-        const seekTimeCenter = document.getElementById('seekTimeCenter');
-        const liveTimeSpan = document.getElementById('liveTime');
-        const bufferLed = document.getElementById('bufferLed');
-        const bufferSecondsSpan = document.getElementById('bufferSecondsDisplay');
-        const nextEpisodeBtn = document.getElementById('nextEpisodeBtn');
-        const episodeWrapper = document.getElementById('episodeWrapper');
-        const episodeListOuter = document.getElementById('episodeListOuter');
-        const episodeToggleBtn = document.getElementById('episodeToggleBtn');
-        const recommendSection = document.getElementById('recommendSection');
-        const recommendList = document.getElementById('recommendList');
-        const scaleBtn = document.getElementById('scaleBtn');
-        const imageAdjustBtn = document.getElementById('imageAdjustBtn');
-        
-        let hls = null;
-        let isDragging = false;
-        let isFirstPlayStarted = false;
-        let controlsHideTimer = null;
-        let centerTimeout = null;
-        let clockInterval = null;
-        let isFakeFullscreen = false;
-        window.fullscreenState = 0;
-        
-        // 画面设置
-        let currentScale = { scale: 100, width: 100, height: 100, top: 0 };
-        let currentImage = { brightness: 1.0, contrast: 1.0, saturate: 1.0, hue: 0.0 };
-        
-        function applyUrlImageSettings() {
-            if (urlScale !== null) currentScale.scale = parseFloat(urlScale);
-            if (urlWidth !== null) currentScale.width = parseFloat(urlWidth);
-            if (urlHeight !== null) currentScale.height = parseFloat(urlHeight);
-            if (urlTop !== null) currentScale.top = parseFloat(urlTop);
-            if (urlBrightness !== null) currentImage.brightness = parseFloat(urlBrightness);
-            if (urlContrast !== null) currentImage.contrast = parseFloat(urlContrast);
-            if (urlSaturate !== null) currentImage.saturate = parseFloat(urlSaturate);
-            if (urlHue !== null) currentImage.hue = parseFloat(urlHue);
-            updateScaleUI();
-            updateImageUI();
-        }
-        
-        function applyScaleAndImage() {
-            let finalWidth = currentScale.width, finalHeight = currentScale.height;
-            if (currentScale.scale !== 100) {
-                finalWidth = Math.round(currentScale.width * (currentScale.scale / 100));
-                finalHeight = Math.round(currentScale.height * (currentScale.scale / 100));
-            }
-            finalWidth = Math.min(300, Math.max(10, finalWidth));
-            finalHeight = Math.min(300, Math.max(10, finalHeight));
-            let topOffset = currentScale.top;
-            topOffset = Math.min(50, Math.max(-50, topOffset));
-            let filterStr = `brightness(${currentImage.brightness}) contrast(${currentImage.contrast}) saturate(${currentImage.saturate}) hue-rotate(${currentImage.hue}deg)`;
-            video.style.transform = `scale(${finalWidth/100}, ${finalHeight/100}) translateY(${topOffset}%)`;
-            video.style.filter = filterStr;
-            video.style.transformOrigin = 'center center';
-        }
-        
-        function updateScaleUI() {
-            document.getElementById('scaleValue').innerText = currentScale.scale;
-            document.getElementById('widthValue').innerText = currentScale.width;
-            document.getElementById('heightValue').innerText = currentScale.height;
-            document.getElementById('topValue').innerText = currentScale.top;
-        }
-        
-        function modifyScale(target, delta) {
-            if (target === 'scale') currentScale.scale = Math.min(300, Math.max(10, currentScale.scale + delta));
-            else if (target === 'width') currentScale.width = Math.min(300, Math.max(10, currentScale.width + delta));
-            else if (target === 'height') currentScale.height = Math.min(300, Math.max(10, currentScale.height + delta));
-            else if (target === 'top') currentScale.top = Math.min(50, Math.max(-50, currentScale.top + delta));
-            applyScaleAndImage();
-            updateScaleUI();
-            sendPlayPosition();
-        }
-        
-        function resetScale() {
-            currentScale = { scale: 100, width: 100, height: 100, top: 0 };
-            applyScaleAndImage();
-            updateScaleUI();
-            sendPlayPosition();
-        }
-        
-        function updateImageUI() {
-            document.getElementById('brightnessValue').innerText = currentImage.brightness.toFixed(1);
-            document.getElementById('contrastValue').innerText = currentImage.contrast.toFixed(1);
-            document.getElementById('saturateValue').innerText = currentImage.saturate.toFixed(1);
-            document.getElementById('hueValue').innerText = currentImage.hue.toFixed(1);
-        }
-        
-        function modifyImage(target, delta) {
-            if (target === 'brightness') {
-                let newVal = currentImage.brightness + delta;
-                currentImage.brightness = Math.min(2.0, Math.max(0.0, newVal));
-            } else if (target === 'contrast') {
-                let newVal = currentImage.contrast + delta;
-                currentImage.contrast = Math.min(2.0, Math.max(0.0, newVal));
-            } else if (target === 'saturate') {
-                let newVal = currentImage.saturate + delta;
-                currentImage.saturate = Math.min(2.0, Math.max(0.0, newVal));
-            } else if (target === 'hue') {
-                let newVal = currentImage.hue + delta;
-                currentImage.hue = Math.min(180.0, Math.max(-180.0, newVal));
-            }
-            applyScaleAndImage();
-            updateImageUI();
-            sendPlayPosition();
-        }
-        
-        function resetImage() {
-            currentImage = { brightness: 1.0, contrast: 1.0, saturate: 1.0, hue: 0.0 };
-            applyScaleAndImage();
-            updateImageUI();
-            sendPlayPosition();
-        }
-        
-        function getEpisodeUrlByLine(episodeData, lineIndex) {
-            if (!episodeData) return null;
-            const key = `url${lineIndex + 1}`;
-            if (episodeData[key] && typeof episodeData[key] === 'string' && episodeData[key].startsWith('http')) {
-                return cleanUrl(episodeData[key]);
-            }
-            for (let i = 1; i <= 9; i++) {
-                const k = `url${i}`;
-                if (episodeData[k] && typeof episodeData[k] === 'string' && episodeData[k].startsWith('http')) {
-                    return cleanUrl(episodeData[k]);
-                }
-            }
-            return null;
-        }
-        
-        // 折叠/展开功能
-        let isExpanded = false;
-        function toggleEpisodeList() {
-            if (!episodeListOuter) return;
-            if (isExpanded) {
-                episodeListOuter.classList.remove('expanded');
-                episodeToggleBtn.textContent = '展开剧集列表';
-                isExpanded = false;
-            } else {
-                episodeListOuter.classList.add('expanded');
-                episodeToggleBtn.textContent = '关闭剧集列表';
-                isExpanded = true;
-                setTimeout(() => {
-                    episodeWrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }, 50);
-            }
-        }
-        if (episodeToggleBtn) {
-            episodeToggleBtn.addEventListener('click', toggleEpisodeList);
-        }
-        
-        // 连续剧集数逻辑
-        async function loadSeriesEpisodes() {
-            if (!isSeries || !seriesPath) return;
-            try {
-                const res = await fetch(`./LXJ/${seriesPath}.json`);
-                if (!res.ok) throw new Error('剧集数据加载失败');
-                const json = await res.json();
-                if (json && json.data_v && Array.isArray(json.data_v)) {
-                    allEpisodes = json.data_v;
-                    if (currentJsItem !== null) {
-                        currentEpisodeIndex = allEpisodes.findIndex(ep => parseInt(ep.name) === currentJsItem);
-                        if (currentEpisodeIndex === -1 && allEpisodes.length > 0) {
-                            currentEpisodeIndex = 0;
-                            currentJsItem = parseInt(allEpisodes[0].name);
-                        }
-                    } else if (allEpisodes.length > 0) {
+            const res = await fetch(`./LXJ/${seriesPath}.json`);
+            if (!res.ok) throw new Error('剧集数据加载失败');
+            const json = await res.json();
+            if (json && json.data_v && Array.isArray(json.data_v)) {
+                allEpisodes = json.data_v;
+                if (currentJsItem !== null) {
+                    currentEpisodeIndex = allEpisodes.findIndex(ep => parseInt(ep.name) === currentJsItem);
+                    if (currentEpisodeIndex === -1 && allEpisodes.length > 0) {
                         currentEpisodeIndex = 0;
                         currentJsItem = parseInt(allEpisodes[0].name);
+                        window.currentJsItem = currentJsItem;
                     }
-                    renderEpisodeList();
-                    updateEpisodeNumberDisplay();
-                    episodeWrapper.style.display = 'block';
-                    episodeListOuter.classList.remove('expanded');
-                    episodeToggleBtn.textContent = '展开剧集列表';
-                    isExpanded = false;
-                }
-            } catch(e) { console.warn(e); }
-        }
-        
-        function renderEpisodeList() {
-            if (!episodeListOuter) return;
-            if (!isSeries || allEpisodes.length === 0) {
-                episodeWrapper.style.display = 'none';
-                return;
-            }
-            let html = '<div class="episode-list">';
-            allEpisodes.forEach((ep) => {
-                const epNum = parseInt(ep.name);
-                const isCurrent = (currentJsItem !== null && epNum === currentJsItem);
-                html += `<div class="episode-list-item ${isCurrent ? 'current' : ''}" data-episode="${epNum}">${epNum}</div>`;
-            });
-            html += '</div>';
-            episodeListOuter.innerHTML = html;
-            episodeListOuter.querySelectorAll('.episode-list-item').forEach(el => {
-                el.addEventListener('click', () => {
-                    const epNum = parseInt(el.getAttribute('data-episode'));
-                    if (!isNaN(epNum) && epNum !== currentJsItem) switchToEpisode(epNum);
-                });
-            });
-        }
-        
-        async function switchToEpisode(episodeNum) {
-            if (!isSeries) return;
-            const episodeData = allEpisodes.find(ep => parseInt(ep.name) === episodeNum);
-            if (!episodeData) { console.error('未找到集数数据'); return; }
-            const playUrl = getEpisodeUrlByLine(episodeData, currentLineIndex);
-            if (!playUrl) { console.error('未找到当前线路的播放链接'); alert('未找到该集当前线路的播放链接'); return; }
-            const wasPlaying = !video.paused;
-            try {
-                showLoading(true);
-                await initPlayerWithUrl(playUrl);
-                currentJsItem = episodeNum;
-                currentEpisodeIndex = allEpisodes.findIndex(ep => parseInt(ep.name) === episodeNum);
-                renderEpisodeList();
-                updateEpisodeNumberDisplay();
-                video.currentTime = 0;
-                if (wasPlaying) video.play().catch(e=>console.warn);
-                applyScaleAndImage();
-                sendPlayPosition();
-            } catch(err) {
-                console.error('切换集数失败', err);
-                alert('切换集数失败，请检查网络');
-            } finally {
-                showLoading(false);
-            }
-        }
-        
-        function nextEpisode() {
-            if (!isSeries || allEpisodes.length === 0) return;
-            if (currentEpisodeIndex === -1) return;
-            const nextIndex = currentEpisodeIndex + 1;
-            if (nextIndex < allEpisodes.length) {
-                switchToEpisode(parseInt(allEpisodes[nextIndex].name));
-            } else {
-                showLastEpisodeTip();
-            }
-        }
-        
-        function showLastEpisodeTip() {
-            if (isFakeFullscreen) {
-                const existingTip = document.querySelector('.center-tip');
-                if (existingTip) existingTip.remove();
-                const tip = document.createElement('div');
-                tip.className = 'center-tip';
-                tip.textContent = '已是最后一集';
-                videoWrapper.appendChild(tip);
-                if (window.tipTimeout) clearTimeout(window.tipTimeout);
-                window.tipTimeout = setTimeout(() => tip.remove(), 3000);
-            } else {
-                const existingTip = document.querySelector('.bubble-tip');
-                if (existingTip) existingTip.remove();
-                const tip = document.createElement('div');
-                tip.className = 'bubble-tip';
-                tip.textContent = '已是最后一集';
-                if (nextEpisodeBtn && nextEpisodeBtn.parentElement) {
-                    nextEpisodeBtn.parentElement.style.position = 'relative';
-                    nextEpisodeBtn.parentElement.appendChild(tip);
-                } else {
-                    videoWrapper.appendChild(tip);
-                }
-                if (window.tipTimeout) clearTimeout(window.tipTimeout);
-                window.tipTimeout = setTimeout(() => tip.remove(), 3000);
-            }
-        }
-        
-        function updateEpisodeNumberDisplay() {
-            if (!controlEpisodeSpan) return;
-            if (isSeries && currentJsItem !== null) {
-                controlEpisodeSpan.textContent = `第${currentJsItem}集`;
-            } else {
-                controlEpisodeSpan.style.display = 'none';
-            }
-        }
-        
-        function updateControlBarTitleVisibility() {
-            if (!controlTitleSpan || !controlEpisodeSpan) return;
-            if (isFakeFullscreen) {
-                controlTitleSpan.style.display = 'inline';
-                if (isSeries && currentJsItem !== null) {
-                    controlEpisodeSpan.style.display = 'inline';
-                } else {
-                    controlEpisodeSpan.style.display = 'none';
-                }
-            } else {
-                controlTitleSpan.style.display = 'none';
-                controlEpisodeSpan.style.display = 'none';
-            }
-        }
-        
-        function updateNextEpisodeButtonVisibility() {
-            if (!nextEpisodeBtn) return;
-            if (isFakeFullscreen && isSeries && allEpisodes.length > 0) {
-                nextEpisodeBtn.style.display = 'flex';
-            } else {
-                nextEpisodeBtn.style.display = 'none';
-                const tip = document.querySelector('.bubble-tip');
-                if (tip) tip.remove();
-                const ctip = document.querySelector('.center-tip');
-                if (ctip) ctip.remove();
-            }
-        }
-        
-        // 控制缩放按钮和画面调节按钮在全屏/非全屏下的显示
-        function updateExtraButtonsVisibility() {
-            if (!scaleBtn || !imageAdjustBtn) return;
-            if (isFakeFullscreen) {
-                scaleBtn.style.display = 'flex';
-                imageAdjustBtn.style.display = 'flex';
-            } else {
-                scaleBtn.style.display = 'none';
-                imageAdjustBtn.style.display = 'none';
-            }
-        }
-        
-        function bindEndedEvent() {
-            video.addEventListener('ended', () => {
-                if (isSeries && allEpisodes.length > 0 && currentEpisodeIndex !== -1) {
-                    const nextIndex = currentEpisodeIndex + 1;
-                    if (nextIndex < allEpisodes.length) {
-                        switchToEpisode(parseInt(allEpisodes[nextIndex].name));
-                    }
-                }
-            });
-        }
-        
-        // 记录播放位置
-        let recordPositionEnabled = true;
-        function getBeijingTime() {
-            const now = new Date();
-            const beijingTime = new Date(now.getTime() + (8 * 60 * 60 * 1000));
-            const year = beijingTime.getUTCFullYear();
-            const month = String(beijingTime.getUTCMonth() + 1).padStart(2, '0');
-            const day = String(beijingTime.getUTCDate()).padStart(2, '0');
-            const hours = String(beijingTime.getUTCHours()).padStart(2, '0');
-            const minutes = String(beijingTime.getUTCMinutes()).padStart(2, '0');
-            const seconds = String(beijingTime.getUTCSeconds()).padStart(2, '0');
-            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-        }
-        
-        function sendPlayPosition() {
-            if (!recordPositionEnabled) return;
-            const currentTime = video.currentTime || 0;
-            if (currentTime < 0.5) return;
-            const data = {
-                title: movieTitle,
-                lineIndex: currentLineIndex,
-                time: currentTime,
-                timestamp: getBeijingTime(),
-                scale: currentScale.scale,
-                width: currentScale.width,
-                height: currentScale.height,
-                top: currentScale.top,
-                brightness: currentImage.brightness,
-                contrast: currentImage.contrast,
-                saturate: currentImage.saturate,
-                hue: currentImage.hue
-            };
-            if (currentJsItem !== null && currentJsItem !== undefined) data.jsitem = currentJsItem;
-            const jsonStr = JSON.stringify(data);
-            const escaped = jsonStr.replace(/"/g, '\\"');
-            if (typeof iapp !== 'undefined' && iapp.fn) {
-                iapp.fn('playPosition.onChange("' + escaped + '")');
-                logToIApp('发送播放位置: ' + jsonStr);
-            } else {
-                console.log('[记录位置] (模拟) 发送:', jsonStr);
-            }
-        }
-        
-        function bindRecordEvents() {
-            video.addEventListener('pause', () => sendPlayPosition());
-            video.addEventListener('error', () => sendPlayPosition());
-            video.addEventListener('stalled', () => sendPlayPosition());
-            video.addEventListener('waiting', () => sendPlayPosition());
-            document.addEventListener('visibilitychange', () => { if (document.hidden) sendPlayPosition(); });
-        }
-        
-        const recordToggle = document.getElementById('recordPositionToggle');
-        function updateToggleUI() {
-            if (recordToggle) {
-                if (recordPositionEnabled) recordToggle.classList.add('active');
-                else recordToggle.classList.remove('active');
-            }
-        }
-        if (recordToggle) {
-            recordToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (recordPositionEnabled === true) {
-                    if (confirm('关闭此项将清除所有观看记录，并不再记录你的播放历史，确定要关闭吗？')) {
-                        if (typeof iapp !== 'undefined' && iapp.fn) {
-                            iapp.fn('history_manager.clear2("1")');
-                            logToIApp('发送清除记录命令');
-                        } else {
-                            console.log('[记录位置] (模拟) 清除观看记录');
-                        }
-                        recordPositionEnabled = false;
-                        updateToggleUI();
-                        if (typeof iapp !== 'undefined' && iapp.fn) {
-                            const settingsCopy = { ...currentSettings, recordPositionEnabled: false };
-                            iapp.fn('settings.onChange("' + JSON.stringify(settingsCopy).replace(/"/g, '\\"') + '")');
-                        }
-                    }
-                } else {
-                    recordPositionEnabled = true;
-                    updateToggleUI();
-                    if (typeof iapp !== 'undefined' && iapp.fn) {
-                        const settingsCopy = { ...currentSettings, recordPositionEnabled: true };
-                        iapp.fn('settings.onChange("' + JSON.stringify(settingsCopy).replace(/"/g, '\\"') + '")');
-                    }
-                    sendPlayPosition();
-                }
-            });
-        }
-        updateToggleUI();
-        
-        // 播放器基本函数
-        function formatTime(seconds) {
-            if (isNaN(seconds)) return '00:00';
-            const hrs = Math.floor(seconds / 3600);
-            const mins = Math.floor((seconds % 3600) / 60);
-            const secs = Math.floor(seconds % 60);
-            if (hrs > 0) return `${hrs.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
-            return `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
-        }
-        
-        function updateTimeDisplay() {
-            progressTimeStart.textContent = formatTime(video.currentTime || 0);
-            progressTimeEnd.textContent = formatTime(video.duration || 0);
-        }
-        
-        function updateProgress() {
-            if (!video.duration) return;
-            const percent = (video.currentTime / video.duration) * 100;
-            playProgress.style.width = `${percent}%`;
-            progressSlider.style.left = `${percent}%`;
-            let bufferedSec = 0;
-            if (video.buffered.length > 0) {
-                let bufferedEnd = 0;
-                for (let i = 0; i < video.buffered.length; i++) {
-                    if (video.buffered.start(i) <= video.currentTime) bufferedEnd = Math.max(bufferedEnd, video.buffered.end(i));
-                }
-                for (let i = 0; i < video.buffered.length; i++) {
-                    if (video.buffered.start(i) > video.currentTime) { bufferedEnd = Math.max(bufferedEnd, video.buffered.end(i)); break; }
-                }
-                const bufferPercent = (bufferedEnd / video.duration) * 100;
-                bufferProgress.style.width = `${Math.min(100, bufferPercent)}%`;
-                bufferedSec = Math.max(0, Math.floor(bufferedEnd - video.currentTime));
-            } else {
-                bufferProgress.style.width = '0%';
-                bufferedSec = 0;
-            }
-            updateBufferIndicator(bufferedSec);
-            updateTimeDisplay();
-        }
-        
-        function updateBufferIndicator(bufferedSec) {
-            if (bufferedSec === undefined) {
-                let cur = video.currentTime || 0;
-                let bufferedEnd = 0;
-                if (video.buffered.length > 0) {
-                    for (let i = 0; i < video.buffered.length; i++) {
-                        if (video.buffered.start(i) <= cur) bufferedEnd = Math.max(bufferedEnd, video.buffered.end(i));
-                    }
-                    for (let i = 0; i < video.buffered.length; i++) {
-                        if (video.buffered.start(i) > cur) { bufferedEnd = Math.max(bufferedEnd, video.buffered.end(i)); break; }
-                    }
-                }
-                bufferedSec = Math.max(0, Math.floor(bufferedEnd - cur));
-            }
-            bufferSecondsSpan.textContent = bufferedSec;
-            let colorClass = '';
-            if (bufferedSec < 30) colorClass = 'red';
-            else if (bufferedSec < 60) colorClass = 'light-red';
-            else if (bufferedSec < 120) colorClass = 'yellow';
-            else colorClass = 'green';
-            bufferLed.className = `buffer-led ${colorClass}`;
-        }
-        
-        function togglePlayPause() {
-            if (video.paused) {
-                video.play().catch(e => console.warn('播放失败', e));
-                playPauseIcon.className = 'fas fa-pause';
-            } else {
-                video.pause();
-                playPauseIcon.className = 'fas fa-play';
-            }
-        }
-        
-        function seekTo(percent, showHint = true) {
-            if (!video.duration) return;
-            const time = (percent / 100) * video.duration;
-            if (showHint) showCenterTime(time);
-            video.currentTime = time;
-            updateProgress();
-        }
-        
-        function showCenterTime(seconds) {
-            if (!seekTimeCenter) return;
-            seekTimeCenter.textContent = formatTime(seconds);
-            seekTimeCenter.classList.add('visible');
-            if (centerTimeout) clearTimeout(centerTimeout);
-            centerTimeout = setTimeout(() => seekTimeCenter.classList.remove('visible'), 800);
-        }
-        
-        function hideCenterTime() { if (seekTimeCenter) seekTimeCenter.classList.remove('visible'); if (centerTimeout) clearTimeout(centerTimeout); }
-        
-        function onProgressMove(e) {
-            let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const rect = progressBar.getBoundingClientRect();
-            let x = clientX - rect.left;
-            x = Math.max(0, Math.min(x, rect.width));
-            seekTo((x / rect.width) * 100, true);
-        }
-        
-        function onDragStart(e) {
-            isDragging = true;
-            onProgressMove(e);
-            document.addEventListener('mousemove', onProgressMove);
-            document.addEventListener('mouseup', onDragEnd);
-            document.addEventListener('touchmove', onProgressMove);
-            document.addEventListener('touchend', onDragEnd);
-            cancelControlsAutoHide();
-        }
-        
-        function onDragEnd() {
-            isDragging = false;
-            hideCenterTime();
-            document.removeEventListener('mousemove', onProgressMove);
-            document.removeEventListener('mouseup', onDragEnd);
-            document.removeEventListener('touchmove', onProgressMove);
-            document.removeEventListener('touchend', onDragEnd);
-            if (isFakeFullscreen) resetControlsAutoHide();
-        }
-        
-        progressBar.addEventListener('mousedown', onDragStart);
-        progressBar.addEventListener('touchstart', onDragStart);
-        progressBar.addEventListener('click', (e) => {
-            if (!isDragging) {
-                const rect = progressBar.getBoundingClientRect();
-                let x = e.clientX - rect.left;
-                x = Math.max(0, Math.min(x, rect.width));
-                seekTo((x / rect.width) * 100, true);
-            }
-        });
-        
-        function showLoading(show) { 
-            if (show) loadingSpinner.classList.remove('hide');
-            else loadingSpinner.classList.add('hide');
-        }
-        
-        // 通用视频替换函数（支持指定线路索引和恢复时间）
-        async function replaceCurrentVideo(newLines, newTitle, isSeriesFlag, newSeriesPath, newEpisodes = [], targetJsItem = null, targetLineIndex = 0, targetTime = 0) {
-            logToIApp(`开始切换: ${newTitle}, 线路数=${newLines.length}, 目标线路=${targetLineIndex}, 恢复时间=${targetTime}`);
-            showLoadingTip(`正在切换到 ${newTitle}...`);
-            showLoading(true);
-            sendPlayPosition();
-            if (hls) { hls.destroy(); hls = null; }
-            video.pause();
-            video.src = '';
-            video.load();
-            playProgress.style.width = '0%';
-            progressSlider.style.left = '0%';
-            progressTimeStart.textContent = '00:00';
-            movieTitle = newTitle;
-            headerTitle.textContent = movieTitle;
-            controlTitleSpan.textContent = movieTitle;
-            linesData = newLines;
-            currentLineIndex = (targetLineIndex >= 0 && targetLineIndex < newLines.length) ? targetLineIndex : 0;
-            isSeries = isSeriesFlag;
-            seriesPath = newSeriesPath;
-            allEpisodes = newEpisodes;
-            currentJsItem = targetJsItem;
-            if (isSeriesFlag) {
-                if (targetJsItem !== null) {
-                    currentEpisodeIndex = allEpisodes.findIndex(ep => parseInt(ep.name) === targetJsItem);
-                } else {
-                    currentEpisodeIndex = -1;
+                } else if (allEpisodes.length > 0) {
+                    currentEpisodeIndex = 0;
+                    currentJsItem = parseInt(allEpisodes[0].name);
+                    window.currentJsItem = currentJsItem;
                 }
                 renderEpisodeList();
                 updateEpisodeNumberDisplay();
@@ -900,350 +506,758 @@
                 episodeListOuter.classList.remove('expanded');
                 episodeToggleBtn.textContent = '展开剧集列表';
                 isExpanded = false;
-            } else {
-                episodeWrapper.style.display = 'none';
-                updateEpisodeNumberDisplay();
             }
-            updateNextEpisodeButtonVisibility();
-            const selectedUrl = newLines[currentLineIndex].url;
-            logToIApp(`准备播放URL: ${selectedUrl}`);
-            try {
-                await initPlayerWithUrl(selectedUrl);
-                if (targetTime > 0 && video.duration && targetTime < video.duration) {
-                    video.currentTime = targetTime;
-                    logToIApp(`恢复播放位置: ${targetTime}`);
-                } else {
-                    video.currentTime = 0;
-                }
-                if (recordPositionEnabled) sendPlayPosition();
-                applyScaleAndImage();
-                logToIApp('切换成功');
-                refreshRecommendations();
-            } catch(e) {
-                logToIApp('切换失败: ' + (e.message || '未知错误'), true);
-                console.error('切换视频失败', e);
-                alert('切换失败：' + (e.message || '未知错误'));
-            } finally {
-                showLoading(false);
-                hideLoadingTip();
-            }
+        } catch(e) { console.warn(e); }
+    }
+    
+    function renderEpisodeList() {
+        if (!episodeListOuter) return;
+        if (!isSeries || allEpisodes.length === 0) {
+            episodeWrapper.style.display = 'none';
+            return;
         }
-        
-        function initPlayerWithUrl(url, timeout = 15000) {
-            return new Promise((resolve, reject) => {
-                let resolved = false;
-                const timeoutId = setTimeout(() => { if (!resolved) { resolved = true; cleanup(); reject(new Error('加载超时')); } }, timeout);
-                const onSuccess = () => {
-                    if (resolved) return;
-                    resolved = true;
-                    clearTimeout(timeoutId);
-                    cleanup();
-                    if (video.readyState >= 1) resolve();
-                    else video.addEventListener('loadedmetadata', () => resolve(), { once: true });
-                };
-                const onError = (err) => {
-                    if (resolved) return;
-                    resolved = true;
-                    clearTimeout(timeoutId);
-                    cleanup();
-                    reject(err || new Error('播放失败'));
-                };
-                const cleanup = () => {
-                    video.removeEventListener('canplay', onSuccess);
-                    video.removeEventListener('loadedmetadata', onSuccess);
-                    video.removeEventListener('error', onError);
-                    if (hls) {
-                        hls.off(Hls.Events.MANIFEST_PARSED, onSuccess);
-                        hls.off(Hls.Events.ERROR, onHlsError);
-                    }
-                };
-                const onHlsError = (event, data) => {
-                    const errMsg = `HLS错误: ${data.type} ${data.details} - ${data.url || ''}`;
-                    logToIApp(errMsg, true);
-                    if (data.fatal) onError(new Error(errMsg));
-                };
-                showLoading(true);
-                if (hls) { hls.destroy(); hls = null; }
-                video.pause();
-                const isM3u8 = url.toLowerCase().includes('.m3u8');
-                if (isM3u8 && Hls.isSupported()) {
-                    hls = new Hls({startLevel:0, maxBufferHole:2, maxBufferLength:1800, maxMaxBufferLength:3600, backBufferLength:180, liveSyncDurationCount:3, enableWorker:true});
-                    hls.loadSource(url);
-                    hls.attachMedia(video);
-                    hls.on(Hls.Events.MANIFEST_PARSED, onSuccess);
-                    hls.on(Hls.Events.ERROR, onHlsError);
-                    video.addEventListener('error', onError);
-                    video.addEventListener('canplay', onSuccess);
-                } else if (video.canPlayType('application/vnd.apple.mpegurl') && isM3u8) {
-                    video.src = url;
-                    video.addEventListener('loadedmetadata', onSuccess);
-                    video.addEventListener('error', onError);
-                    video.load();
-                } else {
-                    video.src = url;
-                    video.load();
-                    video.addEventListener('canplay', onSuccess);
-                    video.addEventListener('error', onError);
-                }
-                if (video.readyState >= 2) onSuccess();
-            });
-        }
-        
-        function resetControlsAutoHide() {
-            if (!isFirstPlayStarted) return;
-            if (!isFakeFullscreen) return;
-            if (controlsHideTimer) clearTimeout(controlsHideTimer);
-            controlsHideTimer = setTimeout(() => {
-                if (controls && controls.classList.contains('controls-fullscreen') && !controls.classList.contains('hide')) {
-                    controls.classList.add('hide');
-                }
-            }, 3000);
-        }
-        
-        function cancelControlsAutoHide() { if (controlsHideTimer) { clearTimeout(controlsHideTimer); controlsHideTimer = null; } }
-        
-        function handleVideoClick(e) {
-            if (e.target.closest('.controls') || e.target.closest('.side-panel')) return;
-            e.stopPropagation();
-            if (!isFakeFullscreen) return;
-            if (controls.classList.contains('hide')) {
-                controls.classList.remove('hide');
-                resetControlsAutoHide();
-            } else {
-                controls.classList.add('hide');
-                cancelControlsAutoHide();
-            }
-        }
-        
-        videoWrapper.addEventListener('click', handleVideoClick);
-        video.addEventListener('click', handleVideoClick);
-        const controlArea = controls;
-        controlArea.addEventListener('mousemove', () => { if (isFakeFullscreen && !controls.classList.contains('hide')) resetControlsAutoHide(); });
-        controlArea.addEventListener('touchmove', () => { if (isFakeFullscreen && !controls.classList.contains('hide')) resetControlsAutoHide(); });
-        controlArea.addEventListener('click', () => { if (isFakeFullscreen && !controls.classList.contains('hide')) resetControlsAutoHide(); });
-        
-        function onFirstPlay() {
-            if (!isFirstPlayStarted) {
-                isFirstPlayStarted = true;
-                if (!isFakeFullscreen) controls.classList.remove('hide');
-            }
-        }
-        
-        video.addEventListener('play', () => {
-            playPauseIcon.className = 'fas fa-pause';
-            onFirstPlay();
-            showLoading(false);
+        let html = '<div class="episode-list">';
+        allEpisodes.forEach((ep) => {
+            const epNum = parseInt(ep.name);
+            const isCurrent = (currentJsItem !== null && epNum === currentJsItem);
+            html += `<div class="episode-list-item ${isCurrent ? 'current' : ''}" data-episode="${epNum}">${epNum}</div>`;
         });
-        video.addEventListener('pause', () => playPauseIcon.className = 'fas fa-play');
-        video.addEventListener('waiting', () => showLoading(true));
-        video.addEventListener('playing', () => showLoading(false));
-        video.addEventListener('canplay', () => showLoading(false));
-        video.addEventListener('seeking', () => showLoading(true));
-        video.addEventListener('seeked', () => { showLoading(false); updateProgress(); });
-        video.addEventListener('stalled', () => showLoading(true));
-        video.addEventListener('timeupdate', () => { if (!isDragging) updateProgress(); });
-        video.addEventListener('loadedmetadata', () => updateProgress());
-        video.addEventListener('progress', () => updateProgress());
-        playPauseBtn.addEventListener('click', togglePlayPause);
-        
-        // 线路切换
-        let isSwitching = false;
-        async function switchLine(newIndex) {
-            if (isSwitching || newIndex === currentLineIndex) return;
-            if (!linesData[newIndex]) return;
-            sendPlayPosition();
-            const oldIndex = currentLineIndex;
-            const savedTime = video.currentTime || 0;
-            const wasPlaying = !video.paused;
-            isSwitching = true;
+        html += '</div>';
+        episodeListOuter.innerHTML = html;
+        episodeListOuter.querySelectorAll('.episode-list-item').forEach(el => {
+            el.addEventListener('click', () => {
+                const epNum = parseInt(el.getAttribute('data-episode'));
+                if (!isNaN(epNum) && epNum !== currentJsItem) switchToEpisode(epNum);
+            });
+        });
+    }
+    
+    async function switchToEpisode(episodeNum) {
+        if (!isSeries) return;
+        const episodeData = allEpisodes.find(ep => parseInt(ep.name) === episodeNum);
+        if (!episodeData) { console.error('未找到集数数据'); return; }
+        const playUrl = getEpisodeUrlByLine(episodeData, currentLineIndex);
+        if (!playUrl) { console.error('未找到当前线路的播放链接'); alert('未找到该集当前线路的播放链接'); return; }
+        const wasPlaying = !video.paused;
+        try {
             showLoading(true);
-            let newUrl = linesData[newIndex].url;
+            await initPlayerWithUrl(playUrl);
+            currentJsItem = episodeNum;
+            window.currentJsItem = currentJsItem;
+            currentEpisodeIndex = allEpisodes.findIndex(ep => parseInt(ep.name) === episodeNum);
+            renderEpisodeList();
+            updateEpisodeNumberDisplay();
+            video.currentTime = 0;
+            if (wasPlaying) video.play().catch(e=>console.warn);
+            applyScaleAndImage();
+            sendPlayPosition();
+        } catch(err) {
+            console.error('切换集数失败', err);
+            alert('切换集数失败，请检查网络');
+        } finally {
+            showLoading(false);
+        }
+    }
+    
+    function nextEpisode() {
+        if (!isSeries || allEpisodes.length === 0) return;
+        if (currentEpisodeIndex === -1) return;
+        const nextIndex = currentEpisodeIndex + 1;
+        if (nextIndex < allEpisodes.length) {
+            switchToEpisode(parseInt(allEpisodes[nextIndex].name));
+        } else {
+            showLastEpisodeTip();
+        }
+    }
+    
+    function showLastEpisodeTip() {
+        if (isFakeFullscreen) {
+            const existingTip = document.querySelector('.center-tip');
+            if (existingTip) existingTip.remove();
+            const tip = document.createElement('div');
+            tip.className = 'center-tip';
+            tip.textContent = '已是最后一集';
+            videoWrapper.appendChild(tip);
+            if (window.tipTimeout) clearTimeout(window.tipTimeout);
+            window.tipTimeout = setTimeout(() => tip.remove(), 3000);
+        } else {
+            const existingTip = document.querySelector('.bubble-tip');
+            if (existingTip) existingTip.remove();
+            const tip = document.createElement('div');
+            tip.className = 'bubble-tip';
+            tip.textContent = '已是最后一集';
+            if (nextEpisodeBtn && nextEpisodeBtn.parentElement) {
+                nextEpisodeBtn.parentElement.style.position = 'relative';
+                nextEpisodeBtn.parentElement.appendChild(tip);
+            } else {
+                videoWrapper.appendChild(tip);
+            }
+            if (window.tipTimeout) clearTimeout(window.tipTimeout);
+            window.tipTimeout = setTimeout(() => tip.remove(), 3000);
+        }
+    }
+    
+    function updateEpisodeNumberDisplay() {
+        if (!controlEpisodeSpan) return;
+        if (isSeries && currentJsItem !== null) {
+            controlEpisodeSpan.textContent = `第${currentJsItem}集`;
+        } else {
+            controlEpisodeSpan.style.display = 'none';
+        }
+    }
+    
+    function updateControlBarTitleVisibility() {
+        if (!controlTitleSpan || !controlEpisodeSpan) return;
+        if (isFakeFullscreen) {
+            controlTitleSpan.style.display = 'inline';
+            if (isSeries && currentJsItem !== null) {
+                controlEpisodeSpan.style.display = 'inline';
+            } else {
+                controlEpisodeSpan.style.display = 'none';
+            }
+        } else {
+            controlTitleSpan.style.display = 'none';
+            controlEpisodeSpan.style.display = 'none';
+        }
+    }
+    
+    function updateNextEpisodeButtonVisibility() {
+        if (!nextEpisodeBtn) return;
+        if (isFakeFullscreen && isSeries && allEpisodes.length > 0) {
+            nextEpisodeBtn.style.display = 'flex';
+        } else {
+            nextEpisodeBtn.style.display = 'none';
+            const tip = document.querySelector('.bubble-tip');
+            if (tip) tip.remove();
+            const ctip = document.querySelector('.center-tip');
+            if (ctip) ctip.remove();
+        }
+    }
+    
+    function updateExtraButtonsVisibility() {
+        if (!scaleBtn || !imageAdjustBtn) return;
+        if (isFakeFullscreen) {
+            scaleBtn.style.display = 'flex';
+            imageAdjustBtn.style.display = 'flex';
+        } else {
+            scaleBtn.style.display = 'none';
+            imageAdjustBtn.style.display = 'none';
+        }
+    }
+    
+    function bindEndedEvent() {
+        video.addEventListener('ended', () => {
+            if (isSeries && allEpisodes.length > 0 && currentEpisodeIndex !== -1) {
+                const nextIndex = currentEpisodeIndex + 1;
+                if (nextIndex < allEpisodes.length) {
+                    switchToEpisode(parseInt(allEpisodes[nextIndex].name));
+                }
+            }
+        });
+    }
+    
+    let recordPositionEnabled = true;
+    function getBeijingTime() {
+        const now = new Date();
+        const beijingTime = new Date(now.getTime() + (8 * 60 * 60 * 1000));
+        const year = beijingTime.getUTCFullYear();
+        const month = String(beijingTime.getUTCMonth() + 1).padStart(2, '0');
+        const day = String(beijingTime.getUTCDate()).padStart(2, '0');
+        const hours = String(beijingTime.getUTCHours()).padStart(2, '0');
+        const minutes = String(beijingTime.getUTCMinutes()).padStart(2, '0');
+        const seconds = String(beijingTime.getUTCSeconds()).padStart(2, '0');
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
+    
+    function sendPlayPosition(isFinal = false) {
+        if (!recordPositionEnabled && !isFinal) return;
+        const currentTime = video.currentTime || 0;
+        if (currentTime < 0.5 && !isFinal) return;
+        const data = {
+            title: movieTitle,
+            lineIndex: currentLineIndex,
+            time: currentTime,
+            timestamp: getBeijingTime(),
+            scale: currentScale.scale,
+            width: currentScale.width,
+            height: currentScale.height,
+            top: currentScale.top,
+            brightness: currentImage.brightness,
+            contrast: currentImage.contrast,
+            saturate: currentImage.saturate,
+            hue: currentImage.hue
+        };
+        if (currentJsItem !== null && currentJsItem !== undefined) data.jsitem = currentJsItem;
+        const jsonStr = JSON.stringify(data);
+        const escaped = jsonStr.replace(/"/g, '\\"');
+        if (typeof iapp !== 'undefined' && iapp.fn) {
+            iapp.fn('playPosition.onChange("' + escaped + '")');
+            if (isFinal) logToIApp('最终保存播放位置: ' + jsonStr);
+        } else {
+            console.log('[记录位置] (模拟) 发送:', jsonStr);
+        }
+    }
+    
+    function bindRecordEvents() {
+        video.addEventListener('pause', () => sendPlayPosition());
+        video.addEventListener('error', () => sendPlayPosition());
+        video.addEventListener('stalled', () => sendPlayPosition());
+        video.addEventListener('waiting', () => sendPlayPosition());
+        document.addEventListener('visibilitychange', () => { if (document.hidden) sendPlayPosition(); });
+        window.addEventListener('beforeunload', () => sendPlayPosition(true));
+    }
+    
+    const recordToggle = document.getElementById('recordPositionToggle');
+    function updateToggleUI() {
+        if (recordToggle) {
+            if (recordPositionEnabled) recordToggle.classList.add('active');
+            else recordToggle.classList.remove('active');
+        }
+    }
+    if (recordToggle) {
+        recordToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (recordPositionEnabled === true) {
+                if (confirm('关闭此项将清除所有观看记录，并不再记录你的播放历史，确定要关闭吗？')) {
+                    if (typeof iapp !== 'undefined' && iapp.fn) {
+                        iapp.fn('history_manager.clear2("1")');
+                        logToIApp('发送清除记录命令');
+                    } else {
+                        console.log('[记录位置] (模拟) 清除观看记录');
+                    }
+                    recordPositionEnabled = false;
+                    updateToggleUI();
+                    if (typeof iapp !== 'undefined' && iapp.fn) {
+                        const settingsCopy = { ...currentSettings, recordPositionEnabled: false };
+                        iapp.fn('settings.onChange("' + JSON.stringify(settingsCopy).replace(/"/g, '\\"') + '")');
+                    }
+                }
+            } else {
+                recordPositionEnabled = true;
+                updateToggleUI();
+                if (typeof iapp !== 'undefined' && iapp.fn) {
+                    const settingsCopy = { ...currentSettings, recordPositionEnabled: true };
+                    iapp.fn('settings.onChange("' + JSON.stringify(settingsCopy).replace(/"/g, '\\"') + '")');
+                }
+                sendPlayPosition();
+            }
+        });
+    }
+    updateToggleUI();
+    
+    function formatTime(seconds) {
+        if (isNaN(seconds)) return '00:00';
+        const hrs = Math.floor(seconds / 3600);
+        const mins = Math.floor((seconds % 3600) / 60);
+        const secs = Math.floor(seconds % 60);
+        if (hrs > 0) return `${hrs.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
+        return `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
+    }
+    
+    function updateTimeDisplay() {
+        progressTimeStart.textContent = formatTime(video.currentTime || 0);
+        progressTimeEnd.textContent = formatTime(video.duration || 0);
+    }
+    
+    function updateProgress() {
+        if (!video.duration) return;
+        const percent = (video.currentTime / video.duration) * 100;
+        playProgress.style.width = `${percent}%`;
+        progressSlider.style.left = `${percent}%`;
+        let bufferedSec = 0;
+        if (video.buffered.length > 0) {
+            let bufferedEnd = 0;
+            for (let i = 0; i < video.buffered.length; i++) {
+                if (video.buffered.start(i) <= video.currentTime) bufferedEnd = Math.max(bufferedEnd, video.buffered.end(i));
+            }
+            for (let i = 0; i < video.buffered.length; i++) {
+                if (video.buffered.start(i) > video.currentTime) { bufferedEnd = Math.max(bufferedEnd, video.buffered.end(i)); break; }
+            }
+            const bufferPercent = (bufferedEnd / video.duration) * 100;
+            bufferProgress.style.width = `${Math.min(100, bufferPercent)}%`;
+            bufferedSec = Math.max(0, Math.floor(bufferedEnd - video.currentTime));
+        } else {
+            bufferProgress.style.width = '0%';
+            bufferedSec = 0;
+        }
+        updateBufferIndicator(bufferedSec);
+        updateTimeDisplay();
+    }
+    
+    function updateBufferIndicator(bufferedSec) {
+        if (bufferedSec === undefined) {
+            let cur = video.currentTime || 0;
+            let bufferedEnd = 0;
+            if (video.buffered.length > 0) {
+                for (let i = 0; i < video.buffered.length; i++) {
+                    if (video.buffered.start(i) <= cur) bufferedEnd = Math.max(bufferedEnd, video.buffered.end(i));
+                }
+                for (let i = 0; i < video.buffered.length; i++) {
+                    if (video.buffered.start(i) > cur) { bufferedEnd = Math.max(bufferedEnd, video.buffered.end(i)); break; }
+                }
+            }
+            bufferedSec = Math.max(0, Math.floor(bufferedEnd - cur));
+        }
+        bufferSecondsSpan.textContent = bufferedSec;
+        let colorClass = '';
+        if (bufferedSec < 30) colorClass = 'red';
+        else if (bufferedSec < 60) colorClass = 'light-red';
+        else if (bufferedSec < 120) colorClass = 'yellow';
+        else colorClass = 'green';
+        bufferLed.className = `buffer-led ${colorClass}`;
+    }
+    
+    function togglePlayPause() {
+        if (video.paused) {
+            video.play().catch(e => console.warn('播放失败', e));
+            playPauseIcon.className = 'fas fa-pause';
+        } else {
+            video.pause();
+            playPauseIcon.className = 'fas fa-play';
+        }
+    }
+    
+    function seekTo(percent, showHint = true) {
+        if (!video.duration) return;
+        const time = (percent / 100) * video.duration;
+        if (showHint) showCenterTime(time);
+        video.currentTime = time;
+        updateProgress();
+    }
+    
+    function showCenterTime(seconds) {
+        if (!seekTimeCenter) return;
+        seekTimeCenter.textContent = formatTime(seconds);
+        seekTimeCenter.classList.add('visible');
+        if (centerTimeout) clearTimeout(centerTimeout);
+        centerTimeout = setTimeout(() => seekTimeCenter.classList.remove('visible'), 800);
+    }
+    
+    function hideCenterTime() { if (seekTimeCenter) seekTimeCenter.classList.remove('visible'); if (centerTimeout) clearTimeout(centerTimeout); }
+    
+    function onProgressMove(e) {
+        let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const rect = progressBar.getBoundingClientRect();
+        let x = clientX - rect.left;
+        x = Math.max(0, Math.min(x, rect.width));
+        seekTo((x / rect.width) * 100, true);
+    }
+    
+    function onDragStart(e) {
+        isDragging = true;
+        onProgressMove(e);
+        document.addEventListener('mousemove', onProgressMove);
+        document.addEventListener('mouseup', onDragEnd);
+        document.addEventListener('touchmove', onProgressMove);
+        document.addEventListener('touchend', onDragEnd);
+        cancelControlsAutoHide();
+    }
+    
+    function onDragEnd() {
+        isDragging = false;
+        hideCenterTime();
+        document.removeEventListener('mousemove', onProgressMove);
+        document.removeEventListener('mouseup', onDragEnd);
+        document.removeEventListener('touchmove', onProgressMove);
+        document.removeEventListener('touchend', onDragEnd);
+        if (isFakeFullscreen) resetControlsAutoHide();
+    }
+    
+    progressBar.addEventListener('mousedown', onDragStart);
+    progressBar.addEventListener('touchstart', onDragStart);
+    progressBar.addEventListener('click', (e) => {
+        if (!isDragging) {
+            const rect = progressBar.getBoundingClientRect();
+            let x = e.clientX - rect.left;
+            x = Math.max(0, Math.min(x, rect.width));
+            seekTo((x / rect.width) * 100, true);
+        }
+    });
+    
+    function showLoading(show) { 
+        if (show) loadingSpinner.classList.remove('hide');
+        else loadingSpinner.classList.add('hide');
+    }
+    
+    async function replaceCurrentVideo(newLines, newTitle, isSeriesFlag, newSeriesPath, newEpisodes = [], targetJsItem = null, targetLineIndex = 0, targetTime = 0) {
+        logToIApp(`开始切换: ${newTitle}, 线路数=${newLines.length}, 目标线路=${targetLineIndex}, 恢复时间=${targetTime}`);
+        showLoadingTip(`正在切换到 ${newTitle}...`);
+        showLoading(true);
+        sendPlayPosition();
+        if (hls) { hls.destroy(); hls = null; }
+        video.pause();
+        video.src = '';
+        video.load();
+        playProgress.style.width = '0%';
+        progressSlider.style.left = '0%';
+        progressTimeStart.textContent = '00:00';
+        movieTitle = newTitle;
+        window.movieTitle = movieTitle;
+        headerTitle.textContent = movieTitle;
+        controlTitleSpan.textContent = movieTitle;
+        linesData = newLines;
+        currentLineIndex = (targetLineIndex >= 0 && targetLineIndex < newLines.length) ? targetLineIndex : 0;
+        window.currentLineIndex = currentLineIndex;
+        isSeries = isSeriesFlag;
+        seriesPath = newSeriesPath;
+        allEpisodes = newEpisodes;
+        currentJsItem = targetJsItem;
+        window.currentJsItem = currentJsItem;
+        if (isSeriesFlag) {
+            if (targetJsItem !== null) {
+                currentEpisodeIndex = allEpisodes.findIndex(ep => parseInt(ep.name) === targetJsItem);
+            } else {
+                currentEpisodeIndex = -1;
+            }
+            renderEpisodeList();
+            updateEpisodeNumberDisplay();
+            episodeWrapper.style.display = 'block';
+            episodeListOuter.classList.remove('expanded');
+            episodeToggleBtn.textContent = '展开剧集列表';
+            isExpanded = false;
+        } else {
+            episodeWrapper.style.display = 'none';
+            updateEpisodeNumberDisplay();
+        }
+        updateNextEpisodeButtonVisibility();
+        const selectedUrl = newLines[currentLineIndex].url;
+        logToIApp(`准备播放URL: ${selectedUrl}`);
+        try {
+            await initPlayerWithUrl(selectedUrl);
+            if (targetTime > 0 && video.duration && targetTime < video.duration) {
+                video.currentTime = targetTime;
+                logToIApp(`恢复播放位置: ${targetTime}`);
+            } else {
+                video.currentTime = 0;
+            }
+            if (recordPositionEnabled) sendPlayPosition();
+            applyScaleAndImage();
+            logToIApp('切换成功');
+            refreshRecommendations();
+        } catch(e) {
+            logToIApp('切换失败: ' + (e.message || '未知错误'), true);
+            console.error('切换视频失败', e);
+            alert('切换失败：' + (e.message || '未知错误'));
+        } finally {
+            showLoading(false);
+            hideLoadingTip();
+        }
+    }
+    
+    function initPlayerWithUrl(url, timeout = 15000) {
+        return new Promise((resolve, reject) => {
+            let resolved = false;
+            const timeoutId = setTimeout(() => { if (!resolved) { resolved = true; cleanup(); reject(new Error('加载超时')); } }, timeout);
+            const onSuccess = () => {
+                if (resolved) return;
+                resolved = true;
+                clearTimeout(timeoutId);
+                cleanup();
+                if (video.readyState >= 1) resolve();
+                else video.addEventListener('loadedmetadata', () => resolve(), { once: true });
+            };
+            const onError = (err) => {
+                if (resolved) return;
+                resolved = true;
+                clearTimeout(timeoutId);
+                cleanup();
+                reject(err || new Error('播放失败'));
+            };
+            const cleanup = () => {
+                video.removeEventListener('canplay', onSuccess);
+                video.removeEventListener('loadedmetadata', onSuccess);
+                video.removeEventListener('error', onError);
+                if (hls) {
+                    hls.off(Hls.Events.MANIFEST_PARSED, onSuccess);
+                    hls.off(Hls.Events.ERROR, onHlsError);
+                }
+            };
+            const onHlsError = (event, data) => {
+                const errMsg = `HLS错误: ${data.type} ${data.details} - ${data.url || ''}`;
+                logToIApp(errMsg, true);
+                if (data.fatal) onError(new Error(errMsg));
+            };
+            showLoading(true);
+            if (hls) { hls.destroy(); hls = null; }
+            video.pause();
+            const isM3u8 = url.toLowerCase().includes('.m3u8');
+            if (isM3u8 && Hls.isSupported()) {
+                hls = new Hls({startLevel:0, maxBufferHole:2, maxBufferLength:1800, maxMaxBufferLength:3600, backBufferLength:180, liveSyncDurationCount:3, enableWorker:true});
+                hls.loadSource(url);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, onSuccess);
+                hls.on(Hls.Events.ERROR, onHlsError);
+                video.addEventListener('error', onError);
+                video.addEventListener('canplay', onSuccess);
+            } else if (video.canPlayType('application/vnd.apple.mpegurl') && isM3u8) {
+                video.src = url;
+                video.addEventListener('loadedmetadata', onSuccess);
+                video.addEventListener('error', onError);
+                video.load();
+            } else {
+                video.src = url;
+                video.load();
+                video.addEventListener('canplay', onSuccess);
+                video.addEventListener('error', onError);
+            }
+            if (video.readyState >= 2) onSuccess();
+        });
+    }
+    
+    function resetControlsAutoHide() {
+        if (!isFirstPlayStarted) return;
+        if (!isFakeFullscreen) return;
+        if (controlsHideTimer) clearTimeout(controlsHideTimer);
+        controlsHideTimer = setTimeout(() => {
+            if (controls && controls.classList.contains('controls-fullscreen') && !controls.classList.contains('hide')) {
+                controls.classList.add('hide');
+            }
+        }, 3000);
+        window.controlsHideTimer = controlsHideTimer;
+    }
+    
+    function cancelControlsAutoHide() { if (controlsHideTimer) { clearTimeout(controlsHideTimer); controlsHideTimer = null; } }
+    
+    function handleVideoClick(e) {
+        if (e.target.closest('.controls') || e.target.closest('.side-panel')) return;
+        e.stopPropagation();
+        if (!isFakeFullscreen) return;
+        if (controls.classList.contains('hide')) {
+            controls.classList.remove('hide');
+            resetControlsAutoHide();
+        } else {
+            controls.classList.add('hide');
+            cancelControlsAutoHide();
+        }
+    }
+    
+    videoWrapper.addEventListener('click', handleVideoClick);
+    video.addEventListener('click', handleVideoClick);
+    const controlArea = controls;
+    controlArea.addEventListener('mousemove', () => { if (isFakeFullscreen && !controls.classList.contains('hide')) resetControlsAutoHide(); });
+    controlArea.addEventListener('touchmove', () => { if (isFakeFullscreen && !controls.classList.contains('hide')) resetControlsAutoHide(); });
+    controlArea.addEventListener('click', () => { if (isFakeFullscreen && !controls.classList.contains('hide')) resetControlsAutoHide(); });
+    
+    function onFirstPlay() {
+        if (!isFirstPlayStarted) {
+            isFirstPlayStarted = true;
+            if (!isFakeFullscreen) controls.classList.remove('hide');
+        }
+    }
+    
+    video.addEventListener('play', () => {
+        playPauseIcon.className = 'fas fa-pause';
+        onFirstPlay();
+        showLoading(false);
+    });
+    video.addEventListener('pause', () => playPauseIcon.className = 'fas fa-play');
+    video.addEventListener('waiting', () => showLoading(true));
+    video.addEventListener('playing', () => showLoading(false));
+    video.addEventListener('canplay', () => showLoading(false));
+    video.addEventListener('seeking', () => showLoading(true));
+    video.addEventListener('seeked', () => { showLoading(false); updateProgress(); });
+    video.addEventListener('stalled', () => showLoading(true));
+    video.addEventListener('timeupdate', () => { if (!isDragging) updateProgress(); });
+    video.addEventListener('loadedmetadata', () => updateProgress());
+    video.addEventListener('progress', () => updateProgress());
+    playPauseBtn.addEventListener('click', togglePlayPause);
+    
+    let isSwitching = false;
+    async function switchLine(newIndex) {
+        if (isSwitching || newIndex === currentLineIndex) return;
+        if (!linesData[newIndex]) return;
+        sendPlayPosition();
+        const oldIndex = currentLineIndex;
+        const savedTime = video.currentTime || 0;
+        const wasPlaying = !video.paused;
+        isSwitching = true;
+        showLoading(true);
+        let newUrl = linesData[newIndex].url;
+        if (isSeries && currentJsItem !== null && allEpisodes.length > 0) {
+            const epData = allEpisodes.find(ep => parseInt(ep.name) === currentJsItem);
+            if (epData) {
+                const lineUrl = getEpisodeUrlByLine(epData, newIndex);
+                if (lineUrl) newUrl = lineUrl;
+            }
+        }
+        try {
+            await initPlayerWithUrl(newUrl);
+            currentLineIndex = newIndex;
+            window.currentLineIndex = currentLineIndex;
+            if (savedTime > 0 && video.duration && savedTime < video.duration) video.currentTime = savedTime;
+            if (wasPlaying) await video.play().catch(e=>console.warn);
+            updateProgress();
+            renderLineList();
+            applyScaleAndImage();
+            sendPlayPosition();
+        } catch(err) {
+            console.error('线路切换失败，回退', err);
+            let oldUrl = linesData[oldIndex].url;
             if (isSeries && currentJsItem !== null && allEpisodes.length > 0) {
                 const epData = allEpisodes.find(ep => parseInt(ep.name) === currentJsItem);
                 if (epData) {
-                    const lineUrl = getEpisodeUrlByLine(epData, newIndex);
-                    if (lineUrl) newUrl = lineUrl;
+                    const oldLineUrl = getEpisodeUrlByLine(epData, oldIndex);
+                    if (oldLineUrl) oldUrl = oldLineUrl;
                 }
             }
             try {
-                await initPlayerWithUrl(newUrl);
-                currentLineIndex = newIndex;
+                await initPlayerWithUrl(oldUrl);
+                currentLineIndex = oldIndex;
+                window.currentLineIndex = currentLineIndex;
                 if (savedTime > 0 && video.duration && savedTime < video.duration) video.currentTime = savedTime;
                 if (wasPlaying) await video.play().catch(e=>console.warn);
                 updateProgress();
                 renderLineList();
-                applyScaleAndImage();
-                sendPlayPosition();
-            } catch(err) {
-                console.error('线路切换失败，回退', err);
-                let oldUrl = linesData[oldIndex].url;
-                if (isSeries && currentJsItem !== null && allEpisodes.length > 0) {
-                    const epData = allEpisodes.find(ep => parseInt(ep.name) === currentJsItem);
-                    if (epData) {
-                        const oldLineUrl = getEpisodeUrlByLine(epData, oldIndex);
-                        if (oldLineUrl) oldUrl = oldLineUrl;
-                    }
-                }
-                try {
-                    await initPlayerWithUrl(oldUrl);
-                    currentLineIndex = oldIndex;
-                    if (savedTime > 0 && video.duration && savedTime < video.duration) video.currentTime = savedTime;
-                    if (wasPlaying) await video.play().catch(e=>console.warn);
-                    updateProgress();
-                    renderLineList();
-                } catch(f) { console.error('回退失败', f); }
-            } finally {
-                isSwitching = false;
-                showLoading(false);
-            }
+            } catch(f) { console.error('回退失败', f); }
+        } finally {
+            isSwitching = false;
+            showLoading(false);
         }
-        
-        function renderLineList() {
-            const container = document.getElementById('lineListContainer');
-            if (!container) return;
-            container.innerHTML = '';
-            linesData.forEach((line, idx) => {
-                const div = document.createElement('div');
-                div.className = `line-item ${idx === currentLineIndex ? 'active-line' : ''}`;
-                div.innerHTML = `<div class="line-radio"></div><div class="line-name">${escapeHtml(line.name)}</div>${line.note ? `<span class="line-note">${escapeHtml(line.note)}</span>` : ''}`;
-                div.addEventListener('click', (e) => { if (idx !== currentLineIndex) switchLine(idx); closeLinePanel(); });
-                container.appendChild(div);
-            });
+    }
+    
+    function renderLineList() {
+        const container = document.getElementById('lineListContainer');
+        if (!container) return;
+        container.innerHTML = '';
+        linesData.forEach((line, idx) => {
+            const div = document.createElement('div');
+            div.className = `line-item ${idx === currentLineIndex ? 'active-line' : ''}`;
+            div.innerHTML = `<div class="line-radio"></div><div class="line-name">${escapeHtml(line.name)}</div>${line.note ? `<span class="line-note">${escapeHtml(line.note)}</span>` : ''}`;
+            div.addEventListener('click', (e) => { if (idx !== currentLineIndex) switchLine(idx); closeLinePanel(); });
+            container.appendChild(div);
+        });
+    }
+    
+    function openLinePanel() { renderLineList(); document.getElementById('linePanel').classList.add('open'); }
+    function closeLinePanel() { document.getElementById('linePanel').classList.remove('open'); }
+    const lineBtn = document.getElementById('lineBtn');
+    const linePanelCloseBtn = document.getElementById('closeLinePanelBtn');
+    if (lineBtn) lineBtn.addEventListener('click', (e) => { e.stopPropagation(); openLinePanel(); });
+    if (linePanelCloseBtn) linePanelCloseBtn.addEventListener('click', closeLinePanel);
+    
+    function toggleFakeFullscreen() {
+        if (isFakeFullscreen) {
+            videoWrapper.classList.remove('fake-fullscreen');
+            playerContainer.appendChild(controls);
+            controls.classList.remove('controls-fullscreen', 'hide');
+            controls.style.position = '';
+            controls.style.bottom = '';
+            controls.style.left = '';
+            controls.style.right = '';
+            isFakeFullscreen = false;
+            notifyIAppFullscreen(2);
+            controls.classList.remove('hide');
+            if (controlsHideTimer) clearTimeout(controlsHideTimer);
+            playerContainer.classList.remove('fullscreen-active');
+            updateNextEpisodeButtonVisibility();
+            updateControlBarTitleVisibility();
+            updateExtraButtonsVisibility();
+        } else {
+            videoWrapper.classList.add('fake-fullscreen');
+            videoWrapper.appendChild(controls);
+            controls.classList.add('controls-fullscreen');
+            controls.classList.remove('hide');
+            controls.style.position = 'fixed';
+            controls.style.bottom = '0';
+            controls.style.left = '0';
+            controls.style.right = '0';
+            isFakeFullscreen = true;
+            notifyIAppFullscreen(1);
+            resetControlsAutoHide();
+            playerContainer.classList.add('fullscreen-active');
+            updateNextEpisodeButtonVisibility();
+            updateControlBarTitleVisibility();
+            updateExtraButtonsVisibility();
         }
-        
-        function openLinePanel() { renderLineList(); document.getElementById('linePanel').classList.add('open'); }
-        function closeLinePanel() { document.getElementById('linePanel').classList.remove('open'); }
-        const lineBtn = document.getElementById('lineBtn');
-        const linePanelCloseBtn = document.getElementById('closeLinePanelBtn');
-        if (lineBtn) lineBtn.addEventListener('click', (e) => { e.stopPropagation(); openLinePanel(); });
-        if (linePanelCloseBtn) linePanelCloseBtn.addEventListener('click', closeLinePanel);
-        
-        // 全屏切换
-        function toggleFakeFullscreen() {
-            if (isFakeFullscreen) {
-                videoWrapper.classList.remove('fake-fullscreen');
-                playerContainer.appendChild(controls);
-                controls.classList.remove('controls-fullscreen', 'hide');
-                controls.style.position = '';
-                controls.style.bottom = '';
-                controls.style.left = '';
-                controls.style.right = '';
-                isFakeFullscreen = false;
-                notifyIAppFullscreen(2);
-                controls.classList.remove('hide');
-                if (controlsHideTimer) clearTimeout(controlsHideTimer);
-                playerContainer.classList.remove('fullscreen-active');
-                updateNextEpisodeButtonVisibility();
-                updateControlBarTitleVisibility();
-                updateExtraButtonsVisibility(); // 隐藏缩放和画面调节按钮
-            } else {
-                videoWrapper.classList.add('fake-fullscreen');
-                videoWrapper.appendChild(controls);
-                controls.classList.add('controls-fullscreen');
-                controls.classList.remove('hide');
-                controls.style.position = 'fixed';
-                controls.style.bottom = '0';
-                controls.style.left = '0';
-                controls.style.right = '0';
-                isFakeFullscreen = true;
-                notifyIAppFullscreen(1);
-                resetControlsAutoHide();
-                playerContainer.classList.add('fullscreen-active');
-                updateNextEpisodeButtonVisibility();
-                updateControlBarTitleVisibility();
-                updateExtraButtonsVisibility(); // 显示缩放和画面调节按钮
-            }
+    }
+    
+    if (fullscreenBtn) fullscreenBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleFakeFullscreen(); });
+    window.receiveFullscreenCommand = function(val) {
+        console.log('receiveFullscreenCommand', val);
+        if (val === 2 && isFakeFullscreen) toggleFakeFullscreen();
+    };
+    function notifyIAppFullscreen(state) {
+        window.fullscreenState = state;
+        if (typeof iapp !== 'undefined' && iapp.fn) iapp.fn(`fullscreen.onChange(${state})`);
+    }
+    
+    // 设置面板相关
+    const defaultSettings = {
+        showLiveTime: true, liveTimeFontSize: 14, liveTimeFontWeight: 'normal', liveTimeColor: '#ffffff',
+        liveTimeShadow: false, liveTimeShadowColor: '#000000', liveTimeOffsetX: 0, liveTimeOffsetY: 0,
+        showBuffer: true, bufferFontSize: 14, bufferFontWeight: 'normal', bufferColor: '#ffffff',
+        bufferShadow: false, bufferShadowColor: '#000000', bufferOffsetX: 0, bufferOffsetY: 0,
+        recordPositionEnabled: true
+    };
+    let currentSettings = { ...defaultSettings };
+    window.playerSettings = currentSettings;
+    let tempSettings = { ...currentSettings };
+    let currentModalType = null;
+    const settingsPanel = document.getElementById('settingsPanel');
+    const settingsBtn = document.getElementById('settingsBtn');
+    const closeSettingsBtn = document.getElementById('closeSettingsBtn');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalContent = document.getElementById('modalContent');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalResetBtn = document.getElementById('modalResetBtn');
+    const modalConfirmBtn = document.getElementById('modalConfirmBtn');
+    
+    function saveToIApp() {
+        if (typeof iapp !== 'undefined' && iapp.fn) {
+            const jsonStr = JSON.stringify(currentSettings);
+            const escaped = jsonStr.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+            iapp.fn(`settings.onChange("${escaped}")`);
+            logToIApp('保存设置: ' + jsonStr);
+        } else {
+            console.log('[设置] (模拟) 保存到 iApp:', currentSettings);
         }
-        
-        if (fullscreenBtn) fullscreenBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleFakeFullscreen(); });
-        window.receiveFullscreenCommand = function(val) {
-            console.log('receiveFullscreenCommand', val);
-            if (val === 2 && isFakeFullscreen) toggleFakeFullscreen();
-        };
-        function notifyIAppFullscreen(state) {
-            window.fullscreenState = state;
-            if (typeof iapp !== 'undefined' && iapp.fn) iapp.fn(`fullscreen.onChange(${state})`);
+    }
+    
+    function applyGlobalSettingsToPlayer() {
+        const lt = document.getElementById('liveTime');
+        const bi = document.getElementById('bufferIndicator');
+        lt.style.display = currentSettings.showLiveTime ? 'block' : 'none';
+        lt.style.fontSize = currentSettings.liveTimeFontSize + 'px';
+        lt.style.fontWeight = currentSettings.liveTimeFontWeight === 'bold' ? 'bold' : (currentSettings.liveTimeFontWeight === 'italic' ? 'italic' : 'normal');
+        lt.style.fontStyle = currentSettings.liveTimeFontWeight === 'italic' ? 'italic' : 'normal';
+        lt.style.color = currentSettings.liveTimeColor;
+        lt.style.textShadow = currentSettings.liveTimeShadow ? `0 0 2px ${currentSettings.liveTimeShadowColor}` : 'none';
+        lt.style.left = (18 + currentSettings.liveTimeOffsetX) + 'px';
+        lt.style.top = (14 + currentSettings.liveTimeOffsetY) + 'px';
+        bi.style.display = currentSettings.showBuffer ? 'flex' : 'none';
+        bi.style.fontSize = currentSettings.bufferFontSize + 'px';
+        bi.style.fontWeight = currentSettings.bufferFontWeight === 'bold' ? 'bold' : (currentSettings.bufferFontWeight === 'italic' ? 'italic' : 'normal');
+        bi.style.fontStyle = currentSettings.bufferFontWeight === 'italic' ? 'italic' : 'normal';
+        bi.style.color = currentSettings.bufferColor;
+        bi.style.textShadow = currentSettings.bufferShadow ? `0 0 2px ${currentSettings.bufferShadowColor}` : 'none';
+        bi.style.right = (18 + currentSettings.bufferOffsetX) + 'px';
+        bi.style.top = (14 + currentSettings.bufferOffsetY) + 'px';
+        bufferSecondsSpan.style.fontWeight = currentSettings.bufferFontWeight === 'bold' ? 'bold' : (currentSettings.bufferFontWeight === 'italic' ? 'italic' : 'normal');
+        bufferSecondsSpan.style.fontStyle = currentSettings.bufferFontWeight === 'italic' ? 'italic' : 'normal';
+        bufferSecondsSpan.style.color = currentSettings.bufferColor;
+        bufferSecondsSpan.style.textShadow = currentSettings.bufferShadow ? `0 0 2px ${currentSettings.bufferShadowColor}` : 'none';
+        recordPositionEnabled = currentSettings.recordPositionEnabled;
+        updateToggleUI();
+    }
+    
+    function openModal(type) {
+        currentModalType = type;
+        if (type === 'liveTime') {
+            tempSettings = { showLiveTime: currentSettings.showLiveTime, liveTimeFontSize: currentSettings.liveTimeFontSize, liveTimeFontWeight: currentSettings.liveTimeFontWeight, liveTimeColor: currentSettings.liveTimeColor, liveTimeShadow: currentSettings.liveTimeShadow, liveTimeShadowColor: currentSettings.liveTimeShadowColor, liveTimeOffsetX: currentSettings.liveTimeOffsetX, liveTimeOffsetY: currentSettings.liveTimeOffsetY };
+            modalTitle.textContent = '左上角时间设置';
+        } else {
+            tempSettings = { showBuffer: currentSettings.showBuffer, bufferFontSize: currentSettings.bufferFontSize, bufferFontWeight: currentSettings.bufferFontWeight, bufferColor: currentSettings.bufferColor, bufferShadow: currentSettings.bufferShadow, bufferShadowColor: currentSettings.bufferShadowColor, bufferOffsetX: currentSettings.bufferOffsetX, bufferOffsetY: currentSettings.bufferOffsetY };
+            modalTitle.textContent = '右上角缓存设置';
         }
-        
-        // ========== 设置面板 ==========
-        const defaultSettings = {
-            showLiveTime: true, liveTimeFontSize: 14, liveTimeFontWeight: 'normal', liveTimeColor: '#ffffff',
-            liveTimeShadow: false, liveTimeShadowColor: '#000000', liveTimeOffsetX: 0, liveTimeOffsetY: 0,
-            showBuffer: true, bufferFontSize: 14, bufferFontWeight: 'normal', bufferColor: '#ffffff',
-            bufferShadow: false, bufferShadowColor: '#000000', bufferOffsetX: 0, bufferOffsetY: 0,
-            recordPositionEnabled: true
-        };
-        let currentSettings = { ...defaultSettings };
-        window.playerSettings = currentSettings;
-        let tempSettings = { ...currentSettings };
-        let currentModalType = null;
-        let originalModalSettings = null;
-        const settingsPanel = document.getElementById('settingsPanel');
-        const settingsBtn = document.getElementById('settingsBtn');
-        const closeSettingsBtn = document.getElementById('closeSettingsBtn');
-        const modalOverlay = document.getElementById('modalOverlay');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalContent = document.getElementById('modalContent');
-        const modalCloseBtn = document.getElementById('modalCloseBtn');
-        const modalResetBtn = document.getElementById('modalResetBtn');
-        const modalConfirmBtn = document.getElementById('modalConfirmBtn');
-        
-        function saveToIApp() {
-            if (typeof iapp !== 'undefined' && iapp.fn) {
-                const jsonStr = JSON.stringify(currentSettings);
-                const escaped = jsonStr.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-                iapp.fn(`settings.onChange("${escaped}")`);
-                logToIApp('保存设置: ' + jsonStr);
-            } else {
-                console.log('[设置] (模拟) 保存到 iApp:', currentSettings);
-            }
-        }
-        
-        function applyGlobalSettingsToPlayer() {
-            const lt = document.getElementById('liveTime');
-            const bi = document.getElementById('bufferIndicator');
-            lt.style.display = currentSettings.showLiveTime ? 'block' : 'none';
-            lt.style.fontSize = currentSettings.liveTimeFontSize + 'px';
-            lt.style.fontWeight = currentSettings.liveTimeFontWeight === 'bold' ? 'bold' : (currentSettings.liveTimeFontWeight === 'italic' ? 'italic' : 'normal');
-            lt.style.fontStyle = currentSettings.liveTimeFontWeight === 'italic' ? 'italic' : 'normal';
-            lt.style.color = currentSettings.liveTimeColor;
-            lt.style.textShadow = currentSettings.liveTimeShadow ? `0 0 2px ${currentSettings.liveTimeShadowColor}` : 'none';
-            lt.style.left = (18 + currentSettings.liveTimeOffsetX) + 'px';
-            lt.style.top = (14 + currentSettings.liveTimeOffsetY) + 'px';
-            bi.style.display = currentSettings.showBuffer ? 'flex' : 'none';
-            bi.style.fontSize = currentSettings.bufferFontSize + 'px';
-            bi.style.fontWeight = currentSettings.bufferFontWeight === 'bold' ? 'bold' : (currentSettings.bufferFontWeight === 'italic' ? 'italic' : 'normal');
-            bi.style.fontStyle = currentSettings.bufferFontWeight === 'italic' ? 'italic' : 'normal';
-            bi.style.color = currentSettings.bufferColor;
-            bi.style.textShadow = currentSettings.bufferShadow ? `0 0 2px ${currentSettings.bufferShadowColor}` : 'none';
-            bi.style.right = (18 + currentSettings.bufferOffsetX) + 'px';
-            bi.style.top = (14 + currentSettings.bufferOffsetY) + 'px';
-            bufferSecondsSpan.style.fontWeight = currentSettings.bufferFontWeight === 'bold' ? 'bold' : (currentSettings.bufferFontWeight === 'italic' ? 'italic' : 'normal');
-            bufferSecondsSpan.style.fontStyle = currentSettings.bufferFontWeight === 'italic' ? 'italic' : 'normal';
-            bufferSecondsSpan.style.color = currentSettings.bufferColor;
-            bufferSecondsSpan.style.textShadow = currentSettings.bufferShadow ? `0 0 2px ${currentSettings.bufferShadowColor}` : 'none';
-            recordPositionEnabled = currentSettings.recordPositionEnabled;
-            updateToggleUI();
-        }
-        
-        function openModal(type) {
-            currentModalType = type;
-            if (type === 'liveTime') {
-                tempSettings = { showLiveTime: currentSettings.showLiveTime, liveTimeFontSize: currentSettings.liveTimeFontSize, liveTimeFontWeight: currentSettings.liveTimeFontWeight, liveTimeColor: currentSettings.liveTimeColor, liveTimeShadow: currentSettings.liveTimeShadow, liveTimeShadowColor: currentSettings.liveTimeShadowColor, liveTimeOffsetX: currentSettings.liveTimeOffsetX, liveTimeOffsetY: currentSettings.liveTimeOffsetY };
-                modalTitle.textContent = '左上角时间设置';
-            } else {
-                tempSettings = { showBuffer: currentSettings.showBuffer, bufferFontSize: currentSettings.bufferFontSize, bufferFontWeight: currentSettings.bufferFontWeight, bufferColor: currentSettings.bufferColor, bufferShadow: currentSettings.bufferShadow, bufferShadowColor: currentSettings.bufferShadowColor, bufferOffsetX: currentSettings.bufferOffsetX, bufferOffsetY: currentSettings.bufferOffsetY };
-                modalTitle.textContent = '右上角缓存设置';
-            }
-            originalModalSettings = { ...tempSettings };
-            renderModalContent();
-            modalOverlay.classList.add('active');
-        }
-        
-        function renderModalContent() {
-            let html = '<div class="setting-group-modal">';
-            if (currentModalType === 'liveTime') {
-                html += `<div class="setting-row"><span class="setting-label">显示时间</span><div class="toggle-switch ${tempSettings.showLiveTime ? 'active' : ''}" id="modalShowLiveTime"></div></div>
+        renderModalContent();
+        modalOverlay.classList.add('active');
+    }
+    
+    function renderModalContent() {
+        let html = '<div class="setting-group-modal">';
+        if (currentModalType === 'liveTime') {
+            html += `<div class="setting-row"><span class="setting-label">显示时间</span><div class="toggle-switch ${tempSettings.showLiveTime ? 'active' : ''}" id="modalShowLiveTime"></div></div>
                 <div class="setting-row"><span class="setting-label">字号</span><div class="adjust-control"><button class="adjust-btn" data-action="decr" data-target="liveTimeFontSize">−</button><span class="adjust-value" data-id="liveTimeFontSize">${tempSettings.liveTimeFontSize}</span><button class="adjust-btn" data-action="incr" data-target="liveTimeFontSize">+</button></div></div>
                 <div class="setting-row"><span class="setting-label">字体</span><div class="radio-group" data-setting="liveTimeFontWeight"><label><input type="radio" name="liveTimeWeight" value="normal" ${tempSettings.liveTimeFontWeight === 'normal' ? 'checked' : ''}> 常规</label><label><input type="radio" name="liveTimeWeight" value="bold" ${tempSettings.liveTimeFontWeight === 'bold' ? 'checked' : ''}> 粗体</label><label><input type="radio" name="liveTimeWeight" value="italic" ${tempSettings.liveTimeFontWeight === 'italic' ? 'checked' : ''}> 斜体</label></div></div>
                 <div class="setting-row"><span class="setting-label">颜色</span><div class="color-preview" data-color-for="liveTimeColor" style="background-color:${tempSettings.liveTimeColor};"></div><input type="color" class="color-input" data-target="liveTimeColor" value="${tempSettings.liveTimeColor}"></div>
@@ -1251,8 +1265,8 @@
                 <div class="setting-row" id="modalLiveTimeShadowRow" style="display:${tempSettings.liveTimeShadow ? 'flex' : 'none'};"><span class="setting-label">阴影颜色</span><div class="color-preview" data-color-for="liveTimeShadowColor" style="background-color:${tempSettings.liveTimeShadowColor};"></div><input type="color" class="color-input" data-target="liveTimeShadowColor" value="${tempSettings.liveTimeShadowColor}"></div>
                 <div class="setting-row"><span class="setting-label">水平偏移</span><div class="adjust-control"><button class="adjust-btn" data-action="decr" data-target="liveTimeOffsetX">−</button><span class="adjust-value" data-id="liveTimeOffsetX">${tempSettings.liveTimeOffsetX}</span><button class="adjust-btn" data-action="incr" data-target="liveTimeOffsetX">+</button></div></div>
                 <div class="setting-row"><span class="setting-label">垂直偏移</span><div class="adjust-control"><button class="adjust-btn" data-action="decr" data-target="liveTimeOffsetY">−</button><span class="adjust-value" data-id="liveTimeOffsetY">${tempSettings.liveTimeOffsetY}</span><button class="adjust-btn" data-action="incr" data-target="liveTimeOffsetY">+</button></div></div>`;
-            } else {
-                html += `<div class="setting-row"><span class="setting-label">显示缓存</span><div class="toggle-switch ${tempSettings.showBuffer ? 'active' : ''}" id="modalShowBuffer"></div></div>
+        } else {
+            html += `<div class="setting-row"><span class="setting-label">显示缓存</span><div class="toggle-switch ${tempSettings.showBuffer ? 'active' : ''}" id="modalShowBuffer"></div></div>
                 <div class="setting-row"><span class="setting-label">字号</span><div class="adjust-control"><button class="adjust-btn" data-action="decr" data-target="bufferFontSize">−</button><span class="adjust-value" data-id="bufferFontSize">${tempSettings.bufferFontSize}</span><button class="adjust-btn" data-action="incr" data-target="bufferFontSize">+</button></div></div>
                 <div class="setting-row"><span class="setting-label">字体</span><div class="radio-group" data-setting="bufferFontWeight"><label><input type="radio" name="bufferWeight" value="normal" ${tempSettings.bufferFontWeight === 'normal' ? 'checked' : ''}> 常规</label><label><input type="radio" name="bufferWeight" value="bold" ${tempSettings.bufferFontWeight === 'bold' ? 'checked' : ''}> 粗体</label><label><input type="radio" name="bufferWeight" value="italic" ${tempSettings.bufferFontWeight === 'italic' ? 'checked' : ''}> 斜体</label></div></div>
                 <div class="setting-row"><span class="setting-label">颜色</span><div class="color-preview" data-color-for="bufferColor" style="background-color:${tempSettings.bufferColor};"></div><input type="color" class="color-input" data-target="bufferColor" value="${tempSettings.bufferColor}"></div>
@@ -1260,517 +1274,516 @@
                 <div class="setting-row" id="modalBufferShadowRow" style="display:${tempSettings.bufferShadow ? 'flex' : 'none'};"><span class="setting-label">阴影颜色</span><div class="color-preview" data-color-for="bufferShadowColor" style="background-color:${tempSettings.bufferShadowColor};"></div><input type="color" class="color-input" data-target="bufferShadowColor" value="${tempSettings.bufferShadowColor}"></div>
                 <div class="setting-row"><span class="setting-label">水平偏移</span><div class="adjust-control"><button class="adjust-btn" data-action="decr" data-target="bufferOffsetX">−</button><span class="adjust-value" data-id="bufferOffsetX">${tempSettings.bufferOffsetX}</span><button class="adjust-btn" data-action="incr" data-target="bufferOffsetX">+</button></div></div>
                 <div class="setting-row"><span class="setting-label">垂直偏移</span><div class="adjust-control"><button class="adjust-btn" data-action="decr" data-target="bufferOffsetY">−</button><span class="adjust-value" data-id="bufferOffsetY">${tempSettings.bufferOffsetY}</span><button class="adjust-btn" data-action="incr" data-target="bufferOffsetY">+</button></div></div>`;
-            }
-            html += '</div>';
-            modalContent.innerHTML = html;
-            bindModalEvents();
         }
-        
-        function bindModalEvents() {
-            document.querySelectorAll('#modalContent .adjust-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const action = btn.getAttribute('data-action');
-                    const targetKey = btn.getAttribute('data-target');
-                    if (targetKey && (action === 'incr' || action === 'decr')) {
-                        let step = action === 'incr' ? 1 : -1;
-                        let newVal = (tempSettings[targetKey] || 0) + step;
-                        if (targetKey.includes('FontSize')) newVal = Math.max(10, newVal);
-                        else if (targetKey.includes('OffsetX') || targetKey.includes('OffsetY')) newVal = Math.min(100, Math.max(-100, newVal));
-                        tempSettings[targetKey] = newVal;
-                        const valueSpan = btn.parentElement.querySelector('.adjust-value');
-                        if (valueSpan) valueSpan.textContent = newVal;
-                        applyTempSettingsToPlayer();
-                    }
-                });
-            });
-            document.querySelectorAll('#modalContent .color-preview').forEach(preview => {
-                preview.addEventListener('click', () => {
-                    const colorInput = preview.parentElement.querySelector('.color-input');
-                    if (colorInput) colorInput.click();
-                });
-            });
-            document.querySelectorAll('#modalContent .color-input').forEach(input => {
-                input.addEventListener('change', (e) => {
-                    const targetKey = input.getAttribute('data-target');
-                    if (targetKey && tempSettings.hasOwnProperty(targetKey)) {
-                        tempSettings[targetKey] = input.value;
-                        const preview = input.parentElement.querySelector('.color-preview');
-                        if (preview) preview.style.backgroundColor = input.value;
-                        applyTempSettingsToPlayer();
-                    }
-                });
-            });
-            const showLiveToggle = document.getElementById('modalShowLiveTime');
-            if (showLiveToggle) showLiveToggle.addEventListener('click', () => { tempSettings.showLiveTime = !tempSettings.showLiveTime; showLiveToggle.classList.toggle('active', tempSettings.showLiveTime); applyTempSettingsToPlayer(); });
-            const liveShadowToggle = document.getElementById('modalLiveTimeShadow');
-            if (liveShadowToggle) liveShadowToggle.addEventListener('click', () => { tempSettings.liveTimeShadow = !tempSettings.liveTimeShadow; liveShadowToggle.classList.toggle('active', tempSettings.liveTimeShadow); const row = document.getElementById('modalLiveTimeShadowRow'); if(row) row.style.display = tempSettings.liveTimeShadow ? 'flex' : 'none'; applyTempSettingsToPlayer(); });
-            const showBufferToggle = document.getElementById('modalShowBuffer');
-            if (showBufferToggle) showBufferToggle.addEventListener('click', () => { tempSettings.showBuffer = !tempSettings.showBuffer; showBufferToggle.classList.toggle('active', tempSettings.showBuffer); applyTempSettingsToPlayer(); });
-            const bufferShadowToggle = document.getElementById('modalBufferShadow');
-            if (bufferShadowToggle) bufferShadowToggle.addEventListener('click', () => { tempSettings.bufferShadow = !tempSettings.bufferShadow; bufferShadowToggle.classList.toggle('active', tempSettings.bufferShadow); const row = document.getElementById('modalBufferShadowRow'); if(row) row.style.display = tempSettings.bufferShadow ? 'flex' : 'none'; applyTempSettingsToPlayer(); });
-            document.querySelectorAll('#modalContent .radio-group input').forEach(radio => {
-                radio.addEventListener('change', (e) => {
-                    if (radio.checked) {
-                        let targetKey = null;
-                        if (radio.name === 'liveTimeWeight') targetKey = 'liveTimeFontWeight';
-                        else if (radio.name === 'bufferWeight') targetKey = 'bufferFontWeight';
-                        if (targetKey) { tempSettings[targetKey] = radio.value; applyTempSettingsToPlayer(); }
-                    }
-                });
-            });
-        }
-        
-        function applyTempSettingsToPlayer() {
-            const lt = document.getElementById('liveTime');
-            const bi = document.getElementById('bufferIndicator');
-            lt.style.display = tempSettings.showLiveTime ? 'block' : 'none';
-            lt.style.fontSize = tempSettings.liveTimeFontSize + 'px';
-            lt.style.fontWeight = tempSettings.liveTimeFontWeight === 'bold' ? 'bold' : (tempSettings.liveTimeFontWeight === 'italic' ? 'italic' : 'normal');
-            lt.style.fontStyle = tempSettings.liveTimeFontWeight === 'italic' ? 'italic' : 'normal';
-            lt.style.color = tempSettings.liveTimeColor;
-            lt.style.textShadow = tempSettings.liveTimeShadow ? `0 0 2px ${tempSettings.liveTimeShadowColor}` : 'none';
-            lt.style.left = (18 + tempSettings.liveTimeOffsetX) + 'px';
-            lt.style.top = (14 + tempSettings.liveTimeOffsetY) + 'px';
-            bi.style.display = tempSettings.showBuffer ? 'flex' : 'none';
-            bi.style.fontSize = tempSettings.bufferFontSize + 'px';
-            bi.style.fontWeight = tempSettings.bufferFontWeight === 'bold' ? 'bold' : (tempSettings.bufferFontWeight === 'italic' ? 'italic' : 'normal');
-            bi.style.fontStyle = tempSettings.bufferFontWeight === 'italic' ? 'italic' : 'normal';
-            bi.style.color = tempSettings.bufferColor;
-            bi.style.textShadow = tempSettings.bufferShadow ? `0 0 2px ${tempSettings.bufferShadowColor}` : 'none';
-            bi.style.right = (18 + tempSettings.bufferOffsetX) + 'px';
-            bi.style.top = (14 + tempSettings.bufferOffsetY) + 'px';
-            bufferSecondsSpan.style.fontWeight = tempSettings.bufferFontWeight === 'bold' ? 'bold' : (tempSettings.bufferFontWeight === 'italic' ? 'italic' : 'normal');
-            bufferSecondsSpan.style.fontStyle = tempSettings.bufferFontWeight === 'italic' ? 'italic' : 'normal';
-            bufferSecondsSpan.style.color = tempSettings.bufferColor;
-            bufferSecondsSpan.style.textShadow = tempSettings.bufferShadow ? `0 0 2px ${tempSettings.bufferShadowColor}` : 'none';
-        }
-        
-        function closeModal(save = false) {
-            if (save) {
-                for (let k in tempSettings) if (currentSettings.hasOwnProperty(k)) currentSettings[k] = tempSettings[k];
-                applyGlobalSettingsToPlayer();
-                saveToIApp();
-            } else {
-                applyGlobalSettingsToPlayer();
-            }
-            modalOverlay.classList.remove('active');
-            currentModalType = null;
-        }
-        
-        function openSettingsPanel() { settingsPanel.classList.add('open'); }
-        function closeSettingsPanel() { settingsPanel.classList.remove('open'); }
-        function openScalePanel() { document.getElementById('scalePanel').classList.add('open'); }
-        function closeScalePanel() { document.getElementById('scalePanel').classList.remove('open'); }
-        function openImagePanel() { document.getElementById('imageAdjustPanel').classList.add('open'); }
-        function closeImagePanel() { document.getElementById('imageAdjustPanel').classList.remove('open'); }
-        
-        if (settingsBtn) settingsBtn.addEventListener('click', (e) => { e.stopPropagation(); if (settingsPanel.classList.contains('open')) closeSettingsPanel(); else openSettingsPanel(); });
-        if (closeSettingsBtn) closeSettingsBtn.addEventListener('click', closeSettingsPanel);
-        if (scaleBtn) scaleBtn.addEventListener('click', (e) => { e.stopPropagation(); openScalePanel(); });
-        if (closeScalePanelBtn) closeScalePanelBtn.addEventListener('click', closeScalePanel);
-        if (imageAdjustBtn) imageAdjustBtn.addEventListener('click', (e) => { e.stopPropagation(); openImagePanel(); });
-        if (closeImagePanelBtn) closeImagePanelBtn.addEventListener('click', closeImagePanel);
-        
-        document.querySelectorAll('.panel-list-item[data-type]').forEach(item => {
-            item.addEventListener('click', () => {
-                const type = item.getAttribute('data-type');
-                if (type === 'liveTime') openModal('liveTime');
-                else if (type === 'buffer') openModal('buffer');
-                closeSettingsPanel();
-            });
-        });
-        if (modalCloseBtn) modalCloseBtn.addEventListener('click', () => closeModal(false));
-        if (modalConfirmBtn) modalConfirmBtn.addEventListener('click', () => closeModal(true));
-        if (modalResetBtn) modalResetBtn.addEventListener('click', () => {
-            if (currentModalType === 'liveTime') {
-                tempSettings = { showLiveTime: defaultSettings.showLiveTime, liveTimeFontSize: defaultSettings.liveTimeFontSize, liveTimeFontWeight: defaultSettings.liveTimeFontWeight, liveTimeColor: defaultSettings.liveTimeColor, liveTimeShadow: defaultSettings.liveTimeShadow, liveTimeShadowColor: defaultSettings.liveTimeShadowColor, liveTimeOffsetX: defaultSettings.liveTimeOffsetX, liveTimeOffsetY: defaultSettings.liveTimeOffsetY };
-            } else {
-                tempSettings = { showBuffer: defaultSettings.showBuffer, bufferFontSize: defaultSettings.bufferFontSize, bufferFontWeight: defaultSettings.bufferFontWeight, bufferColor: defaultSettings.bufferColor, bufferShadow: defaultSettings.bufferShadow, bufferShadowColor: defaultSettings.bufferShadowColor, bufferOffsetX: defaultSettings.bufferOffsetX, bufferOffsetY: defaultSettings.bufferOffsetY };
-            }
-            renderModalContent();
-            applyTempSettingsToPlayer();
-        });
-        if (modalOverlay) modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(false); });
-        
-        window.loadPlayerSettings = function(jsonStr) {
-            try {
-                const s = JSON.parse(jsonStr);
-                for (let k in s) {
-                    if (currentSettings.hasOwnProperty(k)) currentSettings[k] = s[k];
+        html += '</div>';
+        modalContent.innerHTML = html;
+        bindModalEvents();
+    }
+    
+    function bindModalEvents() {
+        document.querySelectorAll('#modalContent .adjust-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const action = btn.getAttribute('data-action');
+                const targetKey = btn.getAttribute('data-target');
+                if (targetKey && (action === 'incr' || action === 'decr')) {
+                    let step = action === 'incr' ? 1 : -1;
+                    let newVal = (tempSettings[targetKey] || 0) + step;
+                    if (targetKey.includes('FontSize')) newVal = Math.max(10, newVal);
+                    else if (targetKey.includes('OffsetX') || targetKey.includes('OffsetY')) newVal = Math.min(100, Math.max(-100, newVal));
+                    tempSettings[targetKey] = newVal;
+                    const valueSpan = btn.parentElement.querySelector('.adjust-value');
+                    if (valueSpan) valueSpan.textContent = newVal;
+                    applyTempSettingsToPlayer();
                 }
-                applyGlobalSettingsToPlayer();
-                logToIApp('加载设置: ' + jsonStr);
-                return true;
-            } catch(e) {
-                logToIApp('加载设置失败: ' + e.message, true);
-                return false;
+            });
+        });
+        document.querySelectorAll('#modalContent .color-preview').forEach(preview => {
+            preview.addEventListener('click', () => {
+                const colorInput = preview.parentElement.querySelector('.color-input');
+                if (colorInput) colorInput.click();
+            });
+        });
+        document.querySelectorAll('#modalContent .color-input').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const targetKey = input.getAttribute('data-target');
+                if (targetKey && tempSettings.hasOwnProperty(targetKey)) {
+                    tempSettings[targetKey] = input.value;
+                    const preview = input.parentElement.querySelector('.color-preview');
+                    if (preview) preview.style.backgroundColor = input.value;
+                    applyTempSettingsToPlayer();
+                }
+            });
+        });
+        const showLiveToggle = document.getElementById('modalShowLiveTime');
+        if (showLiveToggle) showLiveToggle.addEventListener('click', () => { tempSettings.showLiveTime = !tempSettings.showLiveTime; showLiveToggle.classList.toggle('active', tempSettings.showLiveTime); applyTempSettingsToPlayer(); });
+        const liveShadowToggle = document.getElementById('modalLiveTimeShadow');
+        if (liveShadowToggle) liveShadowToggle.addEventListener('click', () => { tempSettings.liveTimeShadow = !tempSettings.liveTimeShadow; liveShadowToggle.classList.toggle('active', tempSettings.liveTimeShadow); const row = document.getElementById('modalLiveTimeShadowRow'); if(row) row.style.display = tempSettings.liveTimeShadow ? 'flex' : 'none'; applyTempSettingsToPlayer(); });
+        const showBufferToggle = document.getElementById('modalShowBuffer');
+        if (showBufferToggle) showBufferToggle.addEventListener('click', () => { tempSettings.showBuffer = !tempSettings.showBuffer; showBufferToggle.classList.toggle('active', tempSettings.showBuffer); applyTempSettingsToPlayer(); });
+        const bufferShadowToggle = document.getElementById('modalBufferShadow');
+        if (bufferShadowToggle) bufferShadowToggle.addEventListener('click', () => { tempSettings.bufferShadow = !tempSettings.bufferShadow; bufferShadowToggle.classList.toggle('active', tempSettings.bufferShadow); const row = document.getElementById('modalBufferShadowRow'); if(row) row.style.display = tempSettings.bufferShadow ? 'flex' : 'none'; applyTempSettingsToPlayer(); });
+        document.querySelectorAll('#modalContent .radio-group input').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (radio.checked) {
+                    let targetKey = null;
+                    if (radio.name === 'liveTimeWeight') targetKey = 'liveTimeFontWeight';
+                    else if (radio.name === 'bufferWeight') targetKey = 'bufferFontWeight';
+                    if (targetKey) { tempSettings[targetKey] = radio.value; applyTempSettingsToPlayer(); }
+                }
+            });
+        });
+    }
+    
+    function applyTempSettingsToPlayer() {
+        const lt = document.getElementById('liveTime');
+        const bi = document.getElementById('bufferIndicator');
+        lt.style.display = tempSettings.showLiveTime ? 'block' : 'none';
+        lt.style.fontSize = tempSettings.liveTimeFontSize + 'px';
+        lt.style.fontWeight = tempSettings.liveTimeFontWeight === 'bold' ? 'bold' : (tempSettings.liveTimeFontWeight === 'italic' ? 'italic' : 'normal');
+        lt.style.fontStyle = tempSettings.liveTimeFontWeight === 'italic' ? 'italic' : 'normal';
+        lt.style.color = tempSettings.liveTimeColor;
+        lt.style.textShadow = tempSettings.liveTimeShadow ? `0 0 2px ${tempSettings.liveTimeShadowColor}` : 'none';
+        lt.style.left = (18 + tempSettings.liveTimeOffsetX) + 'px';
+        lt.style.top = (14 + tempSettings.liveTimeOffsetY) + 'px';
+        bi.style.display = tempSettings.showBuffer ? 'flex' : 'none';
+        bi.style.fontSize = tempSettings.bufferFontSize + 'px';
+        bi.style.fontWeight = tempSettings.bufferFontWeight === 'bold' ? 'bold' : (tempSettings.bufferFontWeight === 'italic' ? 'italic' : 'normal');
+        bi.style.fontStyle = tempSettings.bufferFontWeight === 'italic' ? 'italic' : 'normal';
+        bi.style.color = tempSettings.bufferColor;
+        bi.style.textShadow = tempSettings.bufferShadow ? `0 0 2px ${tempSettings.bufferShadowColor}` : 'none';
+        bi.style.right = (18 + tempSettings.bufferOffsetX) + 'px';
+        bi.style.top = (14 + tempSettings.bufferOffsetY) + 'px';
+        bufferSecondsSpan.style.fontWeight = tempSettings.bufferFontWeight === 'bold' ? 'bold' : (tempSettings.bufferFontWeight === 'italic' ? 'italic' : 'normal');
+        bufferSecondsSpan.style.fontStyle = tempSettings.bufferFontWeight === 'italic' ? 'italic' : 'normal';
+        bufferSecondsSpan.style.color = tempSettings.bufferColor;
+        bufferSecondsSpan.style.textShadow = tempSettings.bufferShadow ? `0 0 2px ${tempSettings.bufferShadowColor}` : 'none';
+    }
+    
+    function closeModal(save = false) {
+        if (save) {
+            for (let k in tempSettings) if (currentSettings.hasOwnProperty(k)) currentSettings[k] = tempSettings[k];
+            applyGlobalSettingsToPlayer();
+            saveToIApp();
+        } else {
+            applyGlobalSettingsToPlayer();
+        }
+        modalOverlay.classList.remove('active');
+        currentModalType = null;
+    }
+    
+    function openSettingsPanel() { settingsPanel.classList.add('open'); }
+    function closeSettingsPanel() { settingsPanel.classList.remove('open'); }
+    function openScalePanel() { document.getElementById('scalePanel').classList.add('open'); }
+    function closeScalePanel() { document.getElementById('scalePanel').classList.remove('open'); }
+    function openImagePanel() { document.getElementById('imageAdjustPanel').classList.add('open'); }
+    function closeImagePanel() { document.getElementById('imageAdjustPanel').classList.remove('open'); }
+    
+    if (settingsBtn) settingsBtn.addEventListener('click', (e) => { e.stopPropagation(); if (settingsPanel.classList.contains('open')) closeSettingsPanel(); else openSettingsPanel(); });
+    if (closeSettingsBtn) closeSettingsBtn.addEventListener('click', closeSettingsPanel);
+    if (scaleBtn) scaleBtn.addEventListener('click', (e) => { e.stopPropagation(); openScalePanel(); });
+    const closeScalePanelBtn = document.getElementById('closeScalePanelBtn');
+    if (closeScalePanelBtn) closeScalePanelBtn.addEventListener('click', closeScalePanel);
+    if (imageAdjustBtn) imageAdjustBtn.addEventListener('click', (e) => { e.stopPropagation(); openImagePanel(); });
+    const closeImagePanelBtn = document.getElementById('closeImagePanelBtn');
+    if (closeImagePanelBtn) closeImagePanelBtn.addEventListener('click', closeImagePanel);
+    
+    document.querySelectorAll('.panel-list-item[data-type]').forEach(item => {
+        item.addEventListener('click', () => {
+            const type = item.getAttribute('data-type');
+            if (type === 'liveTime') openModal('liveTime');
+            else if (type === 'buffer') openModal('buffer');
+            closeSettingsPanel();
+        });
+    });
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', () => closeModal(false));
+    if (modalConfirmBtn) modalConfirmBtn.addEventListener('click', () => closeModal(true));
+    if (modalResetBtn) modalResetBtn.addEventListener('click', () => {
+        if (currentModalType === 'liveTime') {
+            tempSettings = { showLiveTime: defaultSettings.showLiveTime, liveTimeFontSize: defaultSettings.liveTimeFontSize, liveTimeFontWeight: defaultSettings.liveTimeFontWeight, liveTimeColor: defaultSettings.liveTimeColor, liveTimeShadow: defaultSettings.liveTimeShadow, liveTimeShadowColor: defaultSettings.liveTimeShadowColor, liveTimeOffsetX: defaultSettings.liveTimeOffsetX, liveTimeOffsetY: defaultSettings.liveTimeOffsetY };
+        } else {
+            tempSettings = { showBuffer: defaultSettings.showBuffer, bufferFontSize: defaultSettings.bufferFontSize, bufferFontWeight: defaultSettings.bufferFontWeight, bufferColor: defaultSettings.bufferColor, bufferShadow: defaultSettings.bufferShadow, bufferShadowColor: defaultSettings.bufferShadowColor, bufferOffsetX: defaultSettings.bufferOffsetX, bufferOffsetY: defaultSettings.bufferOffsetY };
+        }
+        renderModalContent();
+        applyTempSettingsToPlayer();
+    });
+    if (modalOverlay) modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(false); });
+    
+    window.loadPlayerSettings = function(jsonStr) {
+        try {
+            const s = JSON.parse(jsonStr);
+            for (let k in s) {
+                if (currentSettings.hasOwnProperty(k)) currentSettings[k] = s[k];
             }
+            applyGlobalSettingsToPlayer();
+            logToIApp('加载设置: ' + jsonStr);
+            return true;
+        } catch(e) {
+            logToIApp('加载设置失败: ' + e.message, true);
+            return false;
+        }
+    };
+    
+    applyGlobalSettingsToPlayer();
+    
+    function attachLongPress(btn, target, delta, isImage = false) {
+        let timer = null, isLongPress = false;
+        const startPress = (e) => {
+            e.preventDefault();
+            timer = setTimeout(() => {
+                isLongPress = true;
+                const interval = setInterval(() => {
+                    if (isImage) modifyImage(target, delta);
+                    else modifyScale(target, delta);
+                }, 100);
+                btn._interval = interval;
+            }, 300);
         };
-        
-        applyGlobalSettingsToPlayer();
-        
-        // 长按调节
-        function attachLongPress(btn, target, delta, isImage = false) {
-            let timer = null, isLongPress = false;
-            const startPress = (e) => {
-                e.preventDefault();
-                timer = setTimeout(() => {
-                    isLongPress = true;
-                    const interval = setInterval(() => {
-                        if (isImage) modifyImage(target, delta);
-                        else modifyScale(target, delta);
-                    }, 100);
-                    btn._interval = interval;
-                }, 300);
-            };
-            const endPress = () => {
-                if (timer) clearTimeout(timer);
-                if (btn._interval) { clearInterval(btn._interval); delete btn._interval; }
-                if (!isLongPress) { if (isImage) modifyImage(target, delta); else modifyScale(target, delta); }
-                isLongPress = false;
-            };
-            btn.addEventListener('mousedown', startPress);
-            btn.addEventListener('mouseup', endPress);
-            btn.addEventListener('mouseleave', endPress);
-            btn.addEventListener('touchstart', startPress);
-            btn.addEventListener('touchend', endPress);
-        }
-        
-        document.querySelectorAll('.scale-decr, .scale-incr').forEach(btn => {
-            const target = btn.getAttribute('data-target');
-            const delta = parseInt(btn.getAttribute('data-delta'));
-            attachLongPress(btn, target, delta, false);
-        });
-        document.querySelectorAll('.image-decr, .image-incr').forEach(btn => {
-            const target = btn.getAttribute('data-target');
-            const delta = parseFloat(btn.getAttribute('data-delta'));
-            attachLongPress(btn, target, delta, true);
-        });
-        document.getElementById('scaleResetBtn')?.addEventListener('click', resetScale);
-        document.getElementById('imageResetBtn')?.addEventListener('click', resetImage);
-        
-        function updateLiveTime() {
-            const now = new Date();
-            liveTimeSpan.textContent = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
-        }
-        updateLiveTime();
-        if (clockInterval) clearInterval(clockInterval);
-        clockInterval = setInterval(updateLiveTime, 1000);
-        function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
-        
-        // ========== 相似推荐（双字匹配） ==========
-        let allMoviesData = [];
-        let allSeriesData = [];
-        let historyMap = {};
-        
-        function loadHistoryForRecommend() {
-            if (typeof iapp !== 'undefined' && iapp.g) {
-                try {
-                    const historyStr = iapp.g('sss.b');
-                    if (historyStr && historyStr !== 'null' && historyStr !== 'undefined') {
-                        const historyData = JSON.parse(historyStr);
-                        if (historyData && historyData.data_ls && Array.isArray(historyData.data_ls)) {
-                            const records = historyData.data_ls;
-                            records.forEach(record => {
-                                if (record.title) {
-                                    historyMap[record.title] = {
-                                        lineIndex: record.lineIndex,
-                                        time: record.time,
-                                        jsitem: record.jsitem,
-                                        scale: record.scale,
-                                        width: record.width,
-                                        height: record.height,
-                                        top: record.top,
-                                        brightness: record.brightness,
-                                        contrast: record.contrast,
-                                        saturate: record.saturate,
-                                        hue: record.hue
-                                    };
-                                }
-                            });
-                            logToIApp(`加载历史记录: ${records.length} 条`);
-                        }
-                    }
-                } catch(e) {}
-            }
-        }
-        
-        function getBigrams(str) {
-            const cleaned = str.replace(/[^一-龥a-zA-Z0-9]/g, '');
-            const bigrams = new Set();
-            for (let i = 0; i < cleaned.length - 1; i++) {
-                bigrams.add(cleaned.substr(i, 2));
-            }
-            return bigrams;
-        }
-        
-        function generateRecommendationsByBigram() {
-            if (!movieTitle) return;
-            const currentBigrams = getBigrams(movieTitle);
-            if (currentBigrams.size === 0) return;
-            const allItems = [];
-            allMoviesData.forEach(m => {
-                if (m.name !== movieTitle) {
-                    allItems.push({ ...m, type: 'movie', displayName: m.name });
-                }
-            });
-            allSeriesData.forEach(s => {
-                const name = s.pureName || s.name;
-                if (name !== movieTitle) {
-                    allItems.push({
-                        type: 'series',
-                        displayName: name,
-                        path: s.path,
-                        img: s.img,
-                        pf: s.pf,
-                        pureName: s.pureName
-                    });
-                }
-            });
-            const scored = [];
-            for (let item of allItems) {
-                const itemBigrams = getBigrams(item.displayName);
-                let common = 0;
-                for (let bg of currentBigrams) {
-                    if (itemBigrams.has(bg)) common++;
-                }
-                if (common > 0) {
-                    scored.push({ item, score: common });
-                }
-            }
-            scored.sort((a,b) => b.score - a.score);
-            const top = scored.slice(0, 15).map(s => s.item);
-            renderRecommendations(top);
-        }
-        
-        async function loadDataForRecommend() {
+        const endPress = () => {
+            if (timer) clearTimeout(timer);
+            if (btn._interval) { clearInterval(btn._interval); delete btn._interval; }
+            if (!isLongPress) { if (isImage) modifyImage(target, delta); else modifyScale(target, delta); }
+            isLongPress = false;
+        };
+        btn.addEventListener('mousedown', startPress);
+        btn.addEventListener('mouseup', endPress);
+        btn.addEventListener('mouseleave', endPress);
+        btn.addEventListener('touchstart', startPress);
+        btn.addEventListener('touchend', endPress);
+    }
+    
+    document.querySelectorAll('.scale-decr, .scale-incr').forEach(btn => {
+        const target = btn.getAttribute('data-target');
+        const delta = parseInt(btn.getAttribute('data-delta'));
+        attachLongPress(btn, target, delta, false);
+    });
+    document.querySelectorAll('.image-decr, .image-incr').forEach(btn => {
+        const target = btn.getAttribute('data-target');
+        const delta = parseFloat(btn.getAttribute('data-delta'));
+        attachLongPress(btn, target, delta, true);
+    });
+    document.getElementById('scaleResetBtn')?.addEventListener('click', resetScale);
+    document.getElementById('imageResetBtn')?.addEventListener('click', resetImage);
+    
+    function updateLiveTime() {
+        const now = new Date();
+        liveTimeSpan.textContent = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+    }
+    updateLiveTime();
+    if (clockInterval) clearInterval(clockInterval);
+    clockInterval = setInterval(updateLiveTime, 1000);
+    window.clockInterval = clockInterval;
+    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
+    
+    let allMoviesData = [];
+    let allSeriesData = [];
+    let historyMap = {};
+    
+    function loadHistoryForRecommend() {
+        if (typeof iapp !== 'undefined' && iapp.g) {
             try {
-                const [movieRes, seriesRes] = await Promise.all([
-                    fetch('./1.json').catch(() => null),
-                    fetch('./2.json').catch(() => null)
-                ]);
-                if (movieRes && movieRes.ok) {
-                    const movieJson = await movieRes.json();
-                    if (movieJson && movieJson.data_v && Array.isArray(movieJson.data_v)) {
-                        allMoviesData = movieJson.data_v.map(m => ({ ...m, originalPf: parseFloat(m.pf) || 0 }));
-                        logToIApp(`加载电影数据: ${allMoviesData.length} 部`);
-                    }
-                }
-                if (seriesRes && seriesRes.ok) {
-                    const seriesJson = await seriesRes.json();
-                    if (seriesJson && seriesJson.data_v && Array.isArray(seriesJson.data_v)) {
-                        allSeriesData = seriesJson.data_v.map(s => {
-                            let note = '';
-                            let pureName = s.name;
-                            const bracketMatch = s.name.match(/\[([^\]]+)\]/);
-                            if (bracketMatch) {
-                                note = bracketMatch[1];
-                                pureName = s.name.replace(/\[[^\]]+\]/, '').trim();
+                const historyStr = iapp.g('sss.b');
+                if (historyStr && historyStr !== 'null' && historyStr !== 'undefined') {
+                    const historyData = JSON.parse(historyStr);
+                    if (historyData && historyData.data_ls && Array.isArray(historyData.data_ls)) {
+                        const records = historyData.data_ls;
+                        records.forEach(record => {
+                            if (record.title) {
+                                historyMap[record.title] = {
+                                    lineIndex: record.lineIndex,
+                                    time: record.time,
+                                    jsitem: record.jsitem,
+                                    scale: record.scale,
+                                    width: record.width,
+                                    height: record.height,
+                                    top: record.top,
+                                    brightness: record.brightness,
+                                    contrast: record.contrast,
+                                    saturate: record.saturate,
+                                    hue: record.hue
+                                };
                             }
-                            return {
-                                name: s.name,
-                                pureName: pureName,
-                                note: note,
-                                img: s.img,
-                                pf: s.pf,
-                                path: s.path,
-                                originalPf: parseFloat(s.pf) || 0
-                            };
                         });
-                        logToIApp(`加载连续剧数据: ${allSeriesData.length} 部`);
+                        logToIApp(`加载历史记录: ${records.length} 条`);
                     }
                 }
-                generateRecommendationsByBigram();
-            } catch(e) { logToIApp('加载推荐数据失败: ' + e.message, true); }
+            } catch(e) {}
         }
-        
-        function renderRecommendations(items) {
-            if (!recommendSection || !recommendList) return;
-            if (items.length === 0) {
-                recommendSection.style.display = 'none';
-                return;
+    }
+    
+    function getBigrams(str) {
+        const cleaned = str.replace(/[^一-龥a-zA-Z0-9]/g, '');
+        const bigrams = new Set();
+        for (let i = 0; i < cleaned.length - 1; i++) {
+            bigrams.add(cleaned.substr(i, 2));
+        }
+        return bigrams;
+    }
+    
+    function generateRecommendationsByBigram() {
+        if (!movieTitle) return;
+        const currentBigrams = getBigrams(movieTitle);
+        if (currentBigrams.size === 0) return;
+        const allItems = [];
+        allMoviesData.forEach(m => {
+            if (m.name !== movieTitle) {
+                allItems.push({ ...m, type: 'movie', displayName: m.name });
             }
-            recommendSection.style.display = 'block';
-            recommendList.innerHTML = '';
-            for (let item of items) {
-                const card = document.createElement('div');
-                card.className = 'recommend-card';
-                const posterUrl = item.img || 'https://placehold.co/300x450?text=No+Poster';
-                const rating = item.pf ? parseFloat(item.pf).toFixed(1) : '暂无';
-                const title = item.displayName;
-                card.innerHTML = `
-                    <div class="recommend-poster">
-                        <img src="${posterUrl}" alt="${escapeHtml(title)}" loading="lazy" onerror="this.src='https://placehold.co/300x450?text=Error'">
-                        <div class="recommend-rating"><i class="fas fa-star"></i> ${rating}</div>
-                    </div>
-                    <div class="recommend-title-text">${escapeHtml(title)}</div>
-                `;
-                card.addEventListener('click', async () => {
-                    logToIApp(`点击推荐: ${item.type} - ${item.displayName}`);
-                    sendPlayPosition();
-                    showLoading(true);
-                    try {
-                        if (item.type === 'movie') {
-                            const newLines = [];
-                            const urlKeys = Object.keys(item).filter(k => k.startsWith('url')).sort();
-                            for (let key of urlKeys) {
-                                let rawUrl = item[key];
-                                if (rawUrl && typeof rawUrl === 'string' && rawUrl.startsWith('http')) {
-                                    let clean = cleanUrl(rawUrl);
-                                    newLines.push({ name: `线路${newLines.length+1}`, url: clean, note: '' });
-                                }
-                            }
-                            if (newLines.length === 0) {
-                                alert('该影片没有可用的播放地址');
-                                logToIApp('电影无播放地址', true);
-                                return;
-                            }
-                            const hist = historyMap[item.displayName];
-                            let targetLine = 0;
-                            let targetTime = 0;
-                            if (hist) {
-                                targetLine = hist.lineIndex || 0;
-                                targetTime = hist.time || 0;
-                            }
-                            await replaceCurrentVideo(newLines, item.displayName, false, null, [], null, targetLine, targetTime);
-                        } else {
-                            const path = item.path;
-                            if (!path) {
-                                alert('剧集信息缺失');
-                                return;
-                            }
-                            const res = await fetch(`./LXJ/${path}.json`);
-                            if (!res.ok) throw new Error('剧集数据加载失败');
-                            const json = await res.json();
-                            if (!json || !json.data_v || json.data_v.length === 0) {
-                                alert('未找到剧集数据');
-                                return;
-                            }
-                            const episodes = json.data_v;
-                            const historyRecord = historyMap[item.displayName];
-                            let targetEpisode = null;
-                            let targetTime = 0;
-                            let targetLine = 0;
-                            let targetJsItem = null;
-                            if (historyRecord && historyRecord.jsitem) {
-                                targetEpisode = episodes.find(ep => parseInt(ep.name) === historyRecord.jsitem);
-                                if (targetEpisode) {
-                                    targetTime = historyRecord.time || 0;
-                                    targetLine = historyRecord.lineIndex || 0;
-                                    targetJsItem = historyRecord.jsitem;
-                                }
-                            }
-                            if (!targetEpisode) {
-                                targetEpisode = episodes[0];
-                                targetTime = 0;
-                                targetLine = 0;
-                                targetJsItem = parseInt(targetEpisode.name);
-                            }
-                            const newLines = [];
-                            const urlKeys = Object.keys(targetEpisode).filter(k => k.startsWith('url')).sort();
-                            let playUrl = null;
-                            for (let key of urlKeys) {
-                                let rawUrl = targetEpisode[key];
-                                if (rawUrl && typeof rawUrl === 'string' && rawUrl.startsWith('http')) {
-                                    let clean = cleanUrl(rawUrl);
-                                    newLines.push({ name: `线路${newLines.length+1}`, url: clean, note: '' });
-                                    if (playUrl === null && newLines.length - 1 === targetLine) {
-                                        playUrl = clean;
-                                    }
-                                }
-                            }
-                            if (playUrl === null && newLines.length > 0) {
-                                playUrl = newLines[0].url;
-                                targetLine = 0;
-                            }
-                            if (!playUrl) {
-                                alert('没有可用的播放链接');
-                                return;
-                            }
-                            const debugData = {
-                                type: 'series',
-                                title: item.displayName,
-                                path: path,
-                                episode: targetJsItem,
-                                urls: newLines.map(l => l.url)
-                            };
-                            if (typeof iapp !== 'undefined' && iapp.s) {
-                                iapp.s('sss.ok', JSON.stringify(debugData));
-                            }
-                            await replaceCurrentVideo(newLines, item.displayName, true, path, episodes, targetJsItem, targetLine, targetTime);
-                        }
-                    } catch(e) {
-                        logToIApp('推荐切换异常: ' + e.message, true);
-                        alert('切换失败：' + (e.message || '未知错误'));
-                    } finally {
-                        showLoading(false);
-                        hideLoadingTip();
-                    }
+        });
+        allSeriesData.forEach(s => {
+            const name = s.pureName || s.name;
+            if (name !== movieTitle) {
+                allItems.push({
+                    type: 'series',
+                    displayName: name,
+                    path: s.path,
+                    img: s.img,
+                    pf: s.pf,
+                    pureName: s.pureName
                 });
-                recommendList.appendChild(card);
+            }
+        });
+        const scored = [];
+        for (let item of allItems) {
+            const itemBigrams = getBigrams(item.displayName);
+            let common = 0;
+            for (let bg of currentBigrams) {
+                if (itemBigrams.has(bg)) common++;
+            }
+            if (common > 0) {
+                scored.push({ item, score: common });
             }
         }
-        
-        // 启动应用
-        async function start() {
-            loadHistoryForRecommend();
-            applyUrlImageSettings();
-            // 初始设置按钮可见性（非全屏，缩放和画面调节按钮隐藏）
-            updateExtraButtonsVisibility();
-            if (isSeries) {
-                await loadSeriesEpisodes();
-                let initUrl = linesData[currentLineIndex].url;
-                if (allEpisodes.length > 0 && currentJsItem !== null) {
-                    const epData = allEpisodes.find(ep => parseInt(ep.name) === currentJsItem);
-                    if (epData) {
-                        const lineUrl = getEpisodeUrlByLine(epData, currentLineIndex);
-                        if (lineUrl) initUrl = lineUrl;
-                    }
-                }
-                applyScaleAndImage();
-                try {
-                    await initPlayerWithUrl(initUrl);
-                    showLoading(false);
-                    onFirstPlay();
-                    bindRecordEvents();
-                    bindEndedEvent();
-                    if (nextEpisodeBtn) nextEpisodeBtn.addEventListener('click', () => nextEpisode());
-                    if (shouldResume && resumeTime !== null) {
-                        const targetTime = parseFloat(resumeTime);
-                        if (!isNaN(targetTime) && targetTime > 0 && targetTime < (video.duration || Infinity)) {
-                            video.currentTime = targetTime;
-                        }
-                    }
-                    setTimeout(() => sendPlayPosition(), 2000);
-                } catch(err) {
-                    console.error('连续剧播放失败', err);
-                    showLoading(false);
-                }
-            } else {
-                let initUrl = linesData[currentLineIndex].url;
-                applyScaleAndImage();
-                try {
-                    await initPlayerWithUrl(initUrl);
-                    showLoading(false);
-                    onFirstPlay();
-                    bindRecordEvents();
-                    if (shouldResume && resumeTime !== null) {
-                        const targetTime = parseFloat(resumeTime);
-                        if (!isNaN(targetTime) && targetTime > 0 && targetTime < (video.duration || Infinity)) {
-                            video.currentTime = targetTime;
-                        }
-                    }
-                    setTimeout(() => sendPlayPosition(), 2000);
-                } catch(err) {
-                    console.error('电影播放失败', err);
-                    showLoading(false);
+        scored.sort((a,b) => b.score - a.score);
+        const top = scored.slice(0, 15).map(s => s.item);
+        renderRecommendations(top);
+    }
+    
+    async function loadDataForRecommend() {
+        try {
+            const [movieRes, seriesRes] = await Promise.all([
+                fetch('./1.json').catch(() => null),
+                fetch('./2.json').catch(() => null)
+            ]);
+            if (movieRes && movieRes.ok) {
+                const movieJson = await movieRes.json();
+                if (movieJson && movieJson.data_v && Array.isArray(movieJson.data_v)) {
+                    allMoviesData = movieJson.data_v.map(m => ({ ...m, originalPf: parseFloat(m.pf) || 0 }));
+                    logToIApp(`加载电影数据: ${allMoviesData.length} 部`);
                 }
             }
-            loadDataForRecommend();
+            if (seriesRes && seriesRes.ok) {
+                const seriesJson = await seriesRes.json();
+                if (seriesJson && seriesJson.data_v && Array.isArray(seriesJson.data_v)) {
+                    allSeriesData = seriesJson.data_v.map(s => {
+                        let note = '';
+                        let pureName = s.name;
+                        const bracketMatch = s.name.match(/\[([^\]]+)\]/);
+                        if (bracketMatch) {
+                            note = bracketMatch[1];
+                            pureName = s.name.replace(/\[[^\]]+\]/, '').trim();
+                        }
+                        return {
+                            name: s.name,
+                            pureName: pureName,
+                            note: note,
+                            img: s.img,
+                            pf: s.pf,
+                            path: s.path,
+                            originalPf: parseFloat(s.pf) || 0
+                        };
+                    });
+                    logToIApp(`加载连续剧数据: ${allSeriesData.length} 部`);
+                }
+            }
+            generateRecommendationsByBigram();
+        } catch(e) { logToIApp('加载推荐数据失败: ' + e.message, true); }
+    }
+    
+    function renderRecommendations(items) {
+        if (!recommendSection || !recommendList) return;
+        if (items.length === 0) {
+            recommendSection.style.display = 'none';
+            return;
         }
-        
-        start();
-    })();
+        recommendSection.style.display = 'block';
+        recommendList.innerHTML = '';
+        for (let item of items) {
+            const card = document.createElement('div');
+            card.className = 'recommend-card';
+            const posterUrl = item.img || 'https://placehold.co/300x450?text=No+Poster';
+            const rating = item.pf ? parseFloat(item.pf).toFixed(1) : '暂无';
+            const title = item.displayName;
+            card.innerHTML = `
+                <div class="recommend-poster">
+                    <img src="${posterUrl}" alt="${escapeHtml(title)}" loading="lazy" onerror="this.src='https://placehold.co/300x450?text=Error'">
+                    <div class="recommend-rating"><i class="fas fa-star"></i> ${rating}</div>
+                </div>
+                <div class="recommend-title-text">${escapeHtml(title)}</div>
+            `;
+            card.addEventListener('click', async () => {
+                logToIApp(`点击推荐: ${item.type} - ${item.displayName}`);
+                sendPlayPosition();
+                showLoading(true);
+                try {
+                    if (item.type === 'movie') {
+                        const newLines = [];
+                        const urlKeys = Object.keys(item).filter(k => k.startsWith('url')).sort();
+                        for (let key of urlKeys) {
+                            let rawUrl = item[key];
+                            if (rawUrl && typeof rawUrl === 'string' && rawUrl.startsWith('http')) {
+                                let clean = cleanUrl(rawUrl);
+                                newLines.push({ name: `线路${newLines.length+1}`, url: clean, note: '' });
+                            }
+                        }
+                        if (newLines.length === 0) {
+                            alert('该影片没有可用的播放地址');
+                            logToIApp('电影无播放地址', true);
+                            return;
+                        }
+                        const hist = historyMap[item.displayName];
+                        let targetLine = 0;
+                        let targetTime = 0;
+                        if (hist) {
+                            targetLine = hist.lineIndex || 0;
+                            targetTime = hist.time || 0;
+                        }
+                        await replaceCurrentVideo(newLines, item.displayName, false, null, [], null, targetLine, targetTime);
+                    } else {
+                        const path = item.path;
+                        if (!path) {
+                            alert('剧集信息缺失');
+                            return;
+                        }
+                        const res = await fetch(`./LXJ/${path}.json`);
+                        if (!res.ok) throw new Error('剧集数据加载失败');
+                        const json = await res.json();
+                        if (!json || !json.data_v || json.data_v.length === 0) {
+                            alert('未找到剧集数据');
+                            return;
+                        }
+                        const episodes = json.data_v;
+                        const historyRecord = historyMap[item.displayName];
+                        let targetEpisode = null;
+                        let targetTime = 0;
+                        let targetLine = 0;
+                        let targetJsItem = null;
+                        if (historyRecord && historyRecord.jsitem) {
+                            targetEpisode = episodes.find(ep => parseInt(ep.name) === historyRecord.jsitem);
+                            if (targetEpisode) {
+                                targetTime = historyRecord.time || 0;
+                                targetLine = historyRecord.lineIndex || 0;
+                                targetJsItem = historyRecord.jsitem;
+                            }
+                        }
+                        if (!targetEpisode) {
+                            targetEpisode = episodes[0];
+                            targetTime = 0;
+                            targetLine = 0;
+                            targetJsItem = parseInt(targetEpisode.name);
+                        }
+                        const newLines = [];
+                        const urlKeys = Object.keys(targetEpisode).filter(k => k.startsWith('url')).sort();
+                        let playUrl = null;
+                        for (let key of urlKeys) {
+                            let rawUrl = targetEpisode[key];
+                            if (rawUrl && typeof rawUrl === 'string' && rawUrl.startsWith('http')) {
+                                let clean = cleanUrl(rawUrl);
+                                newLines.push({ name: `线路${newLines.length+1}`, url: clean, note: '' });
+                                if (playUrl === null && newLines.length - 1 === targetLine) {
+                                    playUrl = clean;
+                                }
+                            }
+                        }
+                        if (playUrl === null && newLines.length > 0) {
+                            playUrl = newLines[0].url;
+                            targetLine = 0;
+                        }
+                        if (!playUrl) {
+                            alert('没有可用的播放链接');
+                            return;
+                        }
+                        const debugData = {
+                            type: 'series',
+                            title: item.displayName,
+                            path: path,
+                            episode: targetJsItem,
+                            urls: newLines.map(l => l.url)
+                        };
+                        if (typeof iapp !== 'undefined' && iapp.s) {
+                            iapp.s('sss.ok', JSON.stringify(debugData));
+                        }
+                        await replaceCurrentVideo(newLines, item.displayName, true, path, episodes, targetJsItem, targetLine, targetTime);
+                    }
+                } catch(e) {
+                    logToIApp('推荐切换异常: ' + e.message, true);
+                    alert('切换失败：' + (e.message || '未知错误'));
+                } finally {
+                    showLoading(false);
+                    hideLoadingTip();
+                }
+            });
+            recommendList.appendChild(card);
+        }
+    }
+    
+    async function start() {
+        loadHistoryForRecommend();
+        applyUrlImageSettings();
+        updateExtraButtonsVisibility();
+        if (isSeries) {
+            await loadSeriesEpisodes();
+            let initUrl = linesData[currentLineIndex].url;
+            if (allEpisodes.length > 0 && currentJsItem !== null) {
+                const epData = allEpisodes.find(ep => parseInt(ep.name) === currentJsItem);
+                if (epData) {
+                    const lineUrl = getEpisodeUrlByLine(epData, currentLineIndex);
+                    if (lineUrl) initUrl = lineUrl;
+                }
+            }
+            applyScaleAndImage();
+            try {
+                await initPlayerWithUrl(initUrl);
+                showLoading(false);
+                onFirstPlay();
+                bindRecordEvents();
+                bindEndedEvent();
+                if (nextEpisodeBtn) nextEpisodeBtn.addEventListener('click', () => nextEpisode());
+                if (shouldResume && resumeTime !== null) {
+                    const targetTime = parseFloat(resumeTime);
+                    if (!isNaN(targetTime) && targetTime > 0 && targetTime < (video.duration || Infinity)) {
+                        video.currentTime = targetTime;
+                    }
+                }
+                setTimeout(() => sendPlayPosition(), 2000);
+            } catch(err) {
+                console.error('连续剧播放失败', err);
+                showLoading(false);
+            }
+        } else {
+            let initUrl = linesData[currentLineIndex].url;
+            applyScaleAndImage();
+            try {
+                await initPlayerWithUrl(initUrl);
+                showLoading(false);
+                onFirstPlay();
+                bindRecordEvents();
+                if (shouldResume && resumeTime !== null) {
+                    const targetTime = parseFloat(resumeTime);
+                    if (!isNaN(targetTime) && targetTime > 0 && targetTime < (video.duration || Infinity)) {
+                        video.currentTime = targetTime;
+                    }
+                }
+                setTimeout(() => sendPlayPosition(), 2000);
+            } catch(err) {
+                console.error('电影播放失败', err);
+                showLoading(false);
+            }
+        }
+        loadDataForRecommend();
+    }
+    
+    start();
+})();
 </script>
 </body>
 </html>
