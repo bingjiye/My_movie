@@ -2120,6 +2120,75 @@
             document.querySelector('.nav-item[data-nav="star"]')?.classList.add('active');
         });
     }
+    
+    function initSwipeSwitch() {
+        if (!mainContainer) return;
+        let startX = 0, startY = 0;
+        let isSwiping = false;
+        let moved = false;
+        const threshold = 20;
+        const maxVertical = 100;
+        
+        mainContainer.addEventListener('touchstart', function(e) {
+            if (currentView !== 'home') return;
+            if (e.touches.length !== 1) return;
+            const touch = e.touches[0];
+            startX = touch.clientX;
+            startY = touch.clientY;
+            isSwiping = false;
+            moved = false;
+        }, { passive: true });
+        
+        mainContainer.addEventListener('touchmove', function(e) {
+            if (currentView !== 'home') return;
+            if (e.touches.length !== 1) return;
+            const touch = e.touches[0];
+            const deltaX = touch.clientX - startX;
+            const deltaY = touch.clientY - startY;
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > threshold) {
+                isSwiping = true;
+                moved = true;
+                e.preventDefault();
+            } else {
+                if (Math.abs(deltaY) > Math.abs(deltaX)) {
+                    isSwiping = false;
+                }
+            }
+        }, { passive: false });
+        
+        mainContainer.addEventListener('touchend', function(e) {
+            if (currentView !== 'home') return;
+            if (!moved) return;
+            const touch = e.changedTouches[0];
+            if (!touch) return;
+            const deltaX = touch.clientX - startX;
+            const deltaY = touch.clientY - startY;
+            if (Math.abs(deltaX) < threshold || Math.abs(deltaY) > maxVertical) {
+                return;
+            }
+            const activeBtn = document.querySelector('.category-btn.active');
+            if (!activeBtn) return;
+            const activeId = activeBtn.id;
+            const direction = deltaX < 0 ? 'left' : 'right';
+            let targetId = null;
+            if (activeId === 'btnMovies') {
+                if (direction === 'left') targetId = 'btnSeries';
+            } else if (activeId === 'btnSeries') {
+                if (direction === 'left') targetId = 'btnStars';
+                else if (direction === 'right') targetId = 'btnMovies';
+            } else if (activeId === 'btnStars') {
+                if (direction === 'right') targetId = 'btnSeries';
+            }
+            if (targetId) {
+                const targetBtn = document.getElementById(targetId);
+                if (targetBtn) {
+                    e.preventDefault();
+                    targetBtn.click();
+                }
+            }
+        }, { passive: false });
+    }
+    
     async function loadMovieData() { 
         try{ 
             const res=await fetch('./1.json'); 
@@ -2156,6 +2225,7 @@
         restoreFromSnapshotAndRefresh();
         initBackToTop();
         initInfiniteScroll();
+        initSwipeSwitch();
     }
     init();
 })();
