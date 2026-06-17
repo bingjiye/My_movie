@@ -824,7 +824,7 @@
             </div>
             <div class="card-info">
                 <div class="movie-title">${escapeHtml(star.name)}</div>
-                <div class="movie-meta"><span class="movie-type"><i class="fas fa-user"></i> 影人 ${movieCount > 0 ? `(${movieCount})` : ''}</span></div>
+                <div class="movie-meta"><span class="movie-type"><i class="fa-solid fa-film"></i> 影片 ${movieCount > 0 ? `(${movieCount})` : ''}</span></div>
             </div>
         </div>`;
     }
@@ -1115,14 +1115,14 @@
         });
     }
     async function refreshData() {
-        if(currentView === 'star') {
-            await loadStarData();
-            starListDisplayLimit = 10;
-            starSubView = 'list';
-            renderStarListView();
-            saveCurrentScrollState();
-            return;
-        }
+        if (currentView === 'star' || (currentView === 'home' && homeSubMode === 'star')) {
+        await loadStarData();
+        starListDisplayLimit = 10;
+        starSubView = 'list';
+        renderStarListView();
+        saveCurrentScrollState();
+        return;
+    }
         currentFilterType = '';
         currentSort = '';
         currentDisplayLimit = 10;
@@ -1145,6 +1145,9 @@
         saveCurrentScrollState();
     }
     function toggleFilterPanel() {
+        if (currentView === 'star' || (currentView === 'home' && homeSubMode === 'star')) {
+        return;
+    }
         if(!isFilterActive){
             savedScrollPositionBeforeFilter = mainContainer.scrollTop;
             isFilterActive = true;
@@ -1154,6 +1157,9 @@
             filterBtn.innerHTML = '<i class="fas fa-times"></i> 筛选';
             updateFilterTypes();
             mainContainer.scrollTop = 0;
+       refreshBtn.style.opacity = '0.5';
+        refreshBtn.style.cursor = 'default';
+        refreshBtn.disabled = true;
         } else {
             currentFilterType = '';
             currentSort = '';
@@ -1166,6 +1172,9 @@
             currentDisplayLimit = 10;
             renderFilteredHome();
             mainContainer.scrollTop = savedScrollPositionBeforeFilter;
+            refreshBtn.style.opacity = '1';
+        refreshBtn.style.cursor = 'pointer';
+        refreshBtn.disabled = false;
         }
         saveCurrentScrollState();
     }
@@ -1511,8 +1520,10 @@
         
         if(isStar){
             headerButtons.style.display = 'flex';
-            filterBtn.style.display = 'none';
-            refreshBtn.style.display = 'flex';
+    filterBtn.style.display = 'flex';
+    filterBtn.style.opacity = '0.5';    
+    filterBtn.style.cursor = 'default'; 
+    refreshBtn.style.display = 'flex';
             if(starSubView === 'list') renderStarListView();
             else renderStarMoviesView();
             searchFixedBar.classList.add('hide');
@@ -1525,7 +1536,7 @@
         if(isHome){
             headerButtons.style.display = 'flex';
             if(homeSubMode === 'star') {
-                filterBtn.style.display = 'none';
+                filterBtn.style.display = 'flex';
                 refreshBtn.style.display = 'flex';
                 renderStarListView();
                 document.querySelectorAll('.category-btn').forEach(btn=>btn.classList.remove('active'));
@@ -1547,6 +1558,12 @@
                 } else {
                     document.querySelectorAll('.filter-sort-btn').forEach(btn => btn.classList.remove('active'));
                 }
+                
+                if(isHome && homeSubMode !== 'star') {
+    filterBtn.style.opacity = '1';
+    filterBtn.style.cursor = 'pointer';
+}
+                
                 renderFilteredHome(false);
                 searchFixedBar.classList.add('hide');
                 document.querySelectorAll('.category-btn').forEach(btn=>btn.classList.remove('active'));
@@ -1554,7 +1571,7 @@
                 else document.getElementById('btnSeries').classList.add('active');
             }
         } else if(isSearch){
-            headerButtons.style.display = 'flex';
+            headerButtons.style.display = 'none';
             filterBtn.classList.remove('active');
             filterBtn.innerHTML = '<i class="fas fa-filter"></i> 筛选';
             searchFixedBar.classList.remove('hide');
