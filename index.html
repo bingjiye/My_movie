@@ -1115,14 +1115,10 @@
         });
     }
     async function refreshData() {
-        if (currentView === 'star' || (currentView === 'home' && homeSubMode === 'star')) {
-        await loadStarData();
-        starListDisplayLimit = 10;
-        starSubView = 'list';
-        renderStarListView();
-        saveCurrentScrollState();
+      if (isFilterActive) {
         return;
     }
+    location.reload();
         currentFilterType = '';
         currentSort = '';
         currentDisplayLimit = 10;
