@@ -1,29 +1,84 @@
 {"video":[
     {
+        "name":"小丑",
+        "img":"https://bingjiye.github.io/My_movie/img/xiaochou.jpg",
+        "url":"https://www.4k-av.com/movie/006882-joker/4K/ovuqrd.m3u8(4K)",
+        "url2":"https://m3u8.vhmzy.com/videos/202505/09/681d94abe4d6b1cbe9a17ce3/25dggc/index.m3u8(4K)",
+        "url3":"https://vod1.maowushi.com/20250209/tgJgUOBC/index.m3u8(720P)",
+        "pf":"8.7",
+        "years":"2019-8-31"
+    },{
+        "name":"幽灵船",
+        "img":"https://bingjiye.github.io/My_movie/img/youlingc.jpg",
+        "url":"https://www.4k-av.com/movie/005739-ghost-ship/1080P/ugbovr.m3u8(1080P)",
+        "url2":"https://cdn7.ryplay7.com/20241126/7043_ce0e1fab/index.m3u8?sign=495a8df524826b47608ad042c02ba3df.m3u8",
+        "pf":"7.0",
+        "years":"2002-10-25"
+    },{
+        "name":"禁闭岛",
+        "img":"https://bingjiye.github.io/My_movie/img/jinbidao.jpg",
+        "url":"https://v13.wsyzym3u8.com/202512/30/r01wiq2zyE27/video/4000k_1080/hls/index.m3u8(4K)",
+        "url2":"https://v13.rstu6.com/202512/30/r01wiq2zyE27/video/index.m3u8(4K)",
+        "url3":"https://v13.rstu6.com/202512/30/z9ZR9xUQUu27/video/index.m3u8(国语4K)",
+        "url4":"https://v13.yuglf.com/202512/30/r01wiq2zyE27/video/index.m3u8(4K)",
+        "url5":"https://v13.wsyzym3u8.com/202512/30/z9ZR9xUQUu27/video/index.m3u8(国语4K)",
+        "pf":"8.9",
+        "years":"2010-2-13"
+    },{
+        "name":"恐怖游轮",
+        "img":"https://bingjiye.github.io/My_movie/img/kongbuyoulun.jpg",
+        "url":"https://www.4k-av.com/movie/006694-triangle/1080P/anwlim.m3u8(1080P)",
+        "url2":"https://v14.rstu6.com/202601/01/0bnJNPFVVN27/video/index.m3u8(1080P)",
+        "url3":"https://v14.wsyzym3u8.com/202601/01/0bnJNPFVVN27/video/4000k_1080/hls/index.m3u8(1080P)",
+        "url4":"https://v14.yuglf.com/202601/01/0bnJNPFVVN27/video/4000k_1080/hls/index.m3u8(1080P)",
+        "pf":"8.5",
+        "years":"2009-4-24"
+    },{
+        "name":"731",
+        "img":"https://bingjiye.github.io/My_movie/img/731.jpg",
+        "url":"https://y6fb.vhmzy.com/videos/202512/19/694551262c54640b0b295585/7g077d/index.m3u8(4K)",
+        "url2":"https://www.4k-av.com/movie/008601-731/4K/xmkelo.m3u8(4K)",
+        "url3":"https://y6fb.uuzyv.com/videos/202512/19/694551262c54640b0b295585/7g077d/index.m3u8(4K)",
+        "url4":"https://play.modujx11.com/20251219/dBeyYTcU/index.m3u8(720P)",
+        "url5":"https://cdn.yzzy31-play.com/20251219/9346_1354b84e/index.m3u8(720P)",
+        "pf":"暂无评分",
+        "years":"2025-9-18"
+    },{
         "name":"龙之家族 第三季 第1集",
-        "img":"http://yyh003.3vfree.club/img/longzhijiazu3.jpg",
-        "url":"https://play.phimgood.com/20260622/28150_15366870/index.m3u8(1080P)",
-        "url2":"https://vod.feifei-video.com/20260622/45644_71124d1f/index.m3u8",
-        "url3":"https://y6fb.um3u8.com/videos/202606/22/6a38cd3072804169e74a1992/53f523/index.m3u8(4K)",
+        "img":"https://bingjiye.github.io/My_movie/img/longzhijiazu3.jpg",
+        "url":"https://y6fb.vhmzy.com/videos/202606/22/6a39093d3a423869759a914c/210915/index.m3u8",
+        "url2":"https://play.phimgood.com/20260622/28150_15366870/index.m3u8(1080P)",
+        "url3":"https://vod.feifei-video.com/20260622/45644_71124d1f/index.m3u8",
+        "url4":"https://y6fb.um3u8.com/videos/202606/22/6a38cd3072804169e74a1992/53f523/index.m3u8(4K)",
         "pf":"8.5",
         "years":"2026-6-21"
     },{
         "name":"龙之家族 第三季 第2集",
-        "img":"http://yyh003.3vfree.club/img/longzhijiazu3.jpg",
-        "url":"https://play.phimgood.com/20260629/28427_07614251/index.m3u8(1080P)",
-        "url2":"https://vod.ffzy-bofang.com/20260629/223_115f8950/index.m3u8",
+        "img":"https://bingjiye.github.io/My_movie/img/longzhijiazu3.jpg",
+        "url":"https://y6fb.vhmzy.com/videos/202606/29/6a4243a7e9b8c469c23d1408/aa8f69/index.m3u8",
+        "url2":"https://play.phimgood.com/20260629/28427_07614251/index.m3u8(1080P)",
+        "url3":"https://vod.ffzy-bofang.com/20260629/223_115f8950/index.m3u8",
         "pf":"8.5",
         "years":"2026-6-21"
     },{
         "name":"龙之家族 第三季 第3集",
-        "img":"http://yyh003.3vfree.club/img/longzhijiazu3.jpg",
-        "url":"https://play.phimgood.com/20260706/28672_6964e9d5/index.m3u8(1080P)",
-        "url2":"https://super.ffzy-online6.com/20260706/36076_303b311c/index.m3u8",
+        "img":"https://bingjiye.github.io/My_movie/img/longzhijiazu3.jpg",
+        "url":"https://y6fb.vhmzy.com/videos/202607/06/6a4b7eb617b3c46cf9d5bea3/c8f020/index.m3u8",
+        "url2":"https://play.phimgood.com/20260706/28672_6964e9d5/index.m3u8(1080P)",
+        "url3":"https://super.ffzy-online6.com/20260706/36076_303b311c/index.m3u8",
+        "pf":"8.5",
+        "years":"2026-6-21"
+    },{
+        "name":"龙之家族 第三季 第4集",
+        "img":"https://bingjiye.github.io/My_movie/img/longzhijiazu3.jpg",
+        "url":"https://y6fb.vhmzy.com/videos/202607/13/6a54c1bc402b70fa193389fe/43eb8d/index.m3u8(1080P)",
+        "url2":"https://vod.ffzy-bofang.com/20260713/740_edfbe1af/3000k/hls/mixed.m3u8",
+        "url3":"https://play.phimgood.com/20260713/28894_1ed021a0/index.m3u8",
         "pf":"8.5",
         "years":"2026-6-21"
     },{
         "name":"色，戒",
-        "img":"http://yyh003.3vfree.club/img/sejie.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/sejie.jpg",
         "url2":"https://www.4k-av.com/movie/004907-lust-caution/4K/dctynb.m3u8(4K)",
         "url":"https://v13.wsyzym3u8.com/202512/27/XVZEe4PnCG22/video/4000k_1080/hls/index.m3u8(4K)",
         "url3":"https://v13.yuglf.com/202512/27/XVZEe4PnCG22/video/index.m3u8(4K)",
@@ -33,7 +88,7 @@
         "years":"2007-9-24"
     },{
         "name":"我是谁",
-        "img":"http://yyh003.3vfree.club/img/woshishui.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/woshishui.jpg",
         "url":"https://www.4k-av.com/movie/009300-who-am-i/4K/vhpdpo.m3u8(4K)",
         "url2":"https://www.4k-av.com/movie/009300-who-am-i/1080P/vhpdpo.m3u8(1080P)",
         "url3":"https://cdn.yzzy31-play.com/20260129/12837_30b1b5b6/index.m3u8(国语)",
@@ -42,7 +97,7 @@
         "years":"1998-1-17"
     },{
         "name":"华尔街之狼",
-        "img":"http://yyh003.3vfree.club/img/fejzl.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/fejzl.jpg",
         "url":"https://v4.rstu6.com/202311/27/pT209fvHW32/video/index.m3u8(4K)",
         "url2":"https://v10.kuaichezym3u8.com/yyv10/202311/27/pT209fvHW32/video/index.m3u8(4K)",
         "url3":"https://v4.wsyzym3u8.com/202311/27/pT209fvHW32/video/index.m3u8(4K)",
@@ -51,7 +106,7 @@
         "years":"2013-12-17"
     },{
         "name":"迈克尔·杰克逊：巨星之路",
-        "img":"http://yyh003.3vfree.club/img/mkejkx.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/mkejkx.jpg",
         "url":"https://www.4k-av.com/movie/009262-michael/4K/ubrhiv.m3u8(4K)",
         "url2":"https://y6fb.vhmzy.com/videos/202606/09/6a277af3ca40f0266a9a600f/939e62/index.m3u8(1080P)",
         "url3":"https://vip.ffzy-plays.com/20260609/54543_6b3bcd22/index.m3u8",
@@ -59,7 +114,7 @@
         "years":"2026-4-22"
     },{
         "name":"疯狂的麦克斯：狂暴女神",
-        "img":"http://yyh003.3vfree.club/img/fkdmkskbns.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/fkdmkskbns.jpg",
         "url":"https://www.4k-av.com/movie/006296-furiosa-a-mad-max-saga/4K/jrusct.m3u8(4K)",
         "url2":"https://m3u8.vhmzy.com/videos/202505/11/6820a0d0e4d6b1cbe9accea4/d5bb8d/index.m3u8(1080P)",
         "url3":"https://vip.dytt-kan.com/20251203/10959_eed4435e/index.m3u8(720P)",
@@ -68,21 +123,21 @@
         "years":"2024-6-7"
     },{
         "name":"僵尸世界大战",
-        "img":"http://yyh003.3vfree.club/img/jssjdz.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/jssjdz.jpg",
         "url":"https://www.4k-av.com/movie/005444-world-war-z/1080P/iyvdcu.m3u8(1080P)",
         "url2":"https://vod2.maowushi.com/20240802/vcqsyNwr/1385kb/hls/index.m3u8(国语)",
         "pf":"7.7",
         "years":"2013-6-2"
     },{
         "name":"沙丘1984",
-        "img":"http://yyh003.3vfree.club/img/shaqiu1984.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/shaqiu1984.jpg",
         "url":"https://www.4k-av.com/movie/005321-dune-1984-extended-cut/1080P/mgczpk.m3u8(完整版)",
         "url2":"https://www.4k-av.com/movie/005320-dune-1984/4K/tsuexz.m3u8(4K)",
         "pf":"8.3",
         "years":"1984-12-14"
     },{
         "name":"泰坦尼克号",
-        "img":"http://yyh003.3vfree.club/img/taitannikehao.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/taitannikehao.jpg",
         "url":"https://v14.rstu6.com/202512/23/13bGrgjEHN27/video/index.m3u8(4K)",
         "url2":"https://v13.rstu6.com/202512/23/1jWLq6i06727/video/index.m3u8(国语4K)",
         "url3":"https://www.4k-av.com/movie/006693-titanic/4K/kasdzs.m3u8(4K)",
@@ -97,7 +152,7 @@
         "years":"1998-4-3"
     },{
         "name":"三傻大闹宝莱坞",
-        "img":"http://yyh003.3vfree.club/img/ssdnblw.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/ssdnblw.jpg",
         "url":"https://v13.wsyzym3u8.com/202512/22/tVd3hZi7qb22/video/index.m3u8(4K)",
         "url2":"https://v13.rstu6.com/202512/22/tVd3hZi7qb22/video/index.m3u8(4K)",
         "url3":"https://v13.yuglf.com/202512/22/tVd3hZi7qb22/video/4000k_1080/hls/index.m3u8(4K)",
@@ -108,7 +163,7 @@
         "years":"2011-12-8"
     },{
         "name":"勇敢的心",
-        "img":"http://yyh003.3vfree.club/img/yonggandexin.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/yonggandexin.jpg",
         "url":"https://v14.wsyzym3u8.com/202512/25/dgXUYr3zCD22/video/index.m3u8(4K)",
         "url2":"https://v14.yuglf.com/202512/25/dgXUYr3zCD22/video/4000k_1080/hls/index.m3u8(4K)",
         "url3":"https://v14.rstu6.com/202512/25/dgXUYr3zCD22/video/index.m3u8(4K)",
@@ -120,7 +175,7 @@
         "years":"1995-5-18"
     },{
         "name":"海蒂和爷爷",
-        "img":"http://yyh003.3vfree.club/img/haidiheyeye.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/haidiheyeye.jpg",
         "url":"https://v13.wsyzym3u8.com/202512/25/tLEd6HLzkg27/video/4000k_1080/hls/index.m3u8(4K)",
         "url2":"https://v13.rstu6.com/202512/25/tLEd6HLzkg27/video/index.m3u8(4K)",
         "url3":"https://v13.yuglf.com/202512/25/tLEd6HLzkg27/video/4000k_1080/hls/index.m3u8(4K)",
@@ -132,7 +187,7 @@
         "subtitles":"/subtitles/hdhyy4.json*/subtitles/hdhyy5.json(url4*url5)"
     },{
         "name":"九品芝麻官",
-        "img":"http://yyh003.3vfree.club/img/jpzmg.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/jpzmg.jpg",
         "url":"https://v13.wsyzym3u8.com/202512/27/6yFT7WVSeT27/video/4000k_1080/hls/index.m3u8(4k)",
         "url2":"https://v13.rstu6.com/202512/27/6yFT7WVSeT27/video/index.m3u8(4K)",
         "url3":"https://v13.yuglf.com/202512/27/6yFT7WVSeT27/video/index.m3u8(4K)",
@@ -140,7 +195,7 @@
         "years":"1994-3-31"
     },{
         "name":"黄飞鸿",
-        "img":"http://yyh003.3vfree.club/img/huangfeihong.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/huangfeihong.jpg",
         "url":"https://v13.wsyzym3u8.com/202512/18/DbgkD20nr227/video/4000k_1080/hls/index.m3u8(4k)",
         "url2":"https://v13.yuglf.com/202512/18/DbgkD20nr227/video/4000k_1080/hls/index.m3u8(4k)",
         "url3":"https://v14.yuglf.com/202512/18/BP4VZHxXbC27/video/index.m3u8(粤语4K)",
@@ -148,7 +203,7 @@
         "years":"1991-8-15"
     },{
         "name":"疯狂的麦克斯4：狂暴之路",
-        "img":"http://yyh003.3vfree.club/img/fkdmks4.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/fkdmks4.jpg",
         "url":"https://v14.wsyzym3u8.com/202601/01/W4MTAxBbp522/video/index.m3u8(4K)",
         "url2":"https://v14.rstu6.com/202512/06/A9cKBz2dpf27/video/index.m3u8(4K)",
         "url3":"https://www.4k-av.com/movie/006297-mad-max-fury-road/4K/qdjlou.m3u8(4K)",
@@ -158,7 +213,7 @@
         "years":"2015-5-14"
     },{
         "name":"英雄本色",
-        "img":"http://yyh003.3vfree.club/img/yingxiongbense.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/yingxiongbense.jpg",
         "url":"https://v14.wsyzym3u8.com/202512/27/bR2sfuztk922/video/index.m3u8(4K)",
         "url2":"https://v14.rstu6.com/202512/27/bR2sfuztk922/video/index.m3u8(4K)",
         "url3":"https://v14.yuglf.com/202512/27/bR2sfuztk922/video/index.m3u8(4K)",
@@ -167,7 +222,7 @@
         "years":"1986-8-2"
     },{
         "name":"功夫",
-        "img":"http://yyh003.3vfree.club/img/gongfu.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/gongfu.jpg",
         "url":"https://v13.wsyzym3u8.com/202512/21/UkYVuGp6DC27/video/4000k_1080/hls/index.m3u8(4K)",
         "url4":"https://v14.rstu6.com/202512/30/WdS7bTUPTQ27/video/index.m3u8(4K)",
         "url2":"https://v13.yuglf.com/202512/21/UkYVuGp6DC27/video/index.m3u8(4K)",
@@ -176,7 +231,7 @@
         "years":"2004-12-23"
     },{
         "name":"加勒比海盗：黑珍珠号的诅咒",
-        "img":"http://yyh003.3vfree.club/img/jlbhd1.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/jlbhd1.jpg",
         "url":"https://www.4k-av.com/movie/000253-pirates-of-the-caribbean-the-curse-of-the-black-pearl/4K/smyjjk.m3u8(4K)",
         "url2":"https://www.4k-av.com/movie/000253-pirates-of-the-caribbean-the-curse-of-the-black-pearl/1080P/smyjjk.m3u8(1080P)",
         "url3":"https://v14.yuglf.com/202601/01/8uYyr9YfZ122/video/index.m3u8(国语4k)",
@@ -187,7 +242,7 @@
         "years":"2003-7-9"
     },{
         "name":"加勒比海盗2：亡灵的宝藏",
-        "img":"http://yyh003.3vfree.club/img/jlbhd2.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/jlbhd2.jpg",
         "url":"https://www.4k-av.com/movie/000254-pirates-of-the-caribbean-dead-man-s-chestck-pearl/4K/fkege.m3u8(4K)",
         "url2":"https://www.4k-av.com/movie/000254-pirates-of-the-caribbean-dead-man-s-chestck-pearl/1080P/fkege.m3u8(1080P)",
         "url3":"https://v8.kuaichezym3u8.com/yyv8/202402/17/T9i6ruNuX31/video/index.m3u8",
@@ -196,7 +251,7 @@
         "years":"2006-7-7"
     },{
         "name":"加勒比海盗3：世界的尽头",
-        "img":"http://yyh003.3vfree.club/img/jlbhd3.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/jlbhd3.jpg",
         "url":"https://www.4k-av.com/movie/000255-pirates-of-the-caribbean-at-world-s-end/4K/izqtau.m3u8(4K)",
         "url2":"https://www.4k-av.com/movie/000255-pirates-of-the-caribbean-at-world-s-end/1080P/izqtau.m3u8(1080P)",
         "url3":"https://v3.kuaichezym3u8.com/yyv3/202312/02/M6WgFJS2dE2/video/2000k_1080/hls/index.m3u8",
@@ -204,7 +259,7 @@
         "years":"2007-5-25"
     },{
         "name":"加勒比海盗4：惊涛怪浪",
-        "img":"http://yyh003.3vfree.club/img/jlbhd4.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/jlbhd4.jpg",
         "url":"https://www.4k-av.com/movie/000256-pirates-of-the-caribbean-on-stranger-tides/4K/jmuedv.m3u8(4K)",
         "url2":"https://www.4k-av.com/movie/000256-pirates-of-the-caribbean-on-stranger-tides/1080P/jmuedv.m3u8(1080P)",
         "url3":"https://vv.jisuzyv.com/play/ZdPJyN2a/index.m3u8",
@@ -212,7 +267,7 @@
         "years":"2011-5-20"
     },{
         "name":"加勒比海盗5：死无对证",
-        "img":"http://yyh003.3vfree.club/img/jlbhd5.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/jlbhd5.jpg",
         "url":"https://www.4k-av.com/movie/000257-pirates-of-the-caribbean-dead-men-tell-no-tales/4K/kbkhzd.m3u8(4K)",
         "url2":"https://c1.ddbbffcdn.com/video/jialebihaidao5siwuduizheng/HD%E4%B8%AD%E5%AD%97/index.m3u8",
         "url3":"https://vv.jisuzyv.com/play/ZdPJyN2a/index.m3u8",
@@ -220,7 +275,7 @@
         "years":"2017-5-26"
     },{
         "name":"甜蜜皮鞭",
-        "img":"http://yyh003.3vfree.club/img/tianmipibian.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/tianmipibian.jpg",
         "url":"https://www.4k-av.com/movie/000437-sweet-whip/1080P/bwbbpk.m3u8(1080P)",
         "url2":"https://www.4k-av.com/movie/000437-sweet-whip/720P/bwbbpk.m3u8(720P)",
         "url3":"https://vip.ffzy-play8.com/20221205/884_02b96da5/index.m3u8",
@@ -228,14 +283,14 @@
         "years":"2013-9-21"
     },{
         "name":"我唾弃你的坟墓",
-        "img":"http://yyh003.3vfree.club/img/wotqndfm.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/wotqndfm.jpg",
         "url":"https://www.4k-av.com/movie/007656-day-of-the-woman/4k/qcyxgb.m3u8(4k)",
         "url2":"https://www.4k-av.com/movie/007656-day-of-the-woman/720P/qcyxgb.m3u8(720P)",
         "pf":"6.4",
         "years":"1978-11-22"
     },{
         "name":"侏罗纪公园",
-        "img":"http://yyh003.3vfree.club/img/zljgy1.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/zljgy1.jpg",
         "url":"https://www.4k-av.com/movie/008149-jurassic-park/4k/brseqr.m3u8(4k)",
         "url2":"https://www.4k-av.com/movie/008149-jurassic-park/1080P/brseqr.m3u8(1080P)",
         "url3":"https://cdn1.ryplay1.com/20240912/8151_83e77ee9/index.m3u8",
@@ -243,7 +298,7 @@
         "years":"1993-6-11"
     },{
         "name":"侏罗纪公园2 失落的世界",
-        "img":"http://yyh003.3vfree.club/img/zljgy2.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/zljgy2.jpg",
         "url":"https://www.4k-av.com/movie/008150-the-lost-world-jurassic-park/4k/cmtutv.m3u8(4k)",
         "url2":"https://www.4k-av.com/movie/008150-the-lost-world-jurassic-park/1080P/cmtutv.m3u8(1080P)",
         "url3":"https://v6.kuaichezym3u8.com/yyv6/202310/22/jEJugwcr3i1/video/2000k_1080/hls/index.m3u8",
@@ -251,7 +306,7 @@
         "years":"1997-5-23"
     },{
         "name":"侏罗纪公园3",
-        "img":"http://yyh003.3vfree.club/img/zljgy3.jpg",
+        "img":"https://bingjiye.github.io/My_movie/img/zljgy3.jpg",
         "url":"https://www.4k-av.com/movie/008151-jurassic-park-iii/4k/btqgfl.m3u8(4k)",
         "url2":"https://www.4k-av.com/movie/008151-jurassic-park-iii/1080P/btqgfl.m3u8(1080P)",
         "url3":"https://vip.ffzy-play2.com/20221127/1671_58f70e65/index.m3u8(国语)",
