@@ -1,5 +1,59 @@
 {"video":[
     {
+      "name":"侏罗纪世界",
+      "img":"https://bingjiye.github.io/My_movie/img/zljsj1.jpg",
+      "url": "https://www.4k-av.com/movie/008152-jurassic-world/4K/akqnpo.m3u8(4K)",
+      "url2": "https://v11.wsyzym3u8.com/202407/31/X5gYABia0p3/video/2000k_1080/hls/index.m3u8(国语 720P)",
+      "url3": "https://vv.jisuzyv.com/play/hls/YerjD34e/index.m3u8(1080P)",
+      "pf":"7.8",
+      "years":"2015-6-10"
+    },{
+      "name":"侏罗纪世界2",
+      "img":"https://bingjiye.github.io/My_movie/img/zljsj2.jpg",
+      "url": "https://www.4k-av.com/movie/008153-jurassic-world-fallen-kingdom/4K/bpewsv.m3u8(4K)",
+      "url2": "https://v1.wsyzym3u8.com/202308/19/E78JycUYhY2/video/index.m3u8(国语 720P)",
+      "url3": "https://v1.qqqrst.com/yyv1/202308/19/E78JycUYhY2/video/2000k_1080/hls/index.m3u8(国语 720P)",
+      "url4":"https://v8.rstuuv.com/yyv8/202407/31/cpUdYFHpra14/video/index.m3u8(720P)",
+      "pf":"6.6",
+      "years":"2018-6-15"
+    },{
+      "name":"侏罗纪世界3",
+      "img":"https://bingjiye.github.io/My_movie/img/zljsj3.jpg",
+      "url": "https://www.4k-av.com/movie/008353-jurassic-world-dominion/4K/ulatvg.m3u8(4K)",
+      "url2": "https://v9.wsyzym3u8.com/202407/31/JZhNMyWmvv18/video/index.m3u8(国语 720P)",
+      "url3": "https://v9.kuaichezym3u8.com/yyv9/202407/31/JZhNMyWmvv18/video/index.m3u8(国语 720P)",
+      "pf":"6.1",
+      "years":"2022-6-10"
+    },{
+      "name":"侏罗纪世界：重生",
+      "img":"https://bingjiye.github.io/My_movie/img/zljsj4.jpg",
+      "url": "https://www.4k-av.com/movie/008257-jurassic-world-rebirth/4K/sixbof.m3u8(4K)",
+      "url2": "https://cdn.yzzyvip-29.com/20250805/498_05f971b5/index.m3u8(720P)",
+      "url3": "https://play.modujx11.com/20250811/pbrKEWk7/index.m3u8(720P)",
+      "pf":"5.7",
+      "years":"2025-7-2"
+    },{
+        "name":"掠食城市",
+        "img":"https://bingjiye.github.io/My_movie/img/lscshi.jpg",
+        "url":"https://play.maoyanplay.top/20231128/7E1CNIci/index.m3u8(国语 720P)",
+        "url2":"https://m3u8.vhmzy.com/videos/202507/06/686a37df6de0eb431f3e4977/149b3d/index.m3u8(1080P)",
+        "url3":"https://m3u8.uuzyv.com/videos/202507/06/686a37df6de0eb431f3e4977/149b3d/index.m3u8(1080P)",
+        "url4":"https://vod2.maowushi.com/20231128/7E1CNIci/index.m3u8(国语 720P)",
+        "url5":"https://v1.kuaichezym3u8.com/yyv1/202308/19/Cr08huzXtK2/video/index.m3u8(国语 720P)",
+        "url6":"https://vodcnd14.oag7h.com/20251224/PNVeH89C/index.m3u8(720P)",
+        "pf":"6.3",
+        "years":"2019-1-18"
+    },{
+        "name":"南京照相馆",
+        "img":"https://bingjiye.github.io/My_movie/img/njzxg.jpg",
+        "url":"https://y6fa.vhmzy.com/videos/202510/31/690478f88b1c0d375bae4291/af73ba/index.m3u8(4K)",
+        "url2":"https://y6fa.uuzyv.com/videos/202510/31/690478f88b1c0d375bae4291/af73ba/index.m3u8(4K)",
+        "url3":"https://www.4k-av.com/movie/008507-dead-to-rights/4K/tekqel.m3u8(4K)",
+        "url4":"https://v14.wsyzym3u8.com/202511/29/QghPZwc49U20/video/index.m3u8(4K)",
+        "url5":"https://v14.yuglf.com/202511/29/QghPZwc49U20/video/index.m3u8(4K)",
+        "pf":"8.7",
+        "years":"2025-7-25"
+    },{
         "name":"小丑",
         "img":"https://bingjiye.github.io/My_movie/img/xiaochou.jpg",
         "url":"https://www.4k-av.com/movie/006882-joker/4K/ovuqrd.m3u8(4K)",
