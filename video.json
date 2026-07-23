@@ -1,0 +1,24 @@
+{"video":[
+   {
+   "name":"僵尸世界大战",
+   "img":"https://bingjiye.github.io/My_movie/img/jssjdz.jpg",
+   "url1":"https://cdn.jsdelivr.net/gh/bingjiye/WorldWarZ/1080P/index.m3u8(1080P)",
+   "url2":"",
+   "url3":"",
+   "subtitles":"",
+   "type":"科幻/恐怖",
+   "releasedate":"2013-6-2",
+   "rating":"7.7"
+   },
+   {
+   "name":"南京照相馆",
+   "img":"https://bingjiye.github.io/My_movie/img/njzxg.jpg",
+   "url1":"https://cdn.jsdelivr.net/gh/bingjiye/NanJingZhaoXiangGuan/1080P/index.m3u8(1080P)",
+   "url2":"",
+   "url3":"",
+   "subtitles":"",
+   "type":"历史/战争",
+   "releasedate":"2025-7-25",
+   "rating":"8.7"
+   }
+]}
