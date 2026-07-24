@@ -1,0 +1,23 @@
+{"url":[
+  {
+     "name":"节点1",
+     "url":"https://cdn.jsdelivr.net"
+  },
+  {
+     "name":"节点2",
+     "url":"https://testingcf.jsdelivr.net"
+  },
+  {
+     "name":"节点3",
+     "url":"https://gcore.jsdelivr.net"
+  },
+  {
+     "name":"节点4",
+     "url":"https://quantil.jsdelivr.net"
+  },
+  {
+     "name":"节点5(台湾CDN)",
+     "url":"https://jsdelivr.b-cdn.net"
+  }
+]
+}
