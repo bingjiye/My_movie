@@ -5,7 +5,7 @@
    "url1":"https://cdn.jsdelivr.net/gh/bingjiye/WorldWarZ/1080P/index.m3u8(1080P)",
    "url2":"",
    "url3":"",
-   "subtitles":"",
+   "subtitles1":"https://cdn.jsdelivr.net/gh/bingjiye/NanJingZhaoXiangGuan@main/WorldWarZ.json(url1)",
    "type":"科幻/恐怖",
    "releasedate":"2013-6-2",
    "rating":"7.7"
@@ -16,7 +16,7 @@
    "url1":"https://cdn.jsdelivr.net/gh/bingjiye/NanJingZhaoXiangGuan/video/index.m3u8(1080P)",
    "url2":"",
    "url3":"",
-   "subtitles":"",
+   "subtitles1":"https://cdn.jsdelivr.net/gh/bingjiye/NanJingZhaoXiangGuan@main/nanjiangzhaoxiangguan.json(url1)",
    "type":"历史/战争",
    "releasedate":"2025-7-25",
    "rating":"8.7"
