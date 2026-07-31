@@ -1,34 +1,36 @@
-{"url":[
-  {
-     "name":"节点1",
-     "url":"https://cdn.jsdelivr.net"
-  },
-  {
-     "name":"节点2（腾讯云）",
-     "url":"https://cdn.jsdmirror.com"
-  {
-     "name":"节点3",
-     "url":"https://testingcf.jsdelivr.net"
-  },
-  {
-     "name":"节点4",
-     "url":"https://gcore.jsdelivr.net"
-  },
-  {
-     "name":"节点5",
-     "url":"https://quantil.jsdelivr.net"
-  },
-  {
-     "name":"节点6(台湾CDN)",
-     "url":"https://jsdelivr.b-cdn.net"
-  },
-  {
-     "name":"节点7",
-     "url":"https://cdn.jsdmirror.cn"
-  },
-  {
-     "name":"节点8",
-     "url":"https://fastly.jsdelivr.net"
-  }
-]
+{
+  "url": [
+    {
+      "name": "节点1",
+      "url": "https://cdn.jsdelivr.net"
+    },
+    {
+      "name": "节点2（腾讯云）",
+      "url": "https://cdn.jsdmirror.com"
+    },
+    {
+      "name": "节点3",
+      "url": "https://testingcf.jsdelivr.net"
+    },
+    {
+      "name": "节点4",
+      "url": "https://gcore.jsdelivr.net"
+    },
+    {
+      "name": "节点5",
+      "url": "https://quantil.jsdelivr.net"
+    },
+    {
+      "name": "节点6(台湾CDN)",
+      "url": "https://jsdelivr.b-cdn.net"
+    },
+    {
+      "name": "节点7",
+      "url": "https://cdn.jsdmirror.cn"
+    },
+    {
+      "name": "节点8",
+      "url": "https://fastly.jsdelivr.net"
+    }
+  ]
 }
