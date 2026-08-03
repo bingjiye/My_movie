@@ -1,5 +1,20 @@
 {"video":[
    {
+   "name":"泰坦尼克号",
+   "img":"https://bingjiye.github.io/My_movie/img/taitannikehao.jpg",
+   "url1":"https://cdn.jsdmirror.com/gh/bingjiye/Titanic/Titanic_Extended/index.m3u8(白星版1080P)",
+   "url2":"https://www.4k-av.com/movie/006693-titanic/4K/kasdzs.m3u8(4K)",
+   "url3":"https://hn.bfvvs.com/play/vbmvV1Ed/index.m3u8(国语4K)",
+   "url4":"https://hn.bfvvs.com/play/9avG7ngb/index.m3u8(4K)",
+   "url5":"https://v14.rstu6.com/202512/23/13bGrgjEHN27/video/index.m3u8(4K)",
+   "url6":"https://v13.rstu6.com/202512/23/1jWLq6i06727/video/index.m3u8(国语4K)",
+   "url7":"https://v13.wsyzym3u8.com/202512/23/1jWLq6i06727/video/4000k_1080/hls/index.m3u8(国语4K)",
+   "url8":"https://v14.yuglf.com/202512/23/13bGrgjEHN27/video/index.m3u8(4K)",
+   "subtitles1":"http://yyh003.3vfree.club/subtitles/Titanic_Extended.json(url1)",
+   "type":"爱情/灾难",
+   "releasedate":"1998-4-3",
+   "rating":"9.5"
+   },{
    "name":"僵尸世界大战",
    "img":"https://bingjiye.github.io/My_movie/img/jssjdz.jpg",
    "url1":"https://cdn.jsdmirror.com/gh/bingjiye/WorldWarZ/1080P/index.m3u8(1080P)",
