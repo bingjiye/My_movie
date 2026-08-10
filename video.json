@@ -1,74 +1,78 @@
-{"video":[
-   {
-   "name":"色，戒",
-   "img":"https://bingjiye.github.io/My_movie/img/sejie.jpg",
-   "url1":"https://cdn.jsdmirror.com/gh/bingjiye/SeJie/video/index.m3u8(蓝光 1080P)",
-   "url2":"https://www.4k-av.com/movie/004907-lust-caution/4K/dctynb.m3u8(4K)",
-   "url3":"https://v13.wsyzym3u8.com/202512/27/XVZEe4PnCG22/video/4000k_1080/hls/index.m3u8(4K)",
-   "url4":"https://v13.rstu6.com/202512/27/XVZEe4PnCG22/video/index.m3u8(4K)",
-   "subtitles1":"http://yyh003.3vfree.club/subtitles/sejie.json(url1)",
-   "type":"爱情/情色",
-   "releasedate":"2007-9-24",
-   "rating":"8.7"
-   },
-   {
-   "name":"泰坦尼克号",
-   "img":"https://bingjiye.github.io/My_movie/img/taitannikehao.jpg",
-   "url1":"https://cdn.jsdmirror.com/gh/bingjiye/Titanic/Titanic_Extended/index.m3u8(白星版 蓝光 1080P)",
-   "url2":"https://www.4k-av.com/movie/006693-titanic/4K/kasdzs.m3u8(4K)",
-   "url3":"https://hn.bfvvs.com/play/vbmvV1Ed/index.m3u8(国语 4K)",
-   "url4":"https://hn.bfvvs.com/play/9avG7ngb/index.m3u8(4K)",
-   "url5":"https://v14.rstu6.com/202512/23/13bGrgjEHN27/video/index.m3u8(4K)",
-   "url6":"https://v13.rstu6.com/202512/23/1jWLq6i06727/video/index.m3u8(国语 4K)",
-   "url7":"https://v13.wsyzym3u8.com/202512/23/1jWLq6i06727/video/4000k_1080/hls/index.m3u8(国语 4K)",
-   "subtitles1":"http://yyh003.3vfree.club/subtitles/Titanic_Extended.json(url1)",
-   "type":"爱情/灾难",
-   "releasedate":"1998-4-3",
-   "rating":"9.5"
-   },{
-   "name":"僵尸世界大战",
-   "img":"https://bingjiye.github.io/My_movie/img/jssjdz.jpg",
-   "url1":"https://cdn.jsdmirror.com/gh/bingjiye/WorldWarZ/1080P/index.m3u8(蓝光 1080P)",
-   "url2":"https://www.4k-av.com/movie/005444-world-war-z/1080P/iyvdcu.m3u8(蓝光 1080P)",
-   "url3":"https://vod2.maowushi.com/20240802/vcqsyNwr/1385kb/hls/index.m3u8(国语 720P)",
-   "subtitles1":"http://yyh003.3vfree.club/subtitles/WorldWarZ.json(url1)",
-   "type":"科幻/恐怖",
-   "releasedate":"2013-6-2",
-   "rating":"7.7"
-   },
-   {
-   "name":"南京照相馆",
-   "img":"https://bingjiye.github.io/My_movie/img/njzxg.jpg",
-   "url1":"https://cdn.jsdmirror.com/gh/bingjiye/NanJingZhaoXiangGuan/video/index.m3u8(蓝光 1080P)",
-   "url2":"https://y6fa.vhmzy.com/videos/202510/31/690478f88b1c0d375bae4291/af73ba/index.m3u8(4K)",
-   "url3":"https://www.4k-av.com/movie/008507-dead-to-rights/4K/tekqel.m3u8(4K)",
-   "url4":"https://v14.wsyzym3u8.com/202511/29/QghPZwc49U20/video/index.m3u8(4K)",
-   "subtitles1":"http://yyh003.3vfree.club/subtitles/nanjiangzhaoxiangguan.json(url1)",
-   "type":"历史/战争",
-   "releasedate":"2025-7-25",
-   "rating":"8.7"
-   },
-   {
-   "name":"一个好人",
-   "img":"https://bingjiye.github.io/My_movie/img/yigehaoren.jpg",
-   "url1":"https://cdn.jsdmirror.com/gh/bingjiye/YGHR/video/index.m3u8(蓝光 1080P)",
-   "url3":"https://ukzy.ukubf3.com/20220520/HFOZSxQD/index.m3u8(1080P)",
-   "url2":"https://cdn.jsdmirror.com/gh/bingjiye/YGHR/video_chi/index.m3u8(国语 1080P)",
-   "subtitles1":"http://yyh003.3vfree.club/subtitles/yigehaoren.json(url1)","subtitles2":"http://yyh003.3vfree.club/subtitles/yigehaoren_chi.json(url2)",
-   "type":"喜剧/动作/犯罪",
-   "releasedate":"1997-1-31",
-   "rating":"7.3"
-   },
-   {
-   "name":"冬荫功",
-   "img":"https://bingjiye.github.io/My_movie/img/dyg1.jpg",
-   "url1":"https://cdn.jsdmirror.com/gh/bingjiye/DongYinGong/video/index.m3u8(蓝光 1080P)",
-   "url2":"https://cdn.jsdmirror.com/gh/bingjiye/DongYinGong/vide_ZHI/index.m3u8(国语 1080P)",
-   "url3":"",
-   "subtitles1":"http://yyh003.3vfree.club/subtitles/dongyingong1.json(url1)",
-   "subtitles2":"http://yyh003.3vfree.club/subtitles/dongyingong1_chi.json(url2)",
-   "type":"动作/惊悚",
-   "releasedate":"2005-8-11",
-   "rating":"7.4"
-   }
-]}
+{
+  "video": [
+    {
+      "name": "色，戒",
+      "img": "https://jA0ECQMI40+hzn1hfK//0lABjnOH+nkK5Mh3p3+IkuiBVaSqcxFW5MxJiYNh6dVeRgn+3w5Xg91DveNUj2lVSD0rfVpG3LjrGpdRZXGHSytI7KzpDdmkOt8OhPry3jLFjA==/img/sejie.jpg",
+      "url1": "https://jA0ECQMImoZLC2r7XJH/0lIB/aLzplgqtxwFI2GGUKzoi3+q9AUIPf9LEriqkZfr49ykw7l1tUbXxgQFU8k6YDxmYqJ4Z8vLEJQr5ch9qSAyiINz4HZvushas5TuZCHbpLin/SeJie/video/index.m3u8(蓝光 1080P)",
+      "url2": "https://www.4k-av.com/movie/004907-lust-caution/4K/dctynb.m3u8(4K)",
+      "url3": "https://v13.wsyzym3u8.com/202512/27/XVZEe4PnCG22/video/4000k_1080/hls/index.m3u8(4K)",
+      "url4": "https://v13.rstu6.com/202512/27/XVZEe4PnCG22/video/index.m3u8(4K)",
+      "subtitles1": "http://jA0ECQMITUx7Bpd/eGH/0kcB+PnkbCttnNgPXYyStxYibZY/WobosV+vZWX3wAzdblt4Fw9pr79zlYhxGbMHCP7H/3DYRQK9MVVGjDOI9BVo7HXlPDD6ug==/subtitles/sejie.json(url1)",
+      "type": "爱情/情色",
+      "releasedate": "2007-9-24",
+      "rating": "8.7"
+    },
+    {
+      "name": "泰坦尼克号",
+      "img": "https://jA0ECQMICPl75JCKiKv/0lAB0KCHka6Z2ysyLgleXxJuUq6PtLFdGJDr/VIu/wd9VsiGwX3aQHDlEeH+d2msGETEEzaD5xncqOhsJsG9+TQ3DBlzP3vsRY87OSEbr98aWA==/img/taitannikehao.jpg",
+      "url1": "https://jA0ECQMIaQyvACRf6d3/0lIBFt5iD/ToUYy8nrCV0d2lxgo3PkAiMIWbHGG4WdTo2nXXRNvEuM6dpvibDDdOtU59MLDIMDjRqjVmIxwoAoNYM6Nss3hWxuD1o7/UBIUiqm0A/Titanic/Titanic_Extended/index.m3u8(白星版 蓝光 1080P)",
+      "url2": "https://www.4k-av.com/movie/006693-titanic/4K/kasdzs.m3u8(4K)",
+      "url3": "https://hn.bfvvs.com/play/vbmvV1Ed/index.m3u8(国语 4K)",
+      "url4": "https://hn.bfvvs.com/play/9avG7ngb/index.m3u8(4K)",
+      "url5": "https://v14.rstu6.com/202512/23/13bGrgjEHN27/video/index.m3u8(4K)",
+      "url6": "https://v13.rstu6.com/202512/23/1jWLq6i06727/video/index.m3u8(国语 4K)",
+      "url7": "https://v13.wsyzym3u8.com/202512/23/1jWLq6i06727/video/4000k_1080/hls/index.m3u8(国语 4K)",
+      "subtitles1": "http://jA0ECQMIkiuElWFQsDz/0kcBvjtN9I1RzYkuRgKRHT2RGbLdjkTvbeynDcSoNyb1kJRIZTXN6yJvFNQB16QXS4YZkjsgXOznX9kVvz3ic52El6H1Y9uhSA==/subtitles/Titanic_Extended.json(url1)",
+      "type": "爱情/灾难",
+      "releasedate": "1998-4-3",
+      "rating": "9.5"
+    },
+    {
+      "name": "僵尸世界大战",
+      "img": "https://jA0ECQMI8KXAwK2sMPb/0lABl2NEz4M6G23J8awwG/Vgcb6eXN6qAQueDuSqTiKVdLYjb3POr+iV8vc21AXdSJCv6h9DaPZ29tB+aWQkqlPHaBa0Z8JEpABITSykboNuyw==/img/jssjdz.jpg",
+      "url1": "https://jA0ECQMI54oDS09JWIP/0lIBN9HUDfKnQNjOR6TSUsb+vC7n4j69IfMWK8NVJVNtZM+ZwQrskYwIYp+aIZ0t3Srq11ACfPVwwKgOYXSPU+6gx1txzRX0Zea3/FIVY3xX80as/WorldWarZ/1080P/index.m3u8(蓝光 1080P)",
+      "url2": "https://www.4k-av.com/movie/005444-world-war-z/1080P/iyvdcu.m3u8(蓝光 1080P)",
+      "url3": "https://vod2.maowushi.com/20240802/vcqsyNwr/1385kb/hls/index.m3u8(国语 720P)",
+      "subtitles1": "http://jA0ECQMIJlJHoSRHjYj/0kcBEtI+1hOw1pHlKkTzQ9HJsvUscFWhUiyxnqWz+ZhDx0mQvQpKjVAgaUgxkvvBMPD15vajTQU7TNWX/T7WDn0gE7P1GBrrCQ==/subtitles/WorldWarZ.json(url1)",
+      "type": "科幻/恐怖",
+      "releasedate": "2013-6-2",
+      "rating": "7.7"
+    },
+    {
+      "name": "南京照相馆",
+      "img": "https://jA0ECQMIfIQCoPqLAYL/0lABfVGB5AJV2Z3PEBlsglyIi7vq06ZBpqm2DiZYd9lx23jvYoeUcUelAMaiJwBQg/FejXFEOcmQ0fkWTidQ4cx4WVIVBLpcdeRzbdoqJW6GIw==/img/njzxg.jpg",
+      "url1": "https://jA0ECQMI/KMOdg9yHFn/0lIBzNBWaGb109BHfUntmprUJSsG6Qhy79DsClzOsS5H3+veFozJYQomokwFAw8mqc9ae+x6/4HyPjOM0yKBYON8s5wI5LqnyQmXA7I3kH7T4mG9/NanJingZhaoXiangGuan/video/index.m3u8(蓝光 1080P)",
+      "url2": "https://y6fa.vhmzy.com/videos/202510/31/690478f88b1c0d375bae4291/af73ba/index.m3u8(4K)",
+      "url3": "https://www.4k-av.com/movie/008507-dead-to-rights/4K/tekqel.m3u8(4K)",
+      "url4": "https://v14.wsyzym3u8.com/202511/29/QghPZwc49U20/video/index.m3u8(4K)",
+      "subtitles1": "http://jA0ECQMI/V4W29SxZ9T/0kcBBhcSeIRvczljBlXwJm/5yXWco5c+gb/dzdCFMb37X9pAABiRcAqzBbQXYbLrj4GS9l5liSURyfIvKtJayF5GJG1SiCXuVA==/subtitles/nanjiangzhaoxiangguan.json(url1)",
+      "type": "历史/战争",
+      "releasedate": "2025-7-25",
+      "rating": "8.7"
+    },
+    {
+      "name": "一个好人",
+      "img": "https://jA0ECQMItv6OfQLsI2X/0lABil4MQpEXcEquCkki9meEOCQ7GL27JaXkOoqNmPyXWWCKHfTKVOKhdv2tU69P6+BttbEptwozseUtp9w0v45hzSxC+AL91Pxly3uMTvlIeg==/img/yigehaoren.jpg",
+      "url1": "https://jA0ECQMIWu0A3OFcY6j/0lIBmaKSqU8l/NkvoX1/R/rCiqnQU4dSl5VP0nYp5ESOAMQMDGErT43euRiHY0AyEImY+FJZPxhZwBcWmu+ZXfvv08OeQ/rNk6Lbi6EdGnC0YVU8/YGHR/video/index.m3u8(蓝光 1080P)",
+      "url3": "https://ukzy.ukubf3.com/20220520/HFOZSxQD/index.m3u8(1080P)",
+      "url2": "https://jA0ECQMIqDkQ9xMDIx3/0lIBs+zflE+Tkx0QzqwTizoXlOxRNwhVq90W7jsl+WQDD0wjO7uHvI43bY6IEdFDfmBKYNfvPMm91Dmp0Lec276sLANYhVBtMOnLu4p2XUcgAj2X/YGHR/video_chi/index.m3u8(国语 1080P)",
+      "subtitles1": "http://jA0ECQMI3JkT3NRIZcD/0kcBn+cF/el49o3SFTem+UHZCckJPjCQpRhE1reqeAr1HCoxmfNaOLVeS5l4/2TCgS8tNgFId0rvVDds1rHVWtE8P1E+viCgfQ==/subtitles/yigehaoren.json(url1)",
+      "subtitles2": "http://jA0ECQMIS+RSSfVwuSf/0kcB/1xNmpyIDcgGKQxFpkTy8Xt+BBGYlt9cCG8gCkovKs1ROUHiiNxJz7qYlA0uQDOyceagocEvOkUoJKhvVoFksYssbkawHw==/subtitles/yigehaoren_chi.json(url2)",
+      "type": "喜剧/动作/犯罪",
+      "releasedate": "1997-1-31",
+      "rating": "7.3"
+    },
+    {
+      "name": "冬荫功",
+      "img": "https://jA0ECQMImU73fIOpGn//0lAB9tKkNh97VhEfHuF1RjbohEjp0bZ/b3m5NIXlvyZuAFX9a32SyN4RdH2on8l/B/829uUAQodPoBVTg/UcdxHAW5OlywufV4MQGz9gwRQwmw==/img/dyg1.jpg",
+      "url1": "https://jA0ECQMITeiwH8AiyWf/0lIBzlMcLx6+G+Oh1SNRrYQalH38rgmADK6FyOlM0SuwZg2GdsQThAitwF73BiZVbAR7iJF8PPEnooOb14vVcg7CF1imtMwmtJlgkHETFxGeXpNg/DongYinGong/video/index.m3u8(蓝光 1080P)",
+      "url2": "https://jA0ECQMIumnKBOa3MWT/0lIBIvdpU68SoCq7XYe2LGOY005TyRtg/nBQVGPCwlLiP0vG3tCdWZKRCAvCLwhmY3Xv2/I75r/nPWqObGnhT3kZftlhk6DI9oQXYSgRZDdRzeYK/DongYinGong/vide_ZHI/index.m3u8(国语 1080P)",
+      "url3": "",
+      "subtitles1": "http://jA0ECQMIdcQSpKNFJvj/0kcBFC1l9wzNyoP681OUFPbJ0azh5ZtnLtvvAnZvTC/mdT7xIfNczXNIrp5FaJHCo3aUjIWMgBVisd5x/7kIzVzQyfxIG02Qxg==/subtitles/dongyingong1.json(url1)",
+      "subtitles2": "http://jA0ECQMIcs5t0+bv+QT/0kcBt3HKjE0/CLdmZklPMRoD6p8T7Kf73RJ6OTmkzWzdX8Up8iP2GdYl8FiHlSwd29AWiaSeIJFUAwEL8TtQ/mJfzlrHOA8upw==/subtitles/dongyingong1_chi.json(url2)",
+      "type": "动作/惊悚",
+      "releasedate": "2005-8-11",
+      "rating": "7.4"
+    }
+  ]
+}
