@@ -9,6 +9,8 @@
       "TV": "https://4k-av.com/tv/"
    },
    "VideoIsYourLove": {
-      "SEARCH": "https://video.isyour.love/Search/SearchName/"
+   "NODE": "https://video.isyour.love",
+   "SEARCH": "/Search/SearchName/",
+   "PLAYER": "/player/getplayer"
    }
 }
