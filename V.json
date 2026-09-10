@@ -1,0 +1,14 @@
+{
+   "TMDB": {
+      "KEY": "H4sIAAAAAAAC/0tKSbJINLRIM0gzMUwzNjU3N0wzSTZNSzNPIjYzBwAeZqFRIAAAAA==",
+      "NODE": "https://api.tmdb.org"
+   },
+   "FourthAv": {
+      "SEARCH": "https://4k-av.com/s?y=",
+      "MOVIE": "https://4k-av.com/movie/",
+      "TV": "https://4k-av.com/tv/"
+   },
+   "VideoIsYourLove": {
+      "SEARCH": "https://video.isyour.love/Search/SearchName/"
+   }
+}
