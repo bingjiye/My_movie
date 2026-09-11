@@ -1,6 +1,6 @@
 {
    "TMDB": {
-      "KEY": "H4sIAAAAAAAC/0tKSbJINLRIM0gzMUwzNjU3N0wzSTZNSzNPIjYzBwAeZqFRIAAAAA==",
+      "KEY": "H4sIAAAAAAAC/0tKSbJINLRIM0gzMUwzNjU3N0wzSTZNSzNPTTRPSjYzBwAeZqFRIAAAAA==",
       "NODE": "https://api.tmdb.org"
    },
    "FourthAv": {
@@ -15,4 +15,5 @@
    },
    "AppUpdate":{
    "URL":"https://cdn.jsdmirror.com/gh/bingjiye/My_movie/version.json"
+   }
 }
