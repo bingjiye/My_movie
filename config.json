@@ -1,0 +1,169 @@
+{
+  "settings": {
+    "search_timeout_ms": 8000,
+    "detail_timeout_ms": 8000,
+    "detail_single_timeout_ms": 5000,
+    "detail_batch_size": 30,
+    "fill_total_timeout_ms": 12000,
+    "search_cache_ttl_ms": 300000,
+    "detail_cache_ttl_ms": 1800000,
+    "cache_max_size": 200,
+    "partial_emit_interval_ms": 400,
+    "search_max_threads": 32,
+    "fill_pool_size": 4,
+    "max_group_threads": 8,
+    "bitmap_connect_timeout_ms": 6000,
+    "bitmap_read_timeout_ms": 15000,
+    "bitmap_dead_host_threshold": 8,
+    "bitmap_host_cooldown_ms": 15000,
+    "webview_load_timeout_ms": 30000,
+    "webview_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0"
+  },
+  "sources": [
+    {
+      "id": "lz",
+      "name": "量子资源",
+      "api": "https://cj.lziapi.com/api.php/provide/vod/",
+      "referer": "https://cj.lziapi.com/",
+      "priority": 1,
+      "play_from": "lzm3u8",
+      "enabled": 1,
+      "result_limit": 5
+    },
+    {
+      "id": "bf",
+      "name": "暴风资源",
+      "api": "https://bfzyapi.com/api.php/provide/vod",
+      "referer": "https://bfzyapi.com/",
+      "priority": 2,
+      "play_from": "bfzym3u8",
+      "enabled": 1,
+      "result_limit": 5
+    },
+    {
+      "id": "360",
+      "name": "360资源",
+      "api": "https://360zy.com/api.php/provide/vod",
+      "referer": "https://360zy.com/",
+      "priority": 3,
+      "play_from": "360zy",
+      "enabled": 1,
+      "result_limit": 5
+    },
+    {
+      "id": "ff",
+      "name": "非凡影视",
+      "api": "https://cj.ffzyapi.com/api.php/provide/vod/",
+      "referer": "https://cj.ffzyapi.com/",
+      "priority": 4,
+      "play_from": "ffm3u8",
+      "enabled": 1,
+      "result_limit": 5
+    },
+    {
+      "id": "js",
+      "name": "极速资源",
+      "api": "https://jszyapi.com/api.php/provide/vod",
+      "referer": "https://jszyapi.com/",
+      "priority": 5,
+      "play_from": "jsm3u8",
+      "enabled": 1,
+      "result_limit": 5
+    },
+    {
+      "id": "gs",
+      "name": "光速资源",
+      "api": "https://api.guangsuapi.com/api.php/provide/vod/",
+      "referer": "https://api.guangsuapi.com/",
+      "priority": 6,
+      "play_from": "gsm3u8",
+      "enabled": 1,
+      "result_limit": 5
+    },
+    {
+      "id": "hy",
+      "name": "虎牙资源",
+      "api": "https://www.huyaapi.com/api.php/provide/vod/at/json",
+      "referer": "https://www.huyaapi.com/",
+      "priority": 7,
+      "play_from": "hym3u8",
+      "enabled": 1,
+      "result_limit": 5
+    },
+    {
+      "id": "jy",
+      "name": "金鹰资源",
+      "api": "https://jyzyapi.com/api.php/provide/vod/",
+      "referer": "https://jyzyapi.com/",
+      "priority": 8,
+      "play_from": "jinyingm3u8",
+      "enabled": 1,
+      "result_limit": 5
+    },
+    {
+      "id": "hh",
+      "name": "豪华资源",
+      "api": "https://hhzyapi.com/api.php/provide/vod",
+      "referer": "https://hhzyapi.com/",
+      "priority": 9,
+      "play_from": "hhm3u8",
+      "enabled": 1,
+      "result_limit": 5
+    },
+    {
+      "id": "dt",
+      "name": "电影天堂",
+      "api": "http://caiji.dyttzyapi.com/api.php/provide/vod",
+      "referer": "http://caiji.dyttzyapi.com/",
+      "priority": 10,
+      "play_from": "dyttm3u8",
+      "enabled": 1,
+      "result_limit": 5
+    },
+    {
+      "id": "qy",
+      "name": "奇艺资源",
+      "api": "https://www.iqiyizyapi.com/api.php/provide/vod",
+      "referer": "https://www.iqiyizyapi.com/",
+      "priority": 11,
+      "play_from": "iqym3u8",
+      "enabled": 1,
+      "result_limit": 5
+    },
+    {
+      "id": "sb",
+      "name": "速播资源",
+      "api": "https://subocaiji.com/api.php/provide/vod/",
+      "referer": "https://subocaiji.com/",
+      "priority": 12,
+      "play_from": "subm3u8",
+      "enabled": 1,
+      "result_limit": 5
+    },
+    {
+      "id": "ck",
+      "name": "CK资源",
+      "api": "https://ckzy.me/api.php/provide/vod/",
+      "referer": "https://ckzy.me/",
+      "priority": 13,
+      "play_from": "ckm3u8",
+      "enabled": 1,
+      "result_limit": 5
+    },
+    {
+      "id": "dnz",
+      "name": "大子资源",
+      "api": "https://apidanaizi.com/api.php/provide/vod",
+      "referer": "https://apidanaizi.com/",
+      "priority": 14,
+      "play_from": "dnzm3u8",
+      "enabled": 0,
+      "result_limit": 5
+    }
+  ],
+  "fourthav": {
+    "enabled": 1,
+    "search_prefix": "https://4k-av.com/s?y=",
+    "base_url": "https://4k-av.com"
+  }
+}
