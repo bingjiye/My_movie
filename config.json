@@ -11,14 +11,19 @@
     "partial_emit_interval_ms": 400,
     "search_max_threads": 32,
     "fill_pool_size": 4,
-    "max_group_threads": 10,
-    "detail_memory_permits": 6,
+    "max_group_threads": 5,
+    "detail_memory_permits": 3,
     "bitmap_connect_timeout_ms": 6000,
     "bitmap_read_timeout_ms": 15000,
     "bitmap_dead_host_threshold": 8,
     "bitmap_host_cooldown_ms": 15000,
     "webview_load_timeout_ms": 30000,
-    "webview_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0"
+    "webview_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+    "bitmap_cache_size_kb": 65536,
+    "bitmap_max_width": 240,
+    "bitmap_max_height": 320,
+    "bitmap_host_concurrency": 4,
+    "bitmap_config": "rgb565"
   },
   "sources": [
     {
@@ -158,9 +163,39 @@
       "referer": "https://apidanaizi.com/",
       "priority": 14,
       "play_from": "dnzm3u8",
-      "enabled": 0,
+      "enabled": 1,
       "result_limit": 5
-    }
+    },
+    {
+  "id": "modu",
+  "name": "魔都资源",
+  "api": "https://www.mdzyapi.com/api.php/provide/vod",
+  "referer": "https://www.moduzy.cc/",
+  "priority": 15,
+  "play_from": "modum3u8",
+  "enabled": 1,
+  "result_limit": 5
+},
+  {
+    "id": "P2100",
+    "name": "P2100资源",
+    "api": "https://p2100.net/api.php/provide/vod/",
+    "referer": "https://p2100.net/",
+    "priority": 16,
+    "play_from": "p2100m3u8",
+    "enabled": 1,
+    "result_limit": 5
+  },
+  {
+    "id": "zd",
+    "name": "最大资源",
+    "api": "https://api.zuidapi.com/api.php/provide/vod/",
+    "referer": "https://api.zuidapi.com/",
+    "priority": 17,
+    "play_from": "zuidm3u8",
+    "enabled": 1,
+    "result_limit": 5
+  }
   ],
   "fourthav": {
     "enabled": 1,
