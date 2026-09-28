@@ -1,5 +1,5 @@
 {
-   "node":"https://jsdelivr.b-cdn.net",
+   "node":"https://cdn.jsdelivr.net",
    "video":[
    {"url":"/gh/bingjiye/Titanic@main/Titanic.json"},
    {"url":"/gh/bingjiye/Bawangbieji@main/Bawangbieji.json"}
