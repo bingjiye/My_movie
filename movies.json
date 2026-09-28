@@ -1,6 +1,7 @@
 {
    "node":"https://cdn.jsdmirror.com",
    "video":[
-   {"url":"/gh/bingjiye/Titanic@main/Titanic.json"}
+   {"url":"/gh/bingjiye/Titanic@main/Titanic.json"},
+   {"url":"/gh/bingjiye/Bawangbieji@main/bawangbieji.json"}
    ]
 }
