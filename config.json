@@ -625,9 +625,9 @@
     "base_url": "https://4k-av.com"
   },
   "appUpdate":{
-  "url":"https://cdn.jsdmirror.com/gh/bingjiye/My_movie/version.json"
+  "url":"https://bingjiye.github.io/My_movie/version.json"
   },
   "award_movie":{
-  "url":"https://cdn.jsdmirror.com/gh/bingjiye/My_movie/movie.json"
+  "url":"https://bingjiye.github.io/My_movie/movie.json"
   }
 }
